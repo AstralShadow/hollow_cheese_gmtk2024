@@ -5,6 +5,8 @@
 
 typedef SDL_Point Point;
 typedef SDL_FPoint FPoint;
+typedef SDL_Rect Rect;
+typedef SDL_FRect FRect;
 
 constexpr bool operator == (Point const& a,
                             Point const& b)
