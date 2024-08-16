@@ -30,6 +30,13 @@ namespace game
     {
         vector<Tile> tiles;
     };
+
+
+    struct PickedTile
+    {
+        Tile* tile = nullptr;
+        direction_t side = TOP; // Closest side to cursor
+    };
 }
 
 #endif // INCLUDE_GAME_MAP_HPP

@@ -8,6 +8,7 @@ namespace game
 {
     extern Player player;
     extern Map map;
+    extern PickedTile drag_target;
 }
 
 #endif // INCLUDE_GAME_DATA_HPP
