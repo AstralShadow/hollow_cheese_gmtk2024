@@ -16,7 +16,7 @@ CONFIG = -D CORE_CONFIG \
 	#-D USE_SDL2_NET \
 	-D USE_SDL2_TTF
 
-__CXXFLAGS=-Og -g -std=c++17 \
+__CXXFLAGS=-Og -g -std=c++20 \
 	-Wall -Wextra -pedantic \
 	-lSDL2 \
 	-lSDL2_image \
