@@ -16,14 +16,15 @@ namespace game
     {
         FRect area;
         FRect area_past = area; // past frame; used in collision detection
+        // Note: we could lag the rendering a single frame and render the average of the 2 positions
 
         const float speed = 0.4f; // px/ms
         // const float steering_speed_in_air = 0.3f; // px/ms
         const float gravity = 4200.0f / 1000000; // px/ms^2
-        const int step_size = 10;
+        const int step_height = 10;
 
-        FPoint velocity {0, 0}; // px/ms; only vertical is used for now
-        bool has_foothold = false; // updated in collision system
+        FPoint velocity {0, 0}; // px/ms; horizontal is used in collision system
+        bool has_foothold = !false; // updated in collision system
 
 
         const SDL_Scancode controls[4] = { // top, right, bottom, left

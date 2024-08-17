@@ -19,6 +19,13 @@ void game::render_level(Map const& map)
         auto& area = tile.area;
         SDL_SetRenderDrawColor(rnd, 0, 0, 0, 196); // black
         SDL_RenderFillRect(rnd, &area);
+
+        bool is_anchored = tile.mandatory_area.x > 0 || tile.mandatory_area.y > 0;
+        if(is_anchored) {
+            SDL_SetRenderDrawColor(rnd, 255, 128, 0, 255); // orange
+            SDL_RenderFillRect(rnd, &tile.mandatory_area);
+        }
+
         SDL_SetRenderDrawColor(rnd, 0, 128, 0, 255); // dark green
         SDL_RenderDrawRect(rnd, &area);
 

@@ -192,9 +192,6 @@ void game::apply_tile_constraints(Map& map)
                 area.h = mandatory_area.y + mandatory_area.h - area.y;
             }
         }
-
-
-        tile.area_past = tile.area;
     }
 }
 

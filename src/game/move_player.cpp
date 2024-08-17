@@ -35,13 +35,15 @@ void game::move_player(u32 ms, Player& player)
         }
     }
 
-    if(motion.x != 0 && motion.y != 0) {
-        static const float sqrt2 = sqrt(2.0f);
-        speed /= sqrt2;
-    }
+    //if(motion.x != 0 && motion.y != 0) {
+    //    static const float sqrt2 = sqrt(2.0f);
+    //    speed /= sqrt2;
+    //}
 
     player.area.x += motion.x * speed * ms;
     //player.area.y += motion.y * speed * ms;
+
+    player.velocity.x = motion.x; // Store for collisions to later access
 
     apply_player_gravity(ms, player);
 }

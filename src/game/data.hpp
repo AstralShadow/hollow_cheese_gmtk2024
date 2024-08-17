@@ -16,6 +16,8 @@ namespace game
 
     void update_collisions(Map&, vector<Player>& players);
     void apply_tile_constraints(Map&);
+    void apply_player_player_collisions(Player&);
+    void apply_player_tile_collisions(Map&, Player&);
 }
 
 #endif // INCLUDE_GAME_DATA_HPP
