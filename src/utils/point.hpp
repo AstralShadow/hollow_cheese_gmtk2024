@@ -20,6 +20,18 @@ constexpr bool operator != (Point const& a,
     return !(a == b);
 }
 
+constexpr bool operator == (Rect const& a,
+                            Rect const& b)
+{
+    return a.x == b.x && a.y == b.y && a.w == b.w && a.h == b.h;
+}
+
+constexpr bool operator != (Rect const& a,
+                            Rect const& b)
+{
+    return !(a == b);
+}
+
 
 constexpr Point operator + (Point a, Point const& b)
 {
