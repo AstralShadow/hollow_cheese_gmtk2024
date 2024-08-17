@@ -20,15 +20,15 @@ void game::normalize_tile(Tile& tile)
     }
 }
 
-void game::scale_tile(PickedTile tile, Point delta)
+void game::scale_tile(PickedTile pick, Point delta)
 {
-    if(!tile.tile)
+    if(!pick.tile)
         return;
 
-    Rect& area = tile.tile->area;
-    Point const& min_size = tile.tile->min_size;
+    Rect& area = pick.tile->area;
+    Point const& min_size = pick.tile->min_size;
 
-    switch(tile.side)
+    switch(pick.side)
     {
     case TOP:
         area.y += delta.y;
@@ -61,5 +61,5 @@ void game::scale_tile(PickedTile tile, Point delta)
         break;
     }
 
-    normalize_tile(*tile.tile);
+    normalize_tile(*pick.tile);
 }
