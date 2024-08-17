@@ -75,9 +75,7 @@ void game::apply_player_tile_collisions(Map& map, Player& player)
 
         int dist_l = -1, dist_r = -1; // Moved out for logging purposes
 
-        // Prioritize left if currently moved.
-        // Otherwise use right.
-        // Otherwise use left if not moved.
+        // Prioritize unchanged tiles
 
         if(tile1.area == tile1.area_past)
         {
@@ -131,6 +129,7 @@ void game::apply_player_tile_collisions(Map& map, Player& player)
             cout << "Left cushion used: " << dist_l << endl;
             cout << "Right cushion used: " << dist_r << endl;
             cout << "Leftover debt: " << debt << endl;
+            cout << "Above info is not very useful. Attach video and description, please." << endl;
         }
     }
     else if(left.size() && left[0].dist < 0)
@@ -149,10 +148,9 @@ void game::apply_player_tile_collisions(Map& map, Player& player)
     }
     cout << endl;
 
-    // TODO resume this
-
 
     /* Vertical collisions */
+
     vector<TPC_data> ground;
 
     // Should i be figuring out the ground from the previous tick?
