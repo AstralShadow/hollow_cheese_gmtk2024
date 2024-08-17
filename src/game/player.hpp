@@ -17,8 +17,14 @@ namespace game
         FRect area;
         FRect area_past = area; // past frame; used in collision detection
 
-        const float speed = 0.3f; // px/ms
+        const float speed = 0.4f; // px/ms
+        // const float steering_speed_in_air = 0.3f; // px/ms
+        const float gravity = 4200.0f / 1000000; // px/ms^2
         const int step_size = 10;
+
+        FPoint velocity {0, 0}; // px/ms; only vertical is used for now
+        bool has_foothold = false; // updated in collision system
+
 
         const SDL_Scancode controls[4] = { // top, right, bottom, left
         #ifndef ESDF_CONTROLS
@@ -38,7 +44,8 @@ namespace game
 
     void tick_players(u32 ms, vector<Player>&);
 
-    void move_player(u32 ms, Player& player);
+    void move_player(u32 ms, Player&);
+    void apply_player_gravity(u32 ms, Player&);
 
 }
 

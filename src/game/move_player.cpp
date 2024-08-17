@@ -1,5 +1,9 @@
 #include "game/player.hpp"
 #include <SDL2/SDL_keyboard.h>
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 
 void game::move_player(u32 ms, Player& player)
@@ -23,7 +27,7 @@ void game::move_player(u32 ms, Player& player)
                 motion.x += 1.0f;
                 break;
             case BOTTOM:
-                motion.y += 1.0f;
+                //motion.y += 1.0f;
                 break;
             case LEFT:
                 motion.x -= 1.0f;
@@ -37,5 +41,22 @@ void game::move_player(u32 ms, Player& player)
     }
 
     player.area.x += motion.x * speed * ms;
-    player.area.y += motion.y * speed * ms;
+    //player.area.y += motion.y * speed * ms;
+
+    apply_player_gravity(ms, player);
 }
+
+void game::apply_player_gravity(u32 ms, Player& player)
+{
+    if(player.has_foothold) {
+        if(player.velocity.y > 0.0f)
+            player.velocity.y = 0.0f;
+        return;
+    }
+
+    float speed_avr = player.velocity.y + ms * player.gravity / 2;
+    player.velocity.y += ms * player.gravity / 2;
+
+    player.area.y += speed_avr * ms;
+}
+
