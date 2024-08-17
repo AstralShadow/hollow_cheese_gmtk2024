@@ -16,6 +16,10 @@ namespace game
     struct Tile
     {
         Rect area;
+        Rect area_past = area; // past frame; used in collision detection
+
+        // TODO add area where this block can scale into and min size
+
         array<bool, 4> scalable = {0};
     };
 
