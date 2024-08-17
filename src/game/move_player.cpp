@@ -2,7 +2,7 @@
 #include <SDL2/SDL_keyboard.h>
 
 
-void game::move_player(u64 ms, Player& player)
+void game::move_player(u32 ms, Player& player)
 {
     auto const* state = SDL_GetKeyboardState(nullptr);
 

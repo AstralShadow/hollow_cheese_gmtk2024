@@ -5,6 +5,10 @@
 #include "utils/point.hpp"
 #include "game/direction.hpp"
 #include <SDL2/SDL_scancode.h>
+#include <vector>
+
+using std::vector;
+
 
 namespace game
 {
@@ -31,12 +35,11 @@ namespace game
         };
     };
 
-    void move_player(u64 ms, Player& player);
 
-    inline void tick_player(u64 ms, Player& p)
-    {
-        move_player(ms, p);
-    }
+    void tick_players(u32 ms, vector<Player>&);
+
+    void move_player(u32 ms, Player& player);
+
 }
 
 #endif // INCLUDE_GAME_PLAYER_HPP
