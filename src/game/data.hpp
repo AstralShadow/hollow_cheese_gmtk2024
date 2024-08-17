@@ -13,6 +13,9 @@ namespace game
     extern vector<Player> players;
     extern Map map;
     extern PickedTile drag_target;
+
+    void update_collisions(Map&, vector<Player>& players);
+    void apply_tile_constraints(Map&);
 }
 
 #endif // INCLUDE_GAME_DATA_HPP
