@@ -50,4 +50,12 @@ constexpr FPoint operator - (FPoint a, FPoint const& b)
     return a;
 }
 
+constexpr FPoint norm(FPoint a)
+{
+    float base = sqrt(a.x * a.x + a.y * a.y);
+    a.x /= base;
+    a.y /= base;
+    return a;
+}
+
 #endif // INCLUDE_UTILS_POINT_HPP
