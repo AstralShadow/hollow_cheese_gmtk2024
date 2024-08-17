@@ -32,27 +32,6 @@ void game::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
     if(!drag_target.tile)
         return;
 
-    Rect& area = drag_target.tile->area;
-
-    switch(drag_target.side)
-    {
-    case TOP:
-        area.y += ev.yrel;
-        area.h -= ev.yrel;
-        break;
-
-    case RIGHT:
-        area.w += ev.xrel;
-        break;
-
-    case BOTTOM:
-        area.h += ev.yrel;
-        break;
-
-    case LEFT:
-        area.x += ev.xrel;
-        area.w -= ev.xrel;
-        break;
-    }
+    scale_tile(drag_target, {ev.xrel, ev.yrel});
 }
 

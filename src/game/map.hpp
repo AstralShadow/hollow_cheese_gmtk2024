@@ -37,6 +37,10 @@ namespace game
         Tile* tile = nullptr;
         direction_t side = TOP; // Closest side to cursor
     };
+
+
+    void scale_tile(PickedTile tile, Point delta);
+    void normalize_tile(Tile& tile); // ensure no negative width/height
 }
 
 #endif // INCLUDE_GAME_MAP_HPP
