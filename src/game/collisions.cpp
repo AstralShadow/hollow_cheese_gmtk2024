@@ -19,21 +19,18 @@ void game::apply_tile_constraints(Map& map)
         if(tile.area == tile.area_past)
             continue;
 
-/*
-        Point directions[4] { // top, right, bottom, left
-            {0, -1},
-            {1, 0},
-            {0, 1},
-            {-1, 0}
-        };
-*/
 
-
-        /* Enlarging */
+        /* Tile collisions (enlarging) */
 
         bool en_init_flag[4] = {0, 0, 0, 0};
         int en_lim[4] = {0, 0, 0, 0};
 
+        const bool ext_left = tile.area.x < tile.area_past.x;
+        const bool ext_right = tile.area.x + tile.area.w > tile.area_past.x + tile.area_past.w;
+        const bool ext_upwards = tile.area.y < tile.area_past.y;
+        const bool ext_downwards = tile.area.y + tile.area.h > tile.area_past.y + tile.area_past.h;
+
+        if(ext_left || ext_right)
         for(auto const& other : map.tiles) // on X axis
         {
             // rule out tiles that don't match the Y axis
@@ -41,10 +38,11 @@ void game::apply_tile_constraints(Map& map)
                 continue;
             if(other.area.y + other.area.h < tile.area.y)
                 continue;
+
             if(&other == &tile)
                 continue;
 
-            if(tile.area.x < tile.area_past.x) // To the left
+            if(ext_left)
             {
                 auto left_lim = other.area.x + other.area.w;
                 if(left_lim <= tile.area_past.x) // Limit to left of this tile
@@ -54,7 +52,7 @@ void game::apply_tile_constraints(Map& map)
                 }
             }
 
-            if(tile.area.x + tile.area.w > tile.area_past.x + tile.area_past.w) // To the right
+            if(ext_right)
             {
                 auto right_lim = other.area.x;
                 if(right_lim >= tile.area_past.x + tile.area_past.w) // Limit to right of this tile
@@ -65,6 +63,7 @@ void game::apply_tile_constraints(Map& map)
             }
         }
 
+        if(ext_upwards || ext_downwards)
         for(auto const& other : map.tiles) // on Y axis
         {
             // rule out tiles that don't match the X axis
@@ -72,10 +71,11 @@ void game::apply_tile_constraints(Map& map)
                 continue;
             if(other.area.x + other.area.w < tile.area.x)
                 continue;
+
             if(&other == &tile)
                 continue;
 
-            if(tile.area.y < tile.area_past.y) // To the top
+            if(ext_upwards)
             {
                 auto top_lim = other.area.y + other.area.h;
                 if(top_lim <= tile.area_past.y) // Limit to over this tile
@@ -85,7 +85,7 @@ void game::apply_tile_constraints(Map& map)
                 }
             }
 
-            if(tile.area.y + tile.area.h > tile.area_past.y + tile.area_past.h) // To the bottom
+            if(ext_downwards)
             {
                 auto bottom_lim = other.area.y;
                 if(bottom_lim >= tile.area_past.y + tile.area_past.h) // Limit to below this tile
@@ -161,7 +161,42 @@ void game::apply_tile_constraints(Map& map)
         }
 
 
-        /* Shrinking */
+        /* Mandatory area (shrinking) */
+
+        bool is_anchored = tile.mandatory_area.x > 0 || tile.mandatory_area.y > 0;
+        if(is_anchored)
+        {
+            auto& area = tile.area;
+            auto const& area_past = tile.area_past;
+            auto const& mandatory_area = tile.mandatory_area;
+
+            const bool sh_left = area.x > area_past.x;
+            const bool sh_right = area.x + area.w < area_past.x + area_past.w;
+            const bool sh_upwards = area.y > area_past.y;
+            const bool sh_downwards = area.y + area.h < area_past.y + area_past.h;
+
+            if(sh_left && area.x > mandatory_area.x)
+            {
+                area.w += area.x - mandatory_area.x;
+                area.x = mandatory_area.x;
+            }
+
+            if(sh_right && area.x + area.w < mandatory_area.x + mandatory_area.w)
+            {
+                area.w = mandatory_area.x + mandatory_area.w - area.x;
+            }
+
+            if(sh_upwards && area.y > mandatory_area.y)
+            {
+                area.h += area.y - mandatory_area.y;
+                area.y = mandatory_area.y;
+            }
+
+            if(sh_downwards && area.y + area.h < mandatory_area.y + mandatory_area.h)
+            {
+                area.h = mandatory_area.y + mandatory_area.h - area.y;
+            }
+        }
 
 
         tile.area_past = tile.area;
