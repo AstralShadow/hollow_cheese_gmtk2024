@@ -3,6 +3,7 @@
 
 #include "utils/types.hpp"
 #include "utils/point.hpp"
+#include "game/direction.hpp"
 #include <vector>
 #include <array>
 
@@ -12,14 +13,6 @@ using std::array;
 
 namespace game
 {
-    enum direction_t
-    {
-        TOP    = 0,
-        RIGHT  = 1,
-        BOTTOM = 2,
-        LEFT   = 3,
-    };
-
     struct Tile
     {
         Rect area;

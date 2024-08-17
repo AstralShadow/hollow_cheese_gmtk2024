@@ -13,6 +13,7 @@ void game::render(scene_uid)
     SDL_RenderClear(rnd);
 
     render_level(map);
+    render_players(players);
 
     SDL_RenderPresent(rnd);
 }

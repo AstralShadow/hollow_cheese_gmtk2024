@@ -19,6 +19,8 @@ void game::keydown(SDL_KeyboardEvent& ev, scene_uid)
 
 void game::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
+    // TODO allow picking player when in level editor mode
+
     drag_target = camera_pick_tile(map, {ev.x, ev.y});
 }
 

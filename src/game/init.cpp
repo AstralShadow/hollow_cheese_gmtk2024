@@ -8,8 +8,10 @@ using std::endl;
 
 namespace game
 {
-    Player player {
-        .pos = {0, 0}
+    vector<Player> players {
+        Player{
+            .area = {0, 0, 32, 64}
+        }
     };
 
     Map map;

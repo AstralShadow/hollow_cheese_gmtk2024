@@ -3,10 +3,14 @@
 
 #include "game/player.hpp"
 #include "game/map.hpp"
+#include <vector>
+
+using std::vector;
+
 
 namespace game
 {
-    extern Player player;
+    extern vector<Player> players;
     extern Map map;
     extern PickedTile drag_target;
 }
