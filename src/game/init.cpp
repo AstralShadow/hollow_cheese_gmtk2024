@@ -26,6 +26,7 @@ void game::init(int, char**, scene_uid)
     for(int i = 0; i < 20; i++)
         map.tiles.push_back(Tile{
             .area = {size * i, 500, size, size},
+            .min_size = {10, 10},
             .scalable = {i & 1, i & 2, i & 4, i & 8}
         });
 

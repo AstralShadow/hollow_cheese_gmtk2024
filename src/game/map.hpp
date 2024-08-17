@@ -18,7 +18,8 @@ namespace game
         Rect area;
         Rect area_past = area; // past frame; used in collision detection
 
-        // TODO add area where this block can scale into and min size
+        Point min_size {0, 0}; // 0x0 = none
+        Rect mandatory_area {0, 0, 0, 0}; // size 0x0 = not used
 
         array<bool, 4> scalable = {0};
     };
@@ -32,7 +33,7 @@ namespace game
     struct PickedTile
     {
         Tile* tile = nullptr;
-        direction_t side = TOP; // Closest side to cursor
+        direction_t side = static_cast<direction_t>(0); // Closest side to cursor
     };
 
 
