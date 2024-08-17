@@ -59,7 +59,7 @@ void game::render_level(Map const& map)
     }
 }
 
-game::PickedTile game::camera_pick_tile(Map& map, Point pos)
+game::PickedTile game::camera_pick_tile(Map& map, Point pos, bool ignore_scalable_constraints)
 {
     const int margin = 10; // ignore tiles beyond that distance
 
@@ -91,9 +91,10 @@ game::PickedTile game::camera_pick_tile(Map& map, Point pos)
 
         int min_dist, pick = -1;
         for(int j = 0; j < 4; j++) {
-            if(tile.scalable[j]) {
+            if(tile.scalable[j] || ignore_scalable_constraints) {
                 min_dist = dist[j];
                 pick = j;
+                break;
             }
         }
 
@@ -102,7 +103,8 @@ game::PickedTile game::camera_pick_tile(Map& map, Point pos)
 
         for(int j = pick + 1; j < 4; j++)
         {
-            if(tile.scalable[j] && min_dist > dist[j]) {
+            if(tile.scalable[j] || ignore_scalable_constraints)
+            if(min_dist > dist[j]) {
                 min_dist = dist[j];
                 pick = j;
             }
