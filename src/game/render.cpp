@@ -16,7 +16,7 @@ void game::render(scene_uid)
 
     //world::render_map(world::map);
     //render_players(players);
-    throw new std::runtime_error("Text level is in shmittereens");
+    throw std::runtime_error("Text level is in shmittereens");
 
     SDL_RenderPresent(rnd);
 }
