@@ -2,7 +2,7 @@
 #include "game/data.hpp"
 #include <stdexcept>
 
-void game::tick(u32 ms, scene_uid)
+void game::tick(u32, scene_uid)
 {
     //tick_players(ms, players);
 

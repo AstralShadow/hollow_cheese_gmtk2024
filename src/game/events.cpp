@@ -21,7 +21,7 @@ void game::keydown(SDL_KeyboardEvent& ev, scene_uid)
         core::slow_motion = !core::slow_motion;
 }
 
-void game::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
+void game::mousedown(SDL_MouseButtonEvent&, scene_uid)
 {
     // TODO allow picking player when in level editor mode
 
@@ -34,7 +34,7 @@ void game::mouseup(SDL_MouseButtonEvent&, scene_uid)
     drag_target.tile = nullptr;
 }
 
-void game::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
+void game::mouse_motion(SDL_MouseMotionEvent&, scene_uid)
 {
     //if(!drag_target.tile)
     //    return;
