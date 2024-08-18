@@ -1,8 +1,12 @@
 #include "world_editor/data.hpp"
+#include "level_editor/data.hpp"
+#include "core/scene.hpp"
 #include <iostream>
 
 using std::cout;
 using std::endl;
+
+// TODO add export features
 
 
 void WE::new_level()
@@ -25,8 +29,8 @@ void WE::new_level()
 
 void WE::edit_level()
 {
-    cout << "edit: " << mouse_focus.level << endl;
-    cout << "edit not implemented" << endl;
+    LE::target_level = mouse_focus.level;
+    core::set_scene("level_editor");
 }
 
 void WE::clone_level()

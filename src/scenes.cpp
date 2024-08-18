@@ -13,7 +13,7 @@ void core::register_scenes()
     core::scene<game::scene_uid>("game"); // Only meant for mechanic prototyping
     core::scene<world::scene_uid>();
 
-    //core::scene<LE::scene_uid>("level_editor");
+    core::scene<LE::scene_uid>("level_editor");
     core::scene<WE::scene_uid>("world_editor");
 
     core::set_scene("world_editor");
