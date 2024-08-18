@@ -1,5 +1,6 @@
 #include "game/data.hpp"
 #include <iostream>
+#include <SDL2/SDL_timer.h>
 
 using std::cout;
 using std::endl;
@@ -254,34 +255,45 @@ void game::apply_player_tile_collisions(u32 ms, Map& map, Player& player)
         // A little easter egg :)
         // Sadly, i don't think i'll have time to implement similar stuff in the other directions
         // Though it can be a lot of fun to play with this mechanic.
-        player.velocity.y = max(0.0f, -1.0f * roof[0].dist / ms);
+        //player.velocity.y = max(0.0f, -1.0f * roof[0].dist / ms);
+        //
+        // Note: I had to commend that one out because it was acting strange on some occasions
+        // For example, when you horizontally squash a player who's falling with a wall that's
+        // got small enough height to activate the vertical motion, the player just storms down.
+        if(player.velocity.y < 0.0f)
+            player.velocity.y = 0.0f;
         player.area.y += -roof[0].dist;
     }
-    else if(floor.size() && floor[0].dist < 0)
+    else if(floor.size() && floor[0].dist <= 0)
     {
         player.area.y -= -floor[0].dist;
-        player.has_foothold = true;
+
+        if(player.velocity.y >= 0) // Don't mess with jumps
+            player.has_foothold = true;
     }
 
-    cout << "roof: ";
-    for(auto a : roof) {
-        cout << a.dist << " ";
+    if(false)
+    {
+        cout << "roof: ";
+        for(auto a : roof) {
+            cout << a.dist << " ";
+        }
+        cout << endl;
+        cout << "floor: ";
+        for(auto a : floor) {
+            cout << a.dist << " ";
+        }
+        cout << endl;
+        cout << "left: ";
+        for(auto a : left) {
+            cout << a.dist << " ";
+        }
+        cout << endl;
+        cout << "right: ";
+        for(auto a : right) {
+            cout << a.dist << " ";
+        }
+        cout << endl;
     }
-    cout << endl;
-    cout << "floor: ";
-    for(auto a : floor) {
-        cout << a.dist << " ";
-    }
-    cout << endl;
-    cout << "left: ";
-    for(auto a : left) {
-        cout << a.dist << " ";
-    }
-    cout << endl;
-    cout << "right: ";
-    for(auto a : right) {
-        cout << a.dist << " ";
-    }
-    cout << endl;
 }
 
