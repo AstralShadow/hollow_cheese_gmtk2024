@@ -7,7 +7,7 @@ using std::endl;
 using std::max;
 using std::min;
 
-void game::apply_player_tile_collisions(u32 /*ms*/, Map& map, Player& player)
+void game::apply_player_tile_collisions(u32 /*ms*/, Level& level, Player& player)
 {
     // TODO Refactor. This function is too long and has repeating sections
 
@@ -20,7 +20,7 @@ void game::apply_player_tile_collisions(u32 /*ms*/, Map& map, Player& player)
     };
     vector<TPC_data> left, right; // TODO don't use vectors. Use single values instead
 
-    for(auto& tile : map.tiles)
+    for(auto& tile : level.tiles)
     {
         // rule out tiles that don't match the Y axis
         if(tile.area.y > player.area.y + player.area.h - player.step_height)
@@ -128,7 +128,7 @@ void game::apply_player_tile_collisions(u32 /*ms*/, Map& map, Player& player)
     // Last, if no ground, cast vertical ground detection and snap up if crashing trough ground.
 
     // Should i be figuring out the ground from the previous tick?
-    for(auto& tile : map.tiles)
+    for(auto& tile : level.tiles)
     {
         // rule out tiles that don't match the X axis
         if(tile.area.x > player.area.x + player.area.w)

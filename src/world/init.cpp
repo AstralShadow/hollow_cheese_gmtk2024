@@ -1,10 +1,10 @@
-#include "world/world.hpp"
+#include "world/scene.hpp"
 #include "world/data.hpp"
 
 
 namespace world
 {
-    Map map;
+    World world;
     PickedTile drag_target;
 }
 
@@ -12,15 +12,22 @@ namespace world
 void world::init(int, char**, scene_uid)
 {
     const int size = 48;
+
+    Level level;
     for(int i = 0; i < 20; i++)
-        map.tiles.push_back(Tile{
+        level.tiles.push_back(Tile{
             .area = {size * i, 500, size, size},
             .min_size = {16, 16},
             .scalable = {i & 1, i & 2, i & 4, i & 8}
         });
 
-    map.tiles[10].scalable[TOP] = true;
-    map.tiles[10].mandatory_area = map.tiles[10].area;
+    level.tiles[10].scalable[TOP] = true;
+    level.tiles[10].mandatory_area = level.tiles[10].area;
+
+    world.levels.push_back({
+        .level = level,
+        .pos = {0, 0}
+    });
 }
 
 void world::deinit(scene_uid)

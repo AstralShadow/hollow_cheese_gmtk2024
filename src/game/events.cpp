@@ -25,7 +25,8 @@ void game::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
     // TODO allow picking player when in level editor mode
 
-    drag_target = world::camera_pick_tile(world::map, {ev.x, ev.y});
+    //drag_target = world::camera_pick_tile(world::map, {ev.x, ev.y});
+    throw new std::runtime_error("Text level is in shmittereens");
 }
 
 void game::mouseup(SDL_MouseButtonEvent&, scene_uid)
@@ -35,9 +36,9 @@ void game::mouseup(SDL_MouseButtonEvent&, scene_uid)
 
 void game::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
 {
-    if(!drag_target.tile)
-        return;
+    //if(!drag_target.tile)
+    //    return;
 
-    scale_tile(drag_target, {ev.xrel, ev.yrel});
+    //scale_tile(drag_target, {ev.xrel, ev.yrel});
 }
 

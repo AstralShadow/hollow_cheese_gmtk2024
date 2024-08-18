@@ -1,5 +1,5 @@
-#ifndef INCLUDE_GAME_MAP_HPP
-#define INCLUDE_GAME_MAP_HPP
+#ifndef INCLUDE_WORLD_LEVEL_HPP
+#define INCLUDE_WORLD_LEVEL_HPP
 
 #include "utils/types.hpp"
 #include "utils/point.hpp"
@@ -24,7 +24,7 @@ namespace world
         array<bool, 4> scalable = {0};
     };
 
-    struct Map
+    struct Level
     {
         vector<Tile> tiles;
     };
@@ -41,4 +41,4 @@ namespace world
     void normalize_tile(Tile& tile); // ensure no negative width/height
 }
 
-#endif // INCLUDE_GAME_MAP_HPP
+#endif // INCLUDE_WORLD_LEVEL_HPP

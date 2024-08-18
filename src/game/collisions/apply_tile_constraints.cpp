@@ -7,9 +7,9 @@ using std::endl;
 
 // Typically, this implementation here can be buggy.
 // Practically, since only one tile may be scaled between ticks, it should work fine.
-void game::apply_tile_constraints(Map& map)
+void game::apply_tile_constraints(Level& level)
 {
-    for(auto& tile : map.tiles)
+    for(auto& tile : level.tiles)
     {
         if(tile.area == tile.area_past)
             continue;
@@ -26,7 +26,7 @@ void game::apply_tile_constraints(Map& map)
         const bool ext_downwards = tile.area.y + tile.area.h > tile.area_past.y + tile.area_past.h;
 
         if(ext_left || ext_right)
-        for(auto const& other : map.tiles) // on X axis
+        for(auto const& other : level.tiles) // on X axis
         {
             // rule out tiles that don't match the Y axis
             if(other.area.y > tile.area.y + tile.area.h)
@@ -59,7 +59,7 @@ void game::apply_tile_constraints(Map& map)
         }
 
         if(ext_upwards || ext_downwards)
-        for(auto const& other : map.tiles) // on Y axis
+        for(auto const& other : level.tiles) // on Y axis
         {
             // rule out tiles that don't match the X axis
             if(other.area.x > tile.area.x + tile.area.w)

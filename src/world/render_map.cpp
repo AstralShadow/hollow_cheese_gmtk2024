@@ -1,6 +1,5 @@
-#include "world/world.hpp"
 #include "core/core.hpp"
-#include "world/map.hpp"
+#include "world/level.hpp"
 #include "world/render.hpp"
 #include "game/data.hpp" // PickedTile
 #include <SDL2/SDL_render.h>
@@ -13,9 +12,9 @@ using std::min;
 static auto& rnd = core::renderer;
 
 
-void world::render_map(Map const& map)
+void world::render_level(Level const& level)
 {
-    for(auto const& tile : map.tiles)
+    for(auto const& tile : level.tiles)
     {
         auto& area = tile.area;
         SDL_SetRenderDrawColor(rnd, 0, 0, 0, 196); // black
@@ -67,16 +66,16 @@ void world::render_map(Map const& map)
     }
 }
 
-world::PickedTile world::camera_pick_tile(Map& map, Point pos, bool ignore_scalable_constraints)
+world::PickedTile world::camera_pick_tile(Level& level, Point pos, bool ignore_scalable_constraints)
 {
     const int margin = 10; // ignore tiles beyond that distance
 
     float pick_rate = -10; // how sure are we that this is the tile we want to pick, capped at 1
     PickedTile result { nullptr };
 
-    for(size_t i = 0; i < map.tiles.size(); i++)
+    for(size_t i = 0; i < level.tiles.size(); i++)
     {
-        auto const& tile = map.tiles[i];
+        auto const& tile = level.tiles[i];
         auto const& area = tile.area;
 
         if(area.x > pos.x + margin)
@@ -127,7 +126,7 @@ world::PickedTile world::camera_pick_tile(Map& map, Point pos, bool ignore_scala
         if(!result.tile || rate > pick_rate)
         {
             pick_rate = rate;
-            result.tile = &(map.tiles[i]);
+            result.tile = &(level.tiles[i]);
             result.side = static_cast<direction_t>(pick);
         }
     }

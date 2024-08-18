@@ -10,16 +10,19 @@ using std::vector;
 
 namespace game
 {
-    using world::Map;
     using world::Tile;
+    using world::Level;
     using world::PickedTile;
+    using world::World;
+
+    using world::world;
 
     extern vector<Player> players;
 
-    void update_collisions(u32 ms, Map&, vector<Player>& players);
-    void apply_tile_constraints(Map&);
+    void update_collisions(u32 ms, Level&, vector<Player>& players);
+    void apply_tile_constraints(Level&);
     void apply_player_player_collisions(Player&);
-    void apply_player_tile_collisions(u32 ms, Map&, Player&);
+    void apply_player_tile_collisions(u32 ms, Level&, Player&);
 }
 
 #endif // INCLUDE_GAME_DATA_HPP
