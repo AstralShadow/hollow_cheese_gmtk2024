@@ -16,4 +16,6 @@ void game::render(scene_uid)
     render_players(players);
 
     SDL_RenderPresent(rnd);
+
+    //SDL_RenderSetViewport(rnd, nullptr);
 }
