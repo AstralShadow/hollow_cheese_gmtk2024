@@ -15,7 +15,8 @@ void world::init(int, char**, scene_uid)
 
     Level level;
     for(int i = 0; i < 20; i++)
-        level.tiles.push_back(Tile{
+        level.tiles.push_back(Tile
+        {
             .area = {size * i, 300, size, size},
             .min_size = {16, 16},
             .scalable = {i & 1, i & 2, i & 4, i & 8}
