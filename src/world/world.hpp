@@ -28,7 +28,9 @@ namespace world
         };
     };
 
-    void move_level(World&, int level, Point& delta); // sets delta to used delta, in world coords
+    /// Will prevent level overlaps. May snap to close levels logically.
+    /// Sets delta to used delta. Works in world coords.
+    void move_level(World&, int level, Point& delta);
 }
 
 #endif // INCLUDE_WORLD_WORLD_HPP

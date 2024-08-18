@@ -29,6 +29,11 @@ void world::init(int, char**, scene_uid)
         .level = level,
         .pos = {0, 0}
     });
+
+    world.levels.push_back({
+        .level = level,
+        .pos = {WINDOW_WIDTH, 0}
+    });
 }
 
 void world::deinit(scene_uid)
