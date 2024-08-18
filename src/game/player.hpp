@@ -20,8 +20,8 @@ namespace game
 
         const float speed = 0.4f; // px/ms
         // const float steering_speed_in_air = 0.3f; // px/ms
-        const float gravity = 4200.0f / 1000000; // px/ms^2
-        const int step_height = 10;
+        const float gravity = 4500.0f / 1000000; // px/ms^2
+        const int step_height = 15;
         const int head_height = 10; // space from top ignored by horizontal wall collision
 
         FPoint velocity {0, 0}; // px/ms; horizontal is used in collision system

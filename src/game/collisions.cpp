@@ -7,7 +7,7 @@ using std::max;
 using std::min;
 
 
-void game::update_collisions(Map& map, vector<Player>& players)
+void game::update_collisions(u32 ms, Map& map, vector<Player>& players)
 {
     apply_tile_constraints(map);
 
@@ -16,7 +16,10 @@ void game::update_collisions(Map& map, vector<Player>& players)
     //apply_player_player_collisions(Player&);
 
     for(auto& player : players)
-        apply_player_tile_collisions(map, player);
+    {
+        apply_player_tile_collisions(ms, map, player);
+        // ms are used to adjust player velocity when giving them a push with a wall
+    }
 
 
     for(auto& tile : map.tiles)
@@ -26,7 +29,7 @@ void game::update_collisions(Map& map, vector<Player>& players)
         player.area_past = player.area;
 }
 
-void game::apply_player_tile_collisions(Map& map, Player& player)
+void game::apply_player_tile_collisions(u32 ms, Map& map, Player& player)
 {
     // TODO Refactor. This function is too long and has repeating sections
 
@@ -173,6 +176,9 @@ void game::apply_player_tile_collisions(Map& map, Player& player)
         }
     }
 
+    if(!floor.size() || floor[0].dist > 0)
+        player.has_foothold = false;
+
 
     if(floor.size() && roof.size() && floor[0].dist + roof[0].dist < 0) // being squashed
     {
@@ -231,6 +237,7 @@ void game::apply_player_tile_collisions(Map& map, Player& player)
         }
 
         player.area.y = tile1.area.y + tile1.area.h;
+        player.has_foothold = true;
 
         if(debt > 0)
         {
@@ -243,9 +250,18 @@ void game::apply_player_tile_collisions(Map& map, Player& player)
         }
     }
     else if(roof.size() && roof[0].dist < 0)
+    {
+        // A little easter egg :)
+        // Sadly, i don't think i'll have time to implement similar stuff in the other directions
+        // Though it can be a lot of fun to play with this mechanic.
+        player.velocity.y = max(0.0f, -1.0f * roof[0].dist / ms);
         player.area.y += -roof[0].dist;
+    }
     else if(floor.size() && floor[0].dist < 0)
+    {
         player.area.y -= -floor[0].dist;
+        player.has_foothold = true;
+    }
 
     cout << "roof: ";
     for(auto a : roof) {

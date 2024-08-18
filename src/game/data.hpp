@@ -14,10 +14,10 @@ namespace game
     extern Map map;
     extern PickedTile drag_target;
 
-    void update_collisions(Map&, vector<Player>& players);
+    void update_collisions(u32 ms, Map&, vector<Player>& players);
     void apply_tile_constraints(Map&);
     void apply_player_player_collisions(Player&);
-    void apply_player_tile_collisions(Map&, Player&);
+    void apply_player_tile_collisions(u32 ms, Map&, Player&);
 }
 
 #endif // INCLUDE_GAME_DATA_HPP
