@@ -22,11 +22,13 @@ namespace world
         vector<LevelData> levels;
         size_t current_level = 0; // Keep in mind levels may be empty :(
 
-        const SDL_Point size = {
+        const Point size = {
             WINDOW_WIDTH * 7,
             WINDOW_HEIGHT * 7
         };
     };
+
+    void move_level(World&, int level, Point& delta); // sets delta to used delta, in world coords
 }
 
 #endif // INCLUDE_WORLD_WORLD_HPP

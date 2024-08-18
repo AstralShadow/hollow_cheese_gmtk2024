@@ -10,6 +10,7 @@ static auto& rnd = core::renderer;
 void WE::render(scene_uid)
 {
     SDL_SetRenderDrawColor(rnd, 0, 0, 0, 255);
+    SDL_RenderClear(rnd);
 
     // TODO render UI
     // TODO render world map

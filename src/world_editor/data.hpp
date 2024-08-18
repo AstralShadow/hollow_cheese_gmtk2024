@@ -10,6 +10,8 @@ namespace WE
         int level = -1;
         Rect area;
         Point pos;
+
+        bool dragging = false;
     };
 
     extern MouseFocus mouse_focus;
