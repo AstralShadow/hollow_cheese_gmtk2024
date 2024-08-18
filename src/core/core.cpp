@@ -21,7 +21,7 @@ SDL_Window* core::window = nullptr;
 SDL_Renderer* core::renderer = nullptr;
 
 static bool running = false;
-
+bool core::slow_motion = false;
 
 void core::run()
 {
@@ -41,11 +41,14 @@ void core::run()
         u32 raw = buffer * 1000 / freq;
         last = now;
 
-        if(raw > 1) {
+        if(raw >= 1) {
             poll_events();
-            scene_tick(raw);
+            scene_tick(slow_motion ? 1 : raw);
             buffer -= raw * freq / 1000;
         }
+
+        if(slow_motion)
+            SDL_Delay(5);
 
         scene_render();
     }

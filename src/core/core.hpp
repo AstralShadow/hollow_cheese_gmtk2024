@@ -38,6 +38,8 @@ namespace core
     void scene_mouse_wheel(SDL_MouseWheelEvent&);
     void scene_mouseup(SDL_MouseButtonEvent&);
     void scene_mousedown(SDL_MouseButtonEvent&);
+
+    extern bool slow_motion;
 }
 
 #endif // INCLUDE_CORE_CORE_HPP

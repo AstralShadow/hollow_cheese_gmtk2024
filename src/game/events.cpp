@@ -14,8 +14,10 @@ void game::keydown(SDL_KeyboardEvent& ev, scene_uid)
     auto const& scancode = ev.keysym.scancode;
     if(scancode == SDL_SCANCODE_Q)
         core::stop();
-}
 
+    if(scancode == SDL_SCANCODE_P)
+        core::slow_motion = !core::slow_motion;
+}
 
 void game::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
