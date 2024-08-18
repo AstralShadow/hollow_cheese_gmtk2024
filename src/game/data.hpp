@@ -2,7 +2,7 @@
 #define INCLUDE_GAME_DATA_HPP
 
 #include "game/player.hpp"
-#include "game/map.hpp"
+#include "world/data.hpp"
 #include <vector>
 
 using std::vector;
@@ -10,9 +10,11 @@ using std::vector;
 
 namespace game
 {
+    using world::Map;
+    using world::Tile;
+    using world::PickedTile;
+
     extern vector<Player> players;
-    extern Map map;
-    extern PickedTile drag_target;
 
     void update_collisions(u32 ms, Map&, vector<Player>& players);
     void apply_tile_constraints(Map&);

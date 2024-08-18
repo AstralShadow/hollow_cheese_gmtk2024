@@ -1,7 +1,8 @@
-#include "game/game.hpp"
+#include "world/world.hpp"
 #include "core/core.hpp"
-#include "game/render.hpp"
-#include "game/data.hpp"
+#include "world/map.hpp"
+#include "world/render.hpp"
+#include "game/data.hpp" // PickedTile
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
@@ -12,7 +13,7 @@ using std::min;
 static auto& rnd = core::renderer;
 
 
-void game::render_level(Map const& map)
+void world::render_map(Map const& map)
 {
     for(auto const& tile : map.tiles)
     {
@@ -66,7 +67,7 @@ void game::render_level(Map const& map)
     }
 }
 
-game::PickedTile game::camera_pick_tile(Map& map, Point pos, bool ignore_scalable_constraints)
+world::PickedTile world::camera_pick_tile(Map& map, Point pos, bool ignore_scalable_constraints)
 {
     const int margin = 10; // ignore tiles beyond that distance
 

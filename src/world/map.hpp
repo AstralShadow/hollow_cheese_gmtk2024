@@ -11,7 +11,7 @@ using std::vector;
 using std::array;
 
 
-namespace game
+namespace world
 {
     struct Tile
     {

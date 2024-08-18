@@ -1,11 +1,11 @@
-#include "game/data.hpp"
+#include "world/data.hpp"
 #include <iostream>
 
 using std::cout;
 using std::endl;
 
 
-void game::normalize_tile(Tile& tile)
+void world::normalize_tile(Tile& tile)
 {
     Rect& area = tile.area;
 
@@ -20,7 +20,7 @@ void game::normalize_tile(Tile& tile)
     }
 }
 
-void game::scale_tile(PickedTile pick, Point delta)
+void world::scale_tile(PickedTile pick, Point delta)
 {
     if(!pick.tile)
         return;

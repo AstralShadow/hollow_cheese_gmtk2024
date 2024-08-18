@@ -6,5 +6,5 @@ void game::tick(u32 ms, scene_uid)
 {
     tick_players(ms, players);
 
-    update_collisions(ms, map, players);
+    update_collisions(ms, world::map, players);
 }
