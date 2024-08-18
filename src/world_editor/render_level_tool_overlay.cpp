@@ -15,6 +15,6 @@ static auto& rnd = core::renderer;
 
 void WE::render_level_tool_overlay()
 {
-    for(auto& btn : buttons)
-        render_button(btn);
+    for(auto& btn : level_buttons)
+        render_level_button(btn);
 }

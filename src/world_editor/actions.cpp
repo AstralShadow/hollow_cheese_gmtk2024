@@ -5,6 +5,24 @@ using std::cout;
 using std::endl;
 
 
+void WE::new_level()
+{
+    Point pos = world::find_empty_level_pos(mouse_focus.level);
+    if(pos.x == -1 && pos.y == -1) {
+        cout << "Could not find a position to create new level at." << endl;
+        return;
+    }
+
+    world::Level new_level;
+    world::world.levels.push_back(
+        world::LevelData {
+            .level = new_level,
+            .pos = pos,
+            .explored = false
+        }
+    );
+}
+
 void WE::edit_level()
 {
     cout << "edit: " << mouse_focus.level << endl;

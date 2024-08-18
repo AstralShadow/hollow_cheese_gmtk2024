@@ -43,7 +43,7 @@ void WE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
     mouse_focus.dragging = false;
     motion_buffer = {0, 0};
 
-    if(mouse_focus.selected && click_button({ev.x, ev.y}))
+    if(click_button({ev.x, ev.y}))
         return;
 
     if(motion_distance < maximum_click_motion_dist)
@@ -95,13 +95,17 @@ void WE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
         mouse_focus.area = pick.area;
         mouse_focus.pos = pick.pos;
     }
-    else if(mouse_focus.selected)
-    {
-        for(auto& btn : buttons)
-            btn.focused = false;
-        auto btn = button_on_pos({ev.x, ev.y});
-        if(btn)
-            btn->focused = true;
-    }
+
+
+    /* Paint buttons */
+
+    for(auto& btn : level_buttons)
+        btn.focused = false;
+    for(auto& btn : global_buttons)
+        btn.focused = false;
+
+    auto btn = button_on_pos({ev.x, ev.y});
+    if(btn)
+        btn->focused = true;
 }
 

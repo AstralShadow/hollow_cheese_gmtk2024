@@ -27,5 +27,8 @@ void WE::render(scene_uid)
     if(mouse_focus.selected)
         render_level_tool_overlay();
 
+    for(auto& btn : global_buttons)
+        render_global_button(btn);
+
     SDL_RenderPresent(rnd);
 }

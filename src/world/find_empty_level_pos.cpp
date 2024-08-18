@@ -28,7 +28,7 @@ Point world::find_empty_level_pos(int close_to)
 
     bool first = true;
     int distance = 0;
-    Point pos {0, 0};
+    Point pos {-1, -1}; // invalid position
 
     for(int x = 0; x < world.size.x / WINDOW_WIDTH; x++)
     for(int y = 0; y < world.size.y / WINDOW_HEIGHT; y++)
@@ -50,11 +50,6 @@ Point world::find_empty_level_pos(int close_to)
             first = false;
         }
     }
-
-    cout << "dist: " << distance << endl;
-
-    if(first)
-        return {-1, -1}; // invalid location
 
     return pos;
 }
