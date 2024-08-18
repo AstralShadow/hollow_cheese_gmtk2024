@@ -2,6 +2,7 @@
 #include "core/core.hpp"
 #include "world/render.hpp"
 #include "level_editor/data.hpp"
+#include "game/render.hpp"
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
@@ -18,7 +19,17 @@ void LE::render(scene_uid)
 
     render_levels();
 
-
+    switch(mode)
+    {
+    case EDIT_MODE:
+        //render_edit_ui();
+        //render_edit_overlay();
+        break;
+    case BACKGROUND_MODE:
+        break;
+    case FOREGROUND_MODE:
+        break;
+    }
 
     // TODO render UI
 
@@ -29,8 +40,8 @@ void LE::render(scene_uid)
 void LE::render_levels()
 {
     SDL_Rect area {
-        WINDOW_WIDTH / 10,
-        WINDOW_HEIGHT / 10,
+        32,
+        48,
         static_cast<int>(WINDOW_WIDTH * 0.8),
         static_cast<int>(WINDOW_HEIGHT * 0.8)
     };
@@ -38,6 +49,13 @@ void LE::render_levels()
     SDL_RenderSetViewport(rnd, &area);
 
     world::render_level(*(level()), 0.8);
+
+    if(simulate_game)
+    {
+        SDL_RenderSetScale(rnd, 0.8, 0.8);
+        game::render_players(players.begin(), players.end() + active_players);
+        SDL_RenderSetScale(rnd, 1, 1);
+    }
 
     SDL_SetRenderDrawColor(rnd, 255, 255, 0, 255);
     SDL_RenderDrawRect(rnd, nullptr);

@@ -21,6 +21,7 @@ namespace world
     {
         vector<LevelData> levels;
         size_t current_level = 0; // Keep in mind levels may be empty :(
+        //size_t first_level = 0;
 
         const Point size = {
             WINDOW_WIDTH * 7,

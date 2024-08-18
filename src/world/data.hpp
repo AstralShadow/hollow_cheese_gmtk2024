@@ -9,7 +9,10 @@ using std::vector;
 
 namespace world
 {
+    // drag_target is only meaningful in Level scope.
+    // There won't be more than one level focused, so it can stay as global variable.
     extern PickedTile drag_target;
+
     extern World world;
 }
 

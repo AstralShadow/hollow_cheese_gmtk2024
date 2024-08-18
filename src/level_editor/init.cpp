@@ -5,6 +5,12 @@
 namespace LE
 {
     int target_level = 0;
+    mode_t mode = EDIT_MODE;
+
+    vector<Player> players;
+    int active_players = 2;
+
+    bool simulate_game = true;
 
     //vector<Button> buttons;
 }
@@ -20,6 +26,21 @@ world::Level* LE::level()
 
 void LE::init(int, char**, scene_uid)
 {
+    players.push_back(Player
+    {
+        .area = {0, 200, 32, 64}
+    });
+    players.push_back(Player
+    {
+        .area = {128, 200, 32, 64},
+        .controls = {
+            SDL_SCANCODE_UP,
+            SDL_SCANCODE_RIGHT,
+            SDL_SCANCODE_DOWN,
+            SDL_SCANCODE_LEFT
+        }
+    });
+
     //buttons.emplace_back(Point{-4, 4}, "", &clone_level);
 
     //for(auto& btn : buttons)
