@@ -31,6 +31,8 @@ namespace world
     /// Will prevent level overlaps. May snap to close levels logically.
     /// Sets delta to used delta. Works in world coords.
     void move_level(World&, int level, Point& delta);
+
+    Point find_empty_level_pos(int close_to = -1);
 }
 
 #endif // INCLUDE_WORLD_WORLD_HPP

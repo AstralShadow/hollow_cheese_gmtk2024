@@ -12,9 +12,9 @@ namespace WE
 
 void WE::init(int, char**, scene_uid)
 {
-    buttons.emplace_back(Point{-4, 4}, "Clone");
-    buttons.emplace_back(Point{-4, -4}, "Edit");
-    buttons.emplace_back(Point{4, -4}, "Delete");
+    buttons.emplace_back(Point{-4, 4}, "[C]lone", &clone_level);
+    buttons.emplace_back(Point{-4, -4}, "[E]dit", &edit_level);
+    buttons.emplace_back(Point{4, -4}, "[D]elete", &delete_level);
 }
 
 void WE::deinit(scene_uid)

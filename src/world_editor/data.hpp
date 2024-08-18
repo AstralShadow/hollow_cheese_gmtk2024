@@ -48,6 +48,10 @@ namespace WE
     void render_level_tool_overlay();
     void render_button(Button&); // generates label texture cache
 
+
+    void edit_level();
+    void clone_level();
+    void delete_level();
 }
 
 #endif // INCLUDE_WE_DATA_HPP
