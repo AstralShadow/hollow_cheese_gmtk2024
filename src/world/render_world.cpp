@@ -42,10 +42,10 @@ void world::render_world(World const& world, bool ignore_exploration_flag)
         {
             SDL_SetRenderDrawColor(rnd, 32, 32, 32, 255);
             SDL_RenderFillRect(rnd, nullptr);
-
-            SDL_SetRenderDrawColor(rnd, 128, 128, 128, 255);
-            SDL_RenderDrawRect(rnd, nullptr);
         }
+
+        SDL_SetRenderDrawColor(rnd, 128, 128, 128, 255);
+        SDL_RenderDrawRect(rnd, nullptr);
 
         if(i == world.current_level)
         {
@@ -80,8 +80,8 @@ world::PickedLevel world::camera_pick_level(World const& world, Point pos)
         {
             return PickedLevel{
                 .level = static_cast<int>(i),
-                .pos = {pos.x - area.x, pos.y - area.y},
-                .size_on_screen = {area.w, area.h}
+                .area = area,
+                .pos = {pos.x - area.x, pos.y - area.y}
             };
         }
     }

@@ -1,9 +1,10 @@
 #include "world_editor/world_editor.hpp"
+#include "world_editor/data.hpp"
 
 
 namespace WE
 {
-
+    MouseFocus mouse_focus;
 }
 
 

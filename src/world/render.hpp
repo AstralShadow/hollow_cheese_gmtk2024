@@ -15,8 +15,8 @@ namespace world
     struct PickedLevel
     {
         int level = -1;
+        Rect area {0, 0, 0, 0};
         Point pos {0, 0}; // local
-        Point size_on_screen {0, 0};
     };
 
     void render_world(World const&, bool ignore_exploration_flag = false);
