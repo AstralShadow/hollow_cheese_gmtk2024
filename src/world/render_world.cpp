@@ -36,9 +36,14 @@ void world::render_world(World const& world, bool ignore_exploration_flag)
 
         if(ignore_exploration_flag || data.explored)
         {
-            SDL_RenderSetScale(rnd, pixel_scale.x, pixel_scale.y);
-            render_level(data.level);
-            SDL_RenderSetScale(rnd, 1, 1);
+            if(pixel_scale.x == pixel_scale.y)
+                render_level(data.level, pixel_scale.x);
+            else
+            {
+                SDL_RenderSetScale(rnd, pixel_scale.x, pixel_scale.y);
+                render_level(data.level);
+                SDL_RenderSetScale(rnd, 1, 1);
+            }
         }
         else
         {

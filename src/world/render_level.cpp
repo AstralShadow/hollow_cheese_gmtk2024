@@ -12,22 +12,41 @@ using std::min;
 static auto& rnd = core::renderer;
 
 
-void world::render_level(Level const& level)
+void world::render_level(Level const& level, float scale)
 {
     for(auto const& tile : level.tiles)
     {
-        auto& area = tile.area;
+        FRect area {
+            static_cast<float>(tile.area.x),
+            static_cast<float>(tile.area.y),
+            static_cast<float>(tile.area.w),
+            static_cast<float>(tile.area.h)
+        };
+
+        if(scale != 1.0f)
+        {
+            area *= scale;
+        }
+
         SDL_SetRenderDrawColor(rnd, 64, 64, 64, 255); // dark gray
-        SDL_RenderFillRect(rnd, &area);
+        SDL_RenderFillRectF(rnd, &area);
 
         bool is_anchored = tile.mandatory_area.x > 0 || tile.mandatory_area.y > 0;
         if(is_anchored) {
             SDL_SetRenderDrawColor(rnd, 255, 128, 0, 255); // orange
-            SDL_RenderFillRect(rnd, &tile.mandatory_area);
+
+            FRect m_area {
+                static_cast<float>(tile.mandatory_area.x),
+                static_cast<float>(tile.mandatory_area.y),
+                static_cast<float>(tile.mandatory_area.w),
+                static_cast<float>(tile.mandatory_area.h)
+            };
+            m_area *= scale;
+            SDL_RenderFillRectF(rnd, &m_area);
         }
 
         SDL_SetRenderDrawColor(rnd, 0, 128, 0, 255); // dark green
-        SDL_RenderDrawRect(rnd, &area);
+        SDL_RenderDrawRectF(rnd, &area);
 
         for(size_t side = 0; side < tile.scalable.size(); side++)
         {
@@ -43,23 +62,23 @@ void world::render_level(Level const& level)
             switch(side)
             {
             case TOP:
-                SDL_RenderDrawLine(rnd, area.x, area.y,
-                                        area.x + area.w, area.y);
+                SDL_RenderDrawLineF(rnd, area.x, area.y,
+                                         area.x + area.w, area.y);
                 break;
 
             case RIGHT:
-                SDL_RenderDrawLine(rnd, area.x + area.w, area.y,
-                                        area.x + area.w, area.y + area.h);
+                SDL_RenderDrawLineF(rnd, area.x + area.w, area.y,
+                                         area.x + area.w, area.y + area.h);
                 break;
 
             case BOTTOM:
-                SDL_RenderDrawLine(rnd, area.x, area.y + area.h,
-                                        area.x + area.w, area.y + area.h);
+                SDL_RenderDrawLineF(rnd, area.x, area.y + area.h,
+                                         area.x + area.w, area.y + area.h);
                 break;
 
             case LEFT:
-                SDL_RenderDrawLine(rnd, area.x, area.y,
-                                        area.x, area.y + area.h);
+                SDL_RenderDrawLineF(rnd, area.x, area.y,
+                                         area.x, area.y + area.h);
                 break;
             }
         }
