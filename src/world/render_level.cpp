@@ -1,7 +1,7 @@
 #include "core/core.hpp"
 #include "world/level.hpp"
 #include "world/render.hpp"
-#include "game/data.hpp" // PickedTile
+#include "world/data.hpp" // PickedTile drag_target
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
@@ -17,7 +17,7 @@ void world::render_level(Level const& level)
     for(auto const& tile : level.tiles)
     {
         auto& area = tile.area;
-        SDL_SetRenderDrawColor(rnd, 0, 0, 0, 196); // black
+        SDL_SetRenderDrawColor(rnd, 64, 64, 64, 255); // dark gray
         SDL_RenderFillRect(rnd, &area);
 
         bool is_anchored = tile.mandatory_area.x > 0 || tile.mandatory_area.y > 0;

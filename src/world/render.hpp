@@ -1,7 +1,7 @@
 #ifndef INCLUDE_WORLD_RENDER_HPP
 #define INCLUDE_WORLD_RENDER_HPP
 
-#include "world/level.hpp"
+#include "world/world.hpp"
 
 namespace world
 {
@@ -10,6 +10,18 @@ namespace world
     // Pick a tile to scale.
     // Only picks scalable sides unless ignoring constraints
     PickedTile camera_pick_tile(Level&, Point pos, bool ignore_scalable_constraints = false);
+
+
+    struct PickedLevel
+    {
+        int level;
+        Point pos; // local
+        Point size_on_screen;
+    };
+
+    void render_world(World const&, bool ignore_exploration_flag = false);
+
+    PickedLevel camera_pick_level(World const&, Point pos);
 }
 
 #endif // INCLUDE_WORLD_RENDER_HPP

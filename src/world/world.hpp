@@ -13,12 +13,19 @@ namespace world
     {
         Level level;
         Point pos; // on the grid in px
+
+        bool explored = false; // If the player has been here
     };
 
     struct World
     {
         vector<LevelData> levels;
-        int current_level = 0; // Keep in mind levels may be empty :(
+        size_t current_level = 0; // Keep in mind levels may be empty :(
+
+        const SDL_Point size = {
+            WINDOW_WIDTH * 7,
+            WINDOW_HEIGHT * 7
+        };
     };
 }
 
