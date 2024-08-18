@@ -15,7 +15,7 @@ namespace startup
     void tick(u32 ms, scene_uid = 0);
     void render(scene_uid = 0);
 
-    //void keydown(SDL_KeyboardEvent&, scene_uid = 0);
+    void keydown(SDL_KeyboardEvent&, scene_uid = 0);
 }
 
 #endif // INCLUDE_GAME_STARTUP_HPP

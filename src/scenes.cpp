@@ -18,6 +18,7 @@ void core::register_scenes()
 
     core::set_scene("world_editor");
     //core::set_scene("game");
+    core::set_scene("startup");
 }
 
 
