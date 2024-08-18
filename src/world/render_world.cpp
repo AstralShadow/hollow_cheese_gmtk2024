@@ -29,6 +29,8 @@ void world::render_world(World const& world, bool ignore_exploration_flag)
             static_cast<int>((data.pos.x + level_size.x) * pixel_scale.x),
             static_cast<int>((data.pos.y + level_size.y) * pixel_scale.y)
         };
+        area.w -= area.x; // Doing this should negate some of the float rounding error
+        area.h -= area.y;
 
         SDL_RenderSetViewport(rnd, &area);
 
@@ -75,6 +77,8 @@ world::PickedLevel world::camera_pick_level(World const& world, Point pos)
             static_cast<int>((data.pos.x + level_size.x) * pixel_scale.x),
             static_cast<int>((data.pos.y + level_size.y) * pixel_scale.y)
         };
+        area.w -= area.x; // Doing this should negate some of the float rounding error
+        area.h -= area.y;
 
         if(SDL_PointInRect(&pos, &area))
         {
