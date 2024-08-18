@@ -19,28 +19,38 @@ void WE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
     if(mouse_focus.level == -1)
         return;
 
+    if(mouse_focus.selected && button_on_pos({ev.x, ev.y}))
+        return;
+
     mouse_focus.dragging = true;
     motion_distance = 0;
 
+    // Let go of selected level if clicking outside its area
+    {
+        auto pick = camera_pick_level(world::world, {ev.x, ev.y});
 
-    // Let go of clicked level if clicking outside its area
-    auto pick = camera_pick_level(world::world, {ev.x, ev.y});
+        if(pick.level != mouse_focus.level)
+            mouse_focus.selected = false;
 
-    if(pick.level != mouse_focus.level)
-        mouse_focus.clicked = false;
-
-    mouse_focus.level = pick.level;
-    mouse_focus.area = pick.area;
-    mouse_focus.pos = pick.pos;
+        mouse_focus.level = pick.level;
+        mouse_focus.area = pick.area;
+        mouse_focus.pos = pick.pos;
+    }
 }
 
-void WE::mouseup(SDL_MouseButtonEvent&, scene_uid)
+void WE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
 {
     mouse_focus.dragging = false;
     motion_buffer = {0, 0};
 
+    if(mouse_focus.selected && click_button({ev.x, ev.y}))
+        return;
+
     if(motion_distance < maximum_click_motion_dist)
-        mouse_focus.clicked = !mouse_focus.clicked;
+        mouse_focus.selected = !mouse_focus.selected;
+
+    if(mouse_focus.level == -1)
+        mouse_focus.selected = false;
 }
 
 void WE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
@@ -70,15 +80,28 @@ void WE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
 
             motion_buffer.x -= increment.x;
             motion_buffer.y -= increment.y;
+
+            // Refresh menu position
+            auto pick = camera_pick_level(world::world, {ev.x, ev.y});
+            mouse_focus.area = pick.area;
+            mouse_focus.pos = pick.pos;
         }
     }
-    else if(!mouse_focus.clicked || mouse_focus.level == -1)
+    else if(!mouse_focus.selected || mouse_focus.level == -1)
     {
         auto pick = camera_pick_level(world::world, {ev.x, ev.y});
 
         mouse_focus.level = pick.level;
         mouse_focus.area = pick.area;
         mouse_focus.pos = pick.pos;
+    }
+    else if(mouse_focus.selected)
+    {
+        for(auto& btn : buttons)
+            btn.focused = false;
+        auto btn = button_on_pos({ev.x, ev.y});
+        if(btn)
+            btn->focused = true;
     }
 }
 

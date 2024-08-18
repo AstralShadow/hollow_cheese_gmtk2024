@@ -24,7 +24,8 @@ void WE::render(scene_uid)
         world::world.current_level = temp;
     }
 
-    // TODO render world map overlay
+    if(mouse_focus.selected)
+        render_level_tool_overlay();
 
     SDL_RenderPresent(rnd);
 }
