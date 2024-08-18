@@ -4,6 +4,7 @@
 #include "core/config.hpp"
 #include <stdexcept>
 #include <string>
+#include <iostream>
 #include <SDL2/SDL.h>
 #ifdef USE_SDL2_NET
     #include <SDL2/SDL_net.h>
@@ -14,6 +15,9 @@
 #ifdef USE_SDL2_TTF
     #include <SDL2/SDL_ttf.h>
 #endif
+
+using std::cout;
+using std::endl;
 
 #ifndef WINDOW_WIDTH
     #define WINDOW_WIDTH 800
@@ -110,6 +114,12 @@ static void create_renderer(bool vsync)
         error += "SDL_Error: \n";
         error += SDL_GetError();
         throw std::runtime_error(error.c_str());
+    }
+
+    int err = SDL_SetRenderDrawBlendMode(core::renderer, SDL_BLENDMODE_BLEND);
+    if(err) {
+        cout << "Could not set renderer blend mode!" << endl;
+        cout << "Expect incorrect colors." << endl;
     }
 }
 
