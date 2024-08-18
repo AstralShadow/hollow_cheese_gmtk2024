@@ -12,6 +12,7 @@ namespace WE
         Point pos;
 
         bool dragging = false;
+        bool clicked = false;
     };
 
     extern MouseFocus mouse_focus;

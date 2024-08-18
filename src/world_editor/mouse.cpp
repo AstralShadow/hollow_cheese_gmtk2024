@@ -11,25 +11,44 @@ using std::endl;
 static const Point level_size { WINDOW_WIDTH, WINDOW_HEIGHT };
 
 static FPoint motion_buffer {0, 0};
+static int motion_distance = 0;
+static const int maximum_click_motion_dist = 10;
 
-void WE::mousedown(SDL_MouseButtonEvent&, scene_uid)
+void WE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
     if(mouse_focus.level == -1)
         return;
 
     mouse_focus.dragging = true;
+    motion_distance = 0;
+
+
+    // Let go of clicked level if clicking outside its area
+    auto pick = camera_pick_level(world::world, {ev.x, ev.y});
+
+    if(pick.level != mouse_focus.level)
+        mouse_focus.clicked = false;
+
+    mouse_focus.level = pick.level;
+    mouse_focus.area = pick.area;
+    mouse_focus.pos = pick.pos;
 }
 
 void WE::mouseup(SDL_MouseButtonEvent&, scene_uid)
 {
     mouse_focus.dragging = false;
     motion_buffer = {0, 0};
+
+    if(motion_distance < maximum_click_motion_dist)
+        mouse_focus.clicked = !mouse_focus.clicked;
 }
 
 void WE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
 {
     if(mouse_focus.level != -1 && mouse_focus.dragging)
     {
+        motion_distance += abs(ev.xrel) + abs(ev.yrel);
+
         auto& world = world::world;
 
         FPoint scale {
@@ -45,12 +64,15 @@ void WE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
             static_cast<int>(motion_buffer.y)
         };
 
-        move_level(world, mouse_focus.level, increment);
+        if(motion_distance > maximum_click_motion_dist)
+        {
+            move_level(world, mouse_focus.level, increment);
 
-        motion_buffer.x -= increment.x;
-        motion_buffer.y -= increment.y;
+            motion_buffer.x -= increment.x;
+            motion_buffer.y -= increment.y;
+        }
     }
-    else
+    else if(!mouse_focus.clicked || mouse_focus.level == -1)
     {
         auto pick = camera_pick_level(world::world, {ev.x, ev.y});
 
