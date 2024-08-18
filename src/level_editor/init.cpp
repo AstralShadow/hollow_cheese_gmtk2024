@@ -4,7 +4,7 @@
 
 namespace LE
 {
-    int target_level = -1;
+    int target_level = 0;
 
     //vector<Button> buttons;
 }

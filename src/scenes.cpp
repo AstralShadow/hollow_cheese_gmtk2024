@@ -19,7 +19,9 @@ void core::register_scenes()
     core::scene<WE::scene_uid>("world_editor");
 
 
+    core::set_scene("level_editor");
     core::set_scene("world_editor");
+
 #ifdef __EMSCRIPTEN__
     core::set_scene("startup");
 #endif

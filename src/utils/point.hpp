@@ -62,6 +62,27 @@ constexpr FPoint operator - (FPoint a, FPoint const& b)
     return a;
 }
 
+
+constexpr Rect operator *= (Rect& a, float scalar)
+{
+    a.x *= scalar;
+    a.y *= scalar;
+    a.w *= scalar;
+    a.h *= scalar;
+    return a;
+}
+
+
+constexpr FRect operator *= (FRect& a, float scalar)
+{
+    a.x *= scalar;
+    a.y *= scalar;
+    a.w *= scalar;
+    a.h *= scalar;
+    return a;
+}
+
+
 constexpr FPoint norm(FPoint a)
 {
     float base = sqrt(a.x * a.x + a.y * a.y);
