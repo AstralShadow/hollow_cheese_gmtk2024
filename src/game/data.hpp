@@ -20,6 +20,8 @@ namespace game
     extern vector<Player> players;
 
     void update_collisions(u32 ms, Level&, vector<Player>& players);
+    void update_collisions(u32 ms, Level&, vector<Player>::iterator begin,
+                                           vector<Player>::iterator end);
     void apply_tile_constraints(Level&);
     void apply_player_player_collisions(Player&);
     void apply_player_tile_collisions(u32 ms, Level&, Player&);
