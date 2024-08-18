@@ -19,7 +19,7 @@ void world::init(int, char**, scene_uid)
         {
             .area = {size * i, 300, size, size},
             .min_size = {16, 16},
-            .scalable = {i & 1, i & 2, i & 4, i & 8}
+            .scalable = {(i & 1) == 1, (i & 2) == 2, (i & 4) == 4, (i & 8) == 8}
         });
 
     level.tiles[10].scalable[TOP] = true;

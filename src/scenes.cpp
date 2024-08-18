@@ -18,8 +18,11 @@ void core::register_scenes()
     core::scene<LE::scene_uid>("level_editor");
     core::scene<WE::scene_uid>("world_editor");
 
+
     core::set_scene("world_editor");
-    //core::set_scene("startup");
+#ifdef __EMSCRIPTEN__
+    core::set_scene("startup");
+#endif
 }
 
 

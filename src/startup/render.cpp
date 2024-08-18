@@ -91,10 +91,10 @@ void startup::render(scene_uid)
         }
 
         SDL_Color color {
-            bg.r + k * (255 - bg.r),
-            bg.g + k * (255 - bg.g),
-            bg.b + k * (255 - bg.b),
-            bg.a + k * (255 - bg.a),
+            static_cast<u8>(bg.r + k * (255 - bg.r)),
+            static_cast<u8>(bg.g + k * (255 - bg.g)),
+            static_cast<u8>(bg.b + k * (255 - bg.b)),
+            static_cast<u8>(bg.a + k * (255 - bg.a)),
         };
 
 

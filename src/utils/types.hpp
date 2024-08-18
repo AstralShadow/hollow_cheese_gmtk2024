@@ -13,6 +13,8 @@ typedef int16_t i16;
 typedef int32_t i32;
 typedef int64_t i64;
 
-using std::size_t;
+#ifndef __EMSCRIPTEN__
+    using std::size_t;
+#endif
 
 #endif // INCLUDE_UTILS_TYPES_HPP
