@@ -25,7 +25,7 @@ namespace game
         const int head_height = 10; // space from top ignored by horizontal wall collision
 
         const float jump_force = 1.1; // px/ms
-        const int jump_delay_grace_time = 50; // ms
+        const int jump_delay_grace_time = 75; // ms
         const float early_jump_end_gravity_factor = 2.2f;
 
         FPoint velocity {0, 0}; // px/ms; horizontal is used in collision system
