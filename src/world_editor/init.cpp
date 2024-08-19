@@ -12,11 +12,11 @@ namespace WE
 
 void WE::init(int, char**, scene_uid)
 {
-    level_buttons.emplace_back(Point{-4, 4}, "Clone", &clone_level);
-    level_buttons.emplace_back(Point{-4, -4}, "Edit", &edit_level);
-    level_buttons.emplace_back(Point{4, -4}, "Delete", &delete_level);
+    level_buttons.emplace_back(Point{4, 4}, "Edit", &edit_level, "edit");
+    level_buttons.emplace_back(Point{-4, 4}, "Clone", &clone_level, "copy");
+    level_buttons.emplace_back(Point{-4, -4}, "Delete", &delete_level, "delete");
 
-    global_buttons.emplace_back(Point{-32, -32}, "New", &new_level);
+    global_buttons.emplace_back(Point{-32, -32}, "New", &new_level, "create");
 
     for(auto& btn : level_buttons)
         generate_button_label(btn);

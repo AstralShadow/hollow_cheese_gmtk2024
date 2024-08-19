@@ -16,6 +16,8 @@ namespace game
         string label;
         void(*action)() = nullptr;
 
+        string icon = "";
+
         bool focused = false; // Rendering data
 
         SDL_Texture* label_texture = nullptr; // Cache

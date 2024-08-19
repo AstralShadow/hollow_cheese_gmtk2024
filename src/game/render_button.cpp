@@ -1,6 +1,7 @@
 #include "game/button.hpp"
 #include "core/core.hpp"
 #include "game/fonts.hpp"
+#include "game/sprite.hpp"
 #include "utils/textures.hpp"
 #include <SDL2/SDL_render.h>
 #include <iostream>
@@ -35,9 +36,21 @@ void game::generate_button_label(Button& btn)
 
 void game::render_button(Button const& btn, Rect const& area)
 {
-    SDL_SetRenderDrawColor(rnd, 0, 0, 0, 255);
+    // Background
+    SDL_SetRenderDrawColor(rnd, 0x05, 0x12, 0x1a, 255);
     SDL_RenderFillRect(rnd, &area);
 
+    // Icon
+    if(btn.icon != "")
+    {
+        auto texture = sprite(btn.icon);
+        if(texture)
+        {
+            SDL_RenderCopy(rnd, texture, nullptr, &area);
+        }
+    }
+
+    // Border
     if(btn.focused)
         SDL_SetRenderDrawColor(rnd, 255, 255, 0, 255);
     else

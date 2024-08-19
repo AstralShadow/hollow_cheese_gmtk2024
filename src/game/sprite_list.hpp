@@ -19,8 +19,19 @@ namespace game
     #define BASE "assets/"
 
     SpriteData sprite_data[] { SpriteData
-        { BASE "gmtk/gmtk2024-g.png" },
+        // World Editor
+        { BASE "buttons/plus.png",              "create"},
+        { BASE "buttons/edit.png",              "edit"},
+        { BASE "buttons/copy.png",              "copy"},
+        { BASE "buttons/delete.png",            "delete"},
 
+        { BASE "buttons/exit.png",              "exit"},
+        { BASE "buttons/jump-prediction.png",   "jump_prediction"},
+        { BASE "buttons/pause.png",             "pause"},
+        { BASE "buttons/players.png",           "players"},
+        { BASE "buttons/play.png",              "simulation"},
+        { BASE "buttons/slow-motion.png",       "slow_motion"},
+        { BASE "buttons/texture-mode.png",      "texture_mode"},
     };
 }
 
