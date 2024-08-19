@@ -4,6 +4,7 @@
 #include "game/player.hpp"
 #include "game/data.hpp"
 #include <SDL2/SDL_render.h>
+#include <cmath>
 #include <iostream>
 
 using std::cout;

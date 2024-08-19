@@ -4,10 +4,13 @@
 #include "level_editor/data.hpp"
 #include "game/render.hpp"
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_mouse.h>
 #include <iostream>
 
 using std::cout;
 using std::endl;
+using std::max;
+using std::min;
 
 static auto& rnd = core::renderer;
 
@@ -49,11 +52,12 @@ void LE::render_levels()
     SDL_RenderSetViewport(rnd, &area);
 
     world::render_level(*(level()), 0.8);
+    render_grid(*(level()), 0.8);
 
     if(simulate_game)
     {
         SDL_RenderSetScale(rnd, 0.8, 0.8);
-        game::render_players(players.begin(), players.end() + active_players);
+        game::render_players(players.begin(), players.begin() + active_players);
         render_player_overlays();
         SDL_RenderSetScale(rnd, 1, 1);
     }
@@ -98,7 +102,59 @@ void LE::render_levels()
     SDL_RenderSetViewport(rnd, nullptr);
 }
 
+Point LE::get_level_coordinates(Point screen_pos)
+{
+    SDL_Point offset { // Should be synced with the above
+        32,
+        48
+    };
+    float scale = 0.8;
+
+    return {
+        (screen_pos.x - offset.x) / scale,
+        (screen_pos.y - offset.y) / scale
+    };
+}
+
+
 void LE::render_player_overlays()
 {
-    game::render_players_jump_reach(*level(), players.begin(), players.end() + active_players);
+    game::render_players_jump_reach(*level(), players.begin(), players.begin() + active_players);
+}
+
+void LE::render_grid(Level const&, float scale)
+{
+    SDL_Point ssize {
+        static_cast<int>(WINDOW_WIDTH * scale),
+        static_cast<int>(WINDOW_HEIGHT * scale)
+    };
+
+
+    /* Default grid (16x16), only near mouse */
+    {
+        SDL_Point _mouse;
+        SDL_GetMouseState(&_mouse.x, &_mouse.y);
+        SDL_Point mouse = get_level_coordinates(_mouse);
+        const int range = 56;
+
+        SDL_SetRenderDrawColor(rnd, 196, 196, 196, 128);
+
+        int x = max(0, mouse.x - range);
+        x += (x % 16) ? (16 - x % 16) : 0;
+        for(; x < min(WINDOW_WIDTH, mouse.x + range); x = (x + 16) - (x % 16))
+        {
+            float y1 = mouse.y + sqrt(range * range - (x - mouse.x) * (x - mouse.x));
+            float y2 = 2 * mouse.y - y1;
+            SDL_RenderDrawLineF(rnd, x * scale, y1 * scale, x * scale, y2 * scale);
+        }
+
+        int y = max(0, mouse.y - range);
+        y += (y % 16) ? (16 - y % 16) : 0;
+        for(; y < min(WINDOW_HEIGHT, mouse.y + range); y = (y + 16) - (y % 16))
+        {
+            float x1 = mouse.x + sqrt(range * range - (y - mouse.y) * (y - mouse.y));
+            float x2 = 2 * mouse.x - x1;
+            SDL_RenderDrawLineF(rnd, x1 * scale, y * scale, x2 * scale, y * scale);
+        }
+    }
 }

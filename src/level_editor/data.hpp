@@ -8,9 +8,11 @@
 
 namespace LE
 {
+    using world::Level;
+
     extern int target_level;
 
-    world::Level* level();
+    Level* level();
 
     struct PlayerData
     {
@@ -36,6 +38,10 @@ namespace LE
     extern bool simulate_game;
 
     void render_levels(); // Rendered at 80% from screen
+    Point get_level_coordinates(Point screen_pos);
+
+    // May use Level to add snap hints.. tho not yet
+    void render_grid(Level const&, float scale = 1);
 
 
     void toggle_game_simulation();
