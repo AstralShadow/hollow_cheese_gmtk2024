@@ -68,6 +68,7 @@ void LE::drag_tiles(Point cursor, Point rel)
 
         auto& tile = *drag_target.tile;
         tile.area = area;
+        tile.original_area = area;
     }
 }
 

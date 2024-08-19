@@ -42,6 +42,9 @@ namespace world
     void normalize_tile(Tile& tile); // ensure no negative width/height
 
     bool is_level_area_empty(Level const&, SDL_Rect const& area);
+
+    void reset_level(Level&);
+    void reset_level_tiles(Level&);
 }
 
 #endif // INCLUDE_WORLD_LEVEL_HPP
