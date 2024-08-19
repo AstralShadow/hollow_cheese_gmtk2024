@@ -13,6 +13,9 @@ namespace LE
 
     bool simulate_game = true;
 
+    bool creating_tile = false;
+    Point drag_start;
+
     //vector<Button> buttons;
 }
 

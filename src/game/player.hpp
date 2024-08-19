@@ -21,7 +21,7 @@ namespace game
         const float speed = 0.35f; // px/ms
         // const float steering_speed_in_air = 0.3f; // px/ms
         const float gravity = 3700.0f / 1000000; // px/ms^2
-        const int step_height = 15;
+        const int step_height = 17;
         const int head_height = 10; // space from top ignored by horizontal wall collision
 
         const float jump_force = 1.1; // px/ms

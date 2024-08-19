@@ -4,7 +4,7 @@
 #include "utils/types.hpp"
 #include "world/data.hpp"
 #include "game/player.hpp"
-//#include "world_editor/data.hpp"
+//#include "world_editor/data.hpp" // Button definition needs extracting from there
 
 namespace LE
 {
@@ -29,13 +29,17 @@ namespace LE
 
     extern bool simulate_game;
 
+    extern bool creating_tile;
+    extern Point drag_start;
+    using world::drag_target;
 
 
     enum mode_t
     {
-        EDIT_MODE,
-        BACKGROUND_MODE,
-        FOREGROUND_MODE
+        EDIT_MODE, // where you can edit the tiles' initial positions
+        // PLAY_MODE, // where you can just play in the level editor
+        BACKGROUND_MODE, // where you can add textures to the background layers
+        FOREGROUND_MODE // where 
     } extern mode;
 
 
@@ -55,6 +59,9 @@ namespace LE
     void drag_players(Point cursor);
     void drop_dragged_players();
 
+    bool start_modifying_tiles(Point cursor);
+    void drag_tiles(Point pos, Point rel = {0, 0});
+    void stop_modifying_tiles(Point cursor);
 
     /* Actions */
 

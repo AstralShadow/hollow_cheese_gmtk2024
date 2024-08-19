@@ -9,6 +9,7 @@ namespace world
 
     // Pick a tile to scale.
     // Only picks scalable sides unless ignoring constraints
+    // PickedTile contains a Tile* so Level can't be const
     PickedTile camera_pick_tile(Level&, Point pos, bool ignore_scalable_constraints = false);
 
 

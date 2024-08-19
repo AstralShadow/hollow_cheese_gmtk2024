@@ -67,7 +67,7 @@ void LE::toggle_player_count(int count)
         return;
     if(count == -1)
         count = (active_players + 1) % (1 + players.size());
-    if(count > players.size())
+    if(count > (int) players.size())
         count = players.size();
 
     active_players = count;
