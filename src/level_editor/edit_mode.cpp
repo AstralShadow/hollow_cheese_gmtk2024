@@ -36,6 +36,7 @@ bool LE::start_modifying_tiles(Point cursor)
             .min_size = {16, 16} // I don't really want to let a block be zeroed out.
         });
         drag_target.tile = &(level()->tiles.back());
+        drag_target.side = static_cast<direction_t>(-1); // Invalid value to not color any side
     }
     else // Resize existing tile
     {

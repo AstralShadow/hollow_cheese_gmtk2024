@@ -13,6 +13,8 @@ using std::array;
 
 namespace world
 {
+    constexpr size_t tile_border_thickness = 3;
+
     struct Tile
     {
         Rect area;

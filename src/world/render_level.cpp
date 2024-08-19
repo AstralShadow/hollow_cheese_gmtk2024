@@ -54,27 +54,34 @@ void world::render_level(Level const& level, float scale)
             else 
                 SDL_SetRenderDrawColor(rnd, 0, 128, 0, 255); // dark green
 
+            size_t thickness = (scale > 0.5 ? 1 : scale) * tile_border_thickness;
+            if(thickness < 1)
+                thickness = 1;
 
             switch(side)
             {
             case TOP:
-                SDL_RenderDrawLineF(rnd, area.x, area.y,
-                                         area.x + area.w, area.y);
+                for(size_t i = 0; i < thickness; i++)
+                    SDL_RenderDrawLineF(rnd, area.x,          area.y + i,
+                                             area.x + area.w, area.y + i);
                 break;
 
             case RIGHT:
-                SDL_RenderDrawLineF(rnd, area.x + area.w, area.y,
-                                         area.x + area.w, area.y + area.h);
+                for(size_t i = 0; i < thickness; i++)
+                    SDL_RenderDrawLineF(rnd, area.x + area.w - i, area.y,
+                                             area.x + area.w - i, area.y + area.h);
                 break;
 
             case BOTTOM:
-                SDL_RenderDrawLineF(rnd, area.x, area.y + area.h,
-                                         area.x + area.w, area.y + area.h);
+                for(size_t i = 0; i < thickness; i++)
+                    SDL_RenderDrawLineF(rnd, area.x,          area.y + area.h - i,
+                                             area.x + area.w, area.y + area.h - i);
                 break;
 
             case LEFT:
-                SDL_RenderDrawLineF(rnd, area.x, area.y,
-                                         area.x, area.y + area.h);
+                for(size_t i = 0; i < thickness; i++)
+                    SDL_RenderDrawLineF(rnd, area.x + i, area.y,
+                                             area.x + i, area.y + area.h);
                 break;
             }
         }
