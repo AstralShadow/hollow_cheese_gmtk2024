@@ -11,7 +11,7 @@ namespace LE
     vector<PlayerData> players_data;
     int active_players = 2;
 
-    bool simulate_game = true;
+    bool simulate_game = !true;
 
     bool creating_tile = false;
     Point drag_start;

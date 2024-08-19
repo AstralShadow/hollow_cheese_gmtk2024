@@ -102,6 +102,8 @@ void LE::drag_tiles(Point cursor, Point)
 
         auto& tile = *drag_target.tile;
         tile.area = area;
+        game::apply_tile_constraints(*(level()));
+        tile.area_past = tile.area;
     }
     else if (drag_target.tile)
     {
@@ -124,7 +126,10 @@ void LE::drag_tiles(Point cursor, Point)
             drag_buffer.y = drag_buffer.y % 16;
         }
 
+        auto& tile = *drag_target.tile;
         scale_tile(drag_target, cropped_delta);
+        game::apply_tile_constraints(*(level()));
+        tile.area_past = tile.area;
     }
 }
 

@@ -23,7 +23,4 @@ void LE::tick(u32 ms, scene_uid)
         tick_players(ms, itr, itr + 1);
         update_collisions(ms, *level(), itr, itr + 1);
     }
-
-    if(!simulate_game)
-        update_collisions(ms, *level(), players.end(), players.end()); // I think i need the tile updates
 }
