@@ -1,5 +1,6 @@
 #include "level_editor/level_editor.hpp"
 #include "level_editor/data.hpp"
+#include "game/data.hpp"
 
 
 namespace LE
@@ -33,22 +34,11 @@ world::Level* LE::level()
 
 void LE::init(int, char**, scene_uid)
 {
-    players.push_back(Player
-    {
-        .area = {0, 200, 32, 64}
-    });
-    players_data.emplace_back();
-    players.push_back(Player
-    {
-        .area = {128, 200, 32, 64},
-        .controls = {
-            SDL_SCANCODE_UP,
-            SDL_SCANCODE_RIGHT,
-            SDL_SCANCODE_DOWN,
-            SDL_SCANCODE_LEFT
-        }
-    });
-    players_data.emplace_back();
+    players = game::players; // Copy players
+    for(size_t i = 0; i < players.size(); ++i)
+        players_data.emplace_back();
+
+    //level_buttons.emplace_back(Point{-4, 4}, "Clone", &clone_level);
 
     //buttons.emplace_back(Point{-4, 4}, "", &clone_level);
 
