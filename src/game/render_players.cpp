@@ -70,6 +70,7 @@ void game::render_players_jump_reach(world::Level const& scene,
                                      vector<Player>::const_iterator begin,
                                      vector<Player>::const_iterator end)
 {
+    // TODO accept scale argument to not need SDL-based one. This will make rects look better.
     while(begin != end)
     {
         Player clone = *(begin++);
