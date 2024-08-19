@@ -33,6 +33,7 @@ namespace LE
     extern Point drag_start;
     extern Point drag_buffer;
     extern bool modifying_tile_scalable_sides; // When editing tile but release before any drag
+    extern bool removing_tiles;
     using world::drag_target;
 
 
@@ -64,6 +65,7 @@ namespace LE
     bool start_modifying_tiles(Point cursor);
     void drag_tiles(Point pos, Point rel = {0, 0});
     void stop_modifying_tiles(Point cursor);
+    void remove_tile(Point cursor);
 
     /* Actions */
 

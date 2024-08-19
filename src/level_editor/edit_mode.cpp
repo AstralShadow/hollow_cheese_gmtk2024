@@ -51,7 +51,7 @@ bool LE::start_modifying_tiles(Point cursor)
     return true;
 }
 
-void LE::stop_modifying_tiles(Point cursor)
+void LE::stop_modifying_tiles(Point)
 {
     if(creating_tile)
     {
@@ -138,5 +138,33 @@ void LE::drag_tiles(Point cursor, Point)
         game::apply_tile_constraints(*(level()));
         tile.area_past = tile.area;
     }
+    else if(removing_tiles)
+    {
+        remove_tile(cursor);
+    }
 }
+
+void LE::remove_tile(Point cursor)
+{
+    using world::Tile;
+
+    Point pos = get_level_coordinates(cursor);
+
+    bool ignore_scalable_constraints = true;
+    auto pick = world::camera_pick_tile(*level(), pos, ignore_scalable_constraints);
+    if(!pick.tile)
+        return;
+
+    vector<Tile>& tiles = level()->tiles;
+    Tile* first = &(tiles[0]);
+    int index = pick.tile - first;
+    if(index < 0 || index > (int) tiles.size())
+    {
+        cout << "Failed delete action: This tile's not part of that vector!" << endl;
+        return;
+    }
+
+    tiles.erase(tiles.begin() + index);
+}
+
 

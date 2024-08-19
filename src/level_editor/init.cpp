@@ -17,6 +17,7 @@ namespace LE
     Point drag_start;
     Point drag_buffer;
     bool modifying_tile_scalable_sides;
+    bool removing_tiles = false;
 
 
     //vector<Button> buttons;
