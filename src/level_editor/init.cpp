@@ -10,9 +10,20 @@ namespace LE
 
     vector<Player> players;
     vector<PlayerData> players_data;
-    int active_players = 2;
+    int active_players = 0;
+#ifdef __EMSCRIPTEN__
+    int jump_prediction = 0;
+#else
+    int jump_prediction = 2;
+#endif
 
-    bool simulate_game = !true;
+#ifdef __EMSCRIPTEN__
+    bool simulate_game = false;
+#else
+    bool simulate_game = true;
+#endif
+    bool time_pause = false;
+    bool slow_motion = false;
 
     bool creating_tile = false;
     Point drag_start;
@@ -44,8 +55,21 @@ void LE::init(int, char**, scene_uid)
         static_cast<int>(WINDOW_HEIGHT * 0.8)
     };
 
+
+    // TODO add keyboard shortcuts too
+    // TODO move text constants in header to not desync with render_buttons
+
     buttons.emplace_back(Point{32 + 4, 8},
                          "Simulation (toggle)", &toggle_game_simulation);
+    buttons.emplace_back(Point{(32 + 4) * 2, 8},
+                         "Player count (toggle)", (void(*)()) &toggle_player_count);
+    buttons.emplace_back(Point{(32 + 4) * 3, 8},
+                         "Jump prediction (toggle)", (void(*)()) &toggle_jump_prediction);
+
+    buttons.emplace_back(Point{(32 + 4) * 5, 8},
+                         "Time pause (toggle)", &toggle_time_pause);
+    buttons.emplace_back(Point{(32 + 4) * 6, 8},
+                         "Slow motion (toggle)", &toggle_slow_motion);
 
     mode_buttons.emplace_back(Point{scene_area.x + scene_area.w - 4 - button_size.x, 8},
                               "Edit mode", &set_edit_mode);

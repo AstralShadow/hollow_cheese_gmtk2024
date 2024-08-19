@@ -119,6 +119,9 @@ Point LE::get_level_coordinates(Point screen_pos)
 
 void LE::render_player_overlays(float scale)
 {
+    if(!jump_prediction)
+        return;
+
     // Only render path prediction near mouse
     SDL_Point _mouse;
     SDL_GetMouseState(&_mouse.x, &_mouse.y);
@@ -134,7 +137,7 @@ void LE::render_player_overlays(float scale)
 
         float dx = player.area.x + player.area.w / 2 - mouse.x;
         float dy = player.area.y + player.area.h / 2 - mouse.y;
-        if(dx*dx + dy*dy > range2)
+        if(dx*dx + dy*dy > range2 && jump_prediction != 1)
             continue;
 
         game::render_players_jump_reach(*level(), itr, itr + 1);
@@ -177,8 +180,30 @@ void LE::render_grid(Level const&, float scale)
 
 void LE::render_buttons()
 {
-    for(auto const& btn : buttons)
+    for(auto& btn : buttons)
+    {
+        if(simulate_game && btn.label == "Simulation (toggle)")
+            btn.focused = true;
+
+        if(time_pause && btn.label == "Time pause (toggle)")
+            btn.focused = true;
+        if(slow_motion && btn.label == "Slow motion (toggle)")
+            btn.focused = true;
+        if(jump_prediction && btn.label == "Jump prediction (toggle)")
+            btn.focused = true;
+
+        if(!simulate_game)
+        {
+            if(btn.label == "Time pause (toggle)")
+                btn.focused = false;
+            if(btn.label == "Slow motion (toggle)")
+                btn.focused = false;
+            if(btn.label == "Jump prediction (toggle)")
+                btn.focused = false;
+        }
+
         render_button(btn, btn.pos);
+    }
 
 
     string mode = "none";
@@ -188,10 +213,12 @@ void LE::render_buttons()
             mode = "Edit mode";
             break;
     }
+
     for(auto& btn : mode_buttons)
     {
         if(mode == btn.label)
             btn.focused = true;
+
         render_button(btn, btn.pos);
     }
 }

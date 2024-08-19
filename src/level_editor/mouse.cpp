@@ -9,6 +9,9 @@ using std::endl;
 
 void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
+    if(button_on_pos({ev.x, ev.y}))
+        return;
+
     if(ev.button == SDL_BUTTON_LEFT)
     {
         if(start_dragging_player_under_cursor({ev.x, ev.y}))
@@ -33,6 +36,9 @@ void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 
 void LE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
 {
+    if(click_button({ev.x, ev.y}))
+        return;
+
     if(ev.button == SDL_BUTTON_LEFT)
     {
         drop_dragged_players(); // TODO rename to sth that contains request
@@ -63,6 +69,17 @@ void LE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
     {
         drag_tiles({ev.x, ev.y}, {ev.xrel, ev.yrel});
     }
+
+
+    /* Buttons */
+    for(auto& btn : buttons)
+        btn.focused = false;
+    for(auto& btn : mode_buttons)
+        btn.focused = false;
+
+    auto btn = button_on_pos({ev.x, ev.y});
+    if(btn)
+        btn->focused = true;
 }
 
 

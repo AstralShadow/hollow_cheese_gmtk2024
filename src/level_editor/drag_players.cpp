@@ -1,5 +1,6 @@
 #include "level_editor/data.hpp"
 #include "game/render.hpp"
+#include <SDL2/SDL_mouse.h>
 
 
 bool LE::start_dragging_player_under_cursor(Point cursor)
@@ -87,5 +88,9 @@ void LE::toggle_player_count(int count)
         static_cast<int>(-player.area.w / 2),
         static_cast<int>(-player.area.h / 2)
     };
+
+    SDL_Point _mouse;
+    SDL_GetMouseState(&_mouse.x, &_mouse.y);
+    drag_players(_mouse);
 }
 

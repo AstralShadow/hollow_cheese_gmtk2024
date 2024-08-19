@@ -1,4 +1,3 @@
-#include "world_editor/world_editor.hpp"
 #include "world_editor/data.hpp"
 #include <iostream>
 

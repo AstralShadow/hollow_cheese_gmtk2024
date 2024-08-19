@@ -8,23 +8,21 @@ void LE::toggle_game_simulation()
 
 void LE::toggle_slow_motion()
 {
-    // TODO toggle slow motion
+    slow_motion = !slow_motion;
 }
 
 void LE::toggle_time_pause()
 {
-    // TODO toggle time pause
+    time_pause = !time_pause;
 }
 
-
-static void reset_mode_button_focus()
+void LE::toggle_jump_prediction()
 {
-    for(auto& btn : LE::mode_buttons)
-        btn.focused = false;
+    jump_prediction = (jump_prediction + 1) % 3;
 }
+
 
 void LE::set_edit_mode()
 {
     mode = EDIT_MODE;
-    reset_mode_button_focus();
 }
