@@ -144,12 +144,6 @@ void LE::render_player_overlays(float scale)
 
 void LE::render_grid(Level const&, float scale)
 {
-    SDL_Point ssize {
-        static_cast<int>(WINDOW_WIDTH * scale),
-        static_cast<int>(WINDOW_HEIGHT * scale)
-    };
-
-
     /* Default grid (16x16), only near mouse */
     {
         SDL_Point _mouse;
@@ -177,4 +171,6 @@ void LE::render_grid(Level const&, float scale)
             SDL_RenderDrawLineF(rnd, x1 * scale, y * scale, x2 * scale, y * scale);
         }
     }
+
+    // TODO render hint guide lines, if any
 }

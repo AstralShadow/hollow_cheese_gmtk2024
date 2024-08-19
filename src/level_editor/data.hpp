@@ -31,6 +31,7 @@ namespace LE
 
     extern bool creating_tile;
     extern Point drag_start;
+    extern Point drag_buffer;
     using world::drag_target;
 
 

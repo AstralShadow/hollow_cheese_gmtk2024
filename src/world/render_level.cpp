@@ -45,18 +45,14 @@ void world::render_level(Level const& level, float scale)
             SDL_RenderFillRectF(rnd, &m_area);
         }
 
-        SDL_SetRenderDrawColor(rnd, 0, 128, 0, 255); // dark green
-        SDL_RenderDrawRectF(rnd, &area);
-
         for(size_t side = 0; side < tile.scalable.size(); side++)
         {
-            if(!tile.scalable[side])
-                continue;
-
             if(&tile == drag_target.tile && side == drag_target.side)
                 SDL_SetRenderDrawColor(rnd, 255, 255, 0, 255); // yellow
-            else
+            else if(tile.scalable[side])
                 SDL_SetRenderDrawColor(rnd, 0, 255, 255, 255); // cyan/lime
+            else 
+                SDL_SetRenderDrawColor(rnd, 0, 128, 0, 255); // dark green
 
 
             switch(side)

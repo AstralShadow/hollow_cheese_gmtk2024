@@ -15,6 +15,7 @@ namespace LE
 
     bool creating_tile = false;
     Point drag_start;
+    Point drag_buffer;
 
     //vector<Button> buttons;
 }
