@@ -52,7 +52,9 @@ namespace game
     void tick_players(u32 ms, vector<Player>& players);
     void tick_players(u32 ms, vector<Player>::iterator begin, vector<Player>::iterator end);
 
-    void move_player(u32 ms, Player&);
+    void tick_player(u32 ms, Player&, bool artifical_motion = false);
+
+    void move_player(u32 ms, Player&, bool artifical_motion = false);
     void apply_player_gravity(u32 ms, Player&, bool early_jump_end);
 
 }

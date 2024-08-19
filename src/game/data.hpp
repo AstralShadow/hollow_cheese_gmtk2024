@@ -25,6 +25,7 @@ namespace game
     void apply_tile_constraints(Level&);
     void apply_player_player_collisions(Player&);
     void apply_player_tile_collisions(u32 ms, Level&, Player&);
+    void apply_player_tile_collisions_lvlnoop(u32 ms, Level const&, Player&);
 }
 
 #endif // INCLUDE_GAME_DATA_HPP

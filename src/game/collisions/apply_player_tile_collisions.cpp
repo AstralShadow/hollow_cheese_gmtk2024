@@ -274,3 +274,107 @@ void game::apply_player_tile_collisions(u32 /*ms*/, Level& level, Player& player
     }
 }
 
+
+// Note: This one is used in jump reach prediction rendering. It's a copy of the above
+void game::apply_player_tile_collisions_lvlnoop(u32 /*ms*/, Level const& level, Player& player)
+{
+    // TODO Keep in sync with the above
+
+    /* Horizontal tile collision */
+
+    struct TPC_data // Tile-Player Collision data
+    {
+        int dist;
+        Tile const* tile = nullptr;
+    };
+    vector<TPC_data> left, right; // TODO don't use vectors. Use single values instead
+
+    for(auto& tile : level.tiles)
+    {
+        // rule out tiles that don't match the Y axis
+        if(tile.area.y > player.area.y + player.area.h - player.step_height)
+            continue;
+        if(tile.area.y + tile.area.h < player.area.y + player.head_height)
+            continue;
+
+        if(tile.area.x + tile.area.w / 2 < player.area.x + player.area.w / 2)
+        {
+            int dist = player.area.x - (tile.area.x + tile.area.w);
+            auto itr = left.begin();
+            while(itr != left.end() && itr->dist < dist)
+                itr++;
+            left.insert(itr, {dist, &tile});
+        }
+        else
+        {
+            int dist = tile.area.x - (player.area.x + player.area.w);
+            auto itr = right.begin();
+            while(itr != right.end() && itr->dist < dist)
+                itr++;
+            right.insert(itr, {dist, &tile});
+        }
+    }
+
+    if(left.size() && right.size() && left[0].dist + right[0].dist < 0) // being squashed
+    {
+        // Can't be helped
+    }
+    else if(left.size() && left[0].dist < 0)
+        player.area.x += -left[0].dist;
+    else if(right.size() && right[0].dist < 0)
+        player.area.x -= -right[0].dist;
+
+
+    /* Vertical collisions */
+
+    vector<TPC_data> floor, roof; // TODO don't use vectors, use single variables instead
+
+    for(auto& tile : level.tiles)
+    {
+        // rule out tiles that don't match the X axis
+        if(tile.area.x > player.area.x + player.area.w)
+            continue;
+        if(tile.area.x + tile.area.w < player.area.x)
+            continue;
+
+        if(tile.area.y > player.area.y + player.area.h - player.step_height)
+        {
+            int dist = tile.area.y - (player.area.y + player.area.h);
+            auto itr = floor.begin();
+            while(itr != floor.end() && itr->dist < dist)
+                itr++;
+            floor.insert(itr, {dist, &tile});
+        }
+        else if(tile.area.y + tile.area.h < player.area.y + player.head_height)
+        {
+            int dist = player.area.y - (tile.area.y + tile.area.h);
+            auto itr = roof.begin();
+            while(itr != roof.end() && itr->dist < dist)
+                itr++;
+            roof.insert(itr, {dist, &tile});
+        }
+    }
+
+    if(!floor.size() || floor[0].dist > 0)
+        player.has_foothold = false;
+
+
+    if(floor.size() && roof.size() && floor[0].dist + roof[0].dist < 0) // being squashed
+    {
+        // Can't be helped. Ground him
+        player.has_foothold = true;
+    }
+    else if(roof.size() && roof[0].dist < 0)
+    {
+        if(player.velocity.y < 0.0f)
+            player.velocity.y = 0.0f;
+        player.area.y += -roof[0].dist;
+    }
+    else if(floor.size() && floor[0].dist <= 0)
+    {
+        player.area.y -= -floor[0].dist;
+
+        if(player.velocity.y >= 0) // Don't mess with jumps
+            player.has_foothold = true;
+    }
+}

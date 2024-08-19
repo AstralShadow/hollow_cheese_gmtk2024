@@ -32,6 +32,22 @@ constexpr bool operator != (Rect const& a,
     return !(a == b);
 }
 
+constexpr bool operator == (FRect const& a,
+                            FRect const& b)
+{
+    return abs(a.x - b.x) < 0.0001 &&
+           abs(a.y - b.y) < 0.0001 &&
+           abs(a.w - b.w) < 0.0001 &&
+           abs(a.h - b.h) < 0.0001;
+}
+
+constexpr bool operator != (FRect const& a,
+                            FRect const& b)
+{
+    return !(a == b);
+}
+
+
 
 constexpr Point operator + (Point a, Point const& b)
 {

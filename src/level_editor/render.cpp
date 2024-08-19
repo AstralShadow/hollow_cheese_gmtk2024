@@ -54,6 +54,7 @@ void LE::render_levels()
     {
         SDL_RenderSetScale(rnd, 0.8, 0.8);
         game::render_players(players.begin(), players.end() + active_players);
+        render_player_overlays();
         SDL_RenderSetScale(rnd, 1, 1);
     }
 
@@ -95,4 +96,9 @@ void LE::render_levels()
     }
 
     SDL_RenderSetViewport(rnd, nullptr);
+}
+
+void LE::render_player_overlays()
+{
+    game::render_players_jump_reach(*level(), players.begin(), players.end() + active_players);
 }

@@ -20,7 +20,7 @@ void core::register_scenes()
 
 
     core::set_scene("level_editor");
-    core::set_scene("world_editor");
+    //core::set_scene("world_editor");
 
 #ifdef __EMSCRIPTEN__
     core::set_scene("startup");

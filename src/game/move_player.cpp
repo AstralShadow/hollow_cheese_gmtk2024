@@ -7,37 +7,40 @@ using std::cout;
 using std::endl;
 
 
-void game::move_player(u32 ms, Player& player)
+void game::move_player(u32 ms, Player& player, bool artifical_motion)
 {
     auto const* state = SDL_GetKeyboardState(nullptr);
 
     FPoint motion {0.0f, 0.0f};
     float speed = player.speed;
 
-    for(u8 i = 0; i < 4; i++)
+    if(!artifical_motion)
     {
-        if(!state[player.controls[i]])
-            continue;
-
-        switch(i)
+        for(u8 i = 0; i < 4; i++)
         {
-            case TOP:
-                motion.y -= 1.0f;
-                break;
-            case RIGHT:
-                motion.x += 1.0f;
-                break;
-            case BOTTOM:
-                // Will be used for other stuff, like actions
-                break;
-            case LEFT:
-                motion.x -= 1.0f;
-                break;
+            if(!state[player.controls[i]])
+                continue;
+
+            switch(i)
+            {
+                case TOP:
+                    motion.y -= 1.0f;
+                    break;
+                case RIGHT:
+                    motion.x += 1.0f;
+                    break;
+                case BOTTOM:
+                    // Will be used for other stuff, like actions
+                    break;
+                case LEFT:
+                    motion.x -= 1.0f;
+                    break;
+            }
         }
+        player.velocity.x = motion.x;
     }
 
-    player.area.x += motion.x * speed * ms;
-    player.velocity.x = motion.x; // Store for collisions to later access
+    player.area.x += player.velocity.x * speed * ms;
 
     // Jumping
     if(motion.y < 0)
@@ -50,7 +53,7 @@ void game::move_player(u32 ms, Player& player)
         }
     }
 
-    apply_player_gravity(ms, player, motion.y == 0.0f);
+    apply_player_gravity(ms, player, motion.y == 0.0f && !artifical_motion);
 }
 
 void game::apply_player_gravity(u32 ms, Player& player, bool early_jump_end)

@@ -12,9 +12,19 @@ namespace LE
 
     world::Level* level();
 
+    struct PlayerData
+    {
+        bool display_jump_reach = false;
+        bool dragging = false;
+    };
+
     using game::Player;
     extern vector<Player> players; // Mock player objects
+    extern vector<PlayerData> player_data;
     extern int active_players;
+
+    void render_player_overlays(); // jump reach
+
 
     enum mode_t
     {

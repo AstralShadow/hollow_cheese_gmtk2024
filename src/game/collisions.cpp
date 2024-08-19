@@ -34,4 +34,4 @@ void game::update_collisions(u32 ms, Level& level, vector<Player>::iterator begi
         player.area_past = player.area;
 }
 
-
+// Note: Update jump reach simulation accordingly
