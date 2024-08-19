@@ -59,6 +59,7 @@ namespace LE
     /* Actions */
 
     void toggle_game_simulation();
+    void toggle_player_count(int count = -1);
 }
 
 #endif // INCLUDE_LE_DATA_HPP

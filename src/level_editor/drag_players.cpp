@@ -10,6 +10,7 @@ bool LE::start_dragging_player_under_cursor(Point cursor)
     if(i == -1 || i >= active_players)
         return false;
 
+    // Reset some vars
     players[i].velocity.y = 0;
     players[i].has_foothold = false;
 
@@ -58,3 +59,33 @@ void LE::drop_dragged_players()
         if(players_data[i].dragging)
             players_data[i].plan_to_drop = true;
 }
+
+
+void LE::toggle_player_count(int count)
+{
+    if(count < -1)
+        return;
+    if(count == -1)
+        count = (active_players + 1) % (1 + players.size());
+    if(count > players.size())
+        count = players.size();
+
+    active_players = count;
+    if(count == 0)
+        return;
+
+
+    auto& player = players[active_players - 1];
+    auto& data = players_data[active_players - 1];
+
+    // Reset some vars
+    player.velocity.y = 0;
+    player.has_foothold = false;
+
+    data.dragging = true;
+    data.drag_offset = {
+        static_cast<int>(-player.area.w / 2),
+        static_cast<int>(-player.area.h / 2)
+    };
+}
+
