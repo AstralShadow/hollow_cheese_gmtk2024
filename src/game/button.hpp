@@ -22,23 +22,22 @@ namespace game
         Point label_size {0, 0};
     };
 
+
+    constexpr Point button_size {32, 32};
+
+
     void generate_button_label(Button&);
 
     void render_button(Button const& btn, Rect const& area);
+    void render_button(Button const& btn, Point const& pos);
     void render_button_label(Button const& btn, Point const& label_pos);
     void render_button_label(Button const& btn, Rect const& label_area);
 
-    inline void render_button_with_label(Button const& btn, Rect const& area,
-                                                            Rect const& label_area)
+    template<typename T, typename R>
+    inline void render_button_with_label(Button const& btn, T const& btn_pos,
+                                                            R const& label_pos)
     {
-        render_button(btn, area);
-        render_button_label(btn, label_area);
-    }
-
-    inline void render_button_with_label(Button const& btn, Rect const& area,
-                                                            Point const& label_pos)
-    {
-        render_button(btn, area);
+        render_button(btn, btn_pos);
         render_button_label(btn, label_pos);
     }
 }

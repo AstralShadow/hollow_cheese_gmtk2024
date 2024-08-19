@@ -46,6 +46,23 @@ void game::render_button(Button const& btn, Rect const& area)
     SDL_RenderDrawRect(rnd, &area);
 }
 
+void game::render_button(Button const& btn, Point const& pos)
+{
+    SDL_Rect area {
+        pos.x,
+        pos.y,
+        button_size.x,
+        button_size.y
+    };
+    render_button(btn, area);
+}
+
+
+void game::render_button_label(Button const& btn, Rect const& label_area)
+{
+    SDL_RenderCopy(rnd, btn.label_texture, nullptr, &label_area);
+}
+
 void game::render_button_label(Button const& btn, Point const& label_pos)
 {
     SDL_Rect area {
@@ -55,10 +72,5 @@ void game::render_button_label(Button const& btn, Point const& label_pos)
         btn.label_size.y
     };
 
-    SDL_RenderCopy(rnd, btn.label_texture, nullptr, &area);
-}
-
-void game::render_button_label(Button const& btn, Rect const& label_area)
-{
-    SDL_RenderCopy(rnd, btn.label_texture, nullptr, &label_area);
+    render_button_label(btn, area);
 }

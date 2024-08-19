@@ -56,6 +56,8 @@ namespace LE
     // May use Level to add snap hints.. tho not yet
     void render_grid(Level const&, float scale = 1);
 
+    void render_buttons();
+
 
     /* Features */
     bool start_dragging_player_under_cursor(Point cursor);
@@ -71,7 +73,11 @@ namespace LE
     /* User interface */
 
     using game::Button;
-    extern vector<Button> buttons;
+    using game::button_size;
+    using game::generate_button_label;
+    using game::render_button;
+    using game::render_button_label;
+    extern vector<Button> buttons, mode_buttons;
 
 
     /* Actions */
@@ -80,6 +86,8 @@ namespace LE
     void toggle_game_simulation();
     void toggle_slow_motion();
     void toggle_time_pause();
+
+    void set_edit_mode();
 }
 
 #endif // INCLUDE_LE_DATA_HPP

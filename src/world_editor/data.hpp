@@ -23,9 +23,8 @@ namespace WE
     extern MouseFocus mouse_focus;
 
 
-    constexpr Point button_size = {32, 32};
-
     using game::Button;
+    using game::button_size;
     using game::generate_button_label;
     using game::render_button;
     using game::render_button_label;

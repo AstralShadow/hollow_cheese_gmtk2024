@@ -34,7 +34,7 @@ void LE::render(scene_uid)
         break;
     }
 
-    // TODO render UI
+    render_buttons();
 
     SDL_RenderPresent(rnd);
 }
@@ -173,4 +173,25 @@ void LE::render_grid(Level const&, float scale)
     }
 
     // TODO render hint guide lines, if any
+}
+
+void LE::render_buttons()
+{
+    for(auto const& btn : buttons)
+        render_button(btn, btn.pos);
+
+
+    string mode = "none";
+    switch(LE::mode)
+    {
+        case EDIT_MODE:
+            mode = "Edit mode";
+            break;
+    }
+    for(auto& btn : mode_buttons)
+    {
+        if(mode == btn.label)
+            btn.focused = true;
+        render_button(btn, btn.pos);
+    }
 }
