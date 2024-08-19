@@ -5,6 +5,9 @@ using std::cout;
 using std::endl;
 
 
+static bool debug_log = !true;
+
+
 // Typically, this implementation here can be buggy.
 // Practically, since only one tile may be scaled between ticks, it should work fine.
 void game::apply_tile_constraints(Level& level)
@@ -29,13 +32,21 @@ void game::apply_tile_constraints(Level& level)
         for(auto const& other : level.tiles) // on X axis
         {
             // rule out tiles that don't match the Y axis
-            if(other.area.y > tile.area.y + tile.area.h)
+            if(other.area.y >= tile.area.y + tile.area.h)
                 continue;
-            if(other.area.y + other.area.h < tile.area.y)
+            if(other.area.y + other.area.h <= tile.area.y)
                 continue;
 
             if(&other == &tile)
                 continue;
+
+            if(debug_log)
+            {
+                cout << "x: " << tile.area.x << " ; " << other.area.x << endl;
+                cout << "y: " << tile.area.y << " ; " << other.area.y << endl;
+                cout << "w: " << tile.area.w << " ; " << other.area.w << endl;
+                cout << "h: " << tile.area.h << " ; " << other.area.h << endl;
+            }
 
             if(ext_left)
             {
@@ -62,9 +73,9 @@ void game::apply_tile_constraints(Level& level)
         for(auto const& other : level.tiles) // on Y axis
         {
             // rule out tiles that don't match the X axis
-            if(other.area.x > tile.area.x + tile.area.w)
+            if(other.area.x >= tile.area.x + tile.area.w)
                 continue;
-            if(other.area.x + other.area.w < tile.area.x)
+            if(other.area.x + other.area.w <= tile.area.x)
                 continue;
 
             if(&other == &tile)
@@ -92,7 +103,7 @@ void game::apply_tile_constraints(Level& level)
         }
 
         /* Sanity checks */ {
-            bool error = false;
+            bool error = debug_log;
             if(en_init_flag[TOP] && en_lim[TOP] > tile.area_past.y)
             {
                 cout << "Limit error: TOP" << endl;

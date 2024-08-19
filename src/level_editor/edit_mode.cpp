@@ -91,8 +91,8 @@ void LE::drag_tiles(Point cursor, Point)
         area.x = (area.x / 16) * 16;
         area.y = (area.y / 16) * 16;
 
-        area.w = (area.w / 16) * 16 + (area.w % 16 ==  0 ? 0 : 1);
-        area.h = (area.h / 16) * 16 + (area.w % 16 ==  0 ? 0 : 1);
+        area.w = (area.w / 16) * 16 + (area.w % 16 ==  0 ? 0 : 16);
+        area.h = (area.h / 16) * 16 + (area.w % 16 ==  0 ? 0 : 16);
         area.w -= area.x;
         area.h -= area.y;
         if(area.w < 16)
