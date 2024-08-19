@@ -17,6 +17,7 @@ namespace world
     {
         Rect area;
         Rect area_past = area; // past frame; used in collision detection
+        Rect original_area = area; // modified in level editor. Used when saving
 
         Point min_size {0, 0}; // 0x0 = none
         Rect mandatory_area {0, 0, 0, 0}; // size 0x0 = not used
