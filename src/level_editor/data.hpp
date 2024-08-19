@@ -11,8 +11,8 @@ namespace LE
     using world::Level;
 
     extern int target_level;
-
     Level* level();
+
 
     struct PlayerData
     {
@@ -25,7 +25,8 @@ namespace LE
     extern vector<PlayerData> player_data;
     extern int active_players;
 
-    void render_player_overlays(); // jump reach
+    extern bool simulate_game;
+
 
 
     enum mode_t
@@ -35,14 +36,19 @@ namespace LE
         FOREGROUND_MODE
     } extern mode;
 
-    extern bool simulate_game;
+
+    /* Rendering */
 
     void render_levels(); // Rendered at 80% from screen
     Point get_level_coordinates(Point screen_pos);
 
+    void render_player_overlays(); // jump reach
+
     // May use Level to add snap hints.. tho not yet
     void render_grid(Level const&, float scale = 1);
 
+
+    /* Actions */
 
     void toggle_game_simulation();
 }
