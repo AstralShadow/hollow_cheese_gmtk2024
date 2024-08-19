@@ -2,13 +2,10 @@
 #define INCLUDE_WE_DATA_HPP
 
 #include "world/data.hpp"
+#include "game/button.hpp"
 #include <vector>
-#include <string>
 
 using std::vector;
-using std::string;
-
-struct SDL_Texture;
 
 
 namespace WE
@@ -27,18 +24,11 @@ namespace WE
 
 
     constexpr Point button_size = {32, 32};
-    struct Button
-    {
-        Point pos;
-        string label;
-        void(*action)() = nullptr;
 
-        bool focused = false; // Rendering data
-
-        SDL_Texture* label_texture = nullptr; // Cache
-        Point label_size {0, 0};
-    };
-
+    using game::Button;
+    using game::generate_button_label;
+    using game::render_button;
+    using game::render_button_label;
     extern vector<Button> level_buttons;
     extern vector<Button> global_buttons;
 
@@ -50,8 +40,6 @@ namespace WE
 
     void render_level_button(Button const&);
     void render_global_button(Button const&);
-
-    void generate_button_label(Button&);
 
 
     void new_level();

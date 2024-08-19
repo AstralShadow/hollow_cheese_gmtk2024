@@ -19,8 +19,7 @@ namespace LE
     bool modifying_tile_scalable_sides;
     bool removing_tiles = false;
 
-
-    //vector<Button> buttons;
+    vector<Button> buttons;
 }
 
 world::Level* LE::level()

@@ -4,7 +4,7 @@
 #include "utils/types.hpp"
 #include "world/data.hpp"
 #include "game/player.hpp"
-//#include "world_editor/data.hpp" // Button definition needs extracting from there
+#include "game/button.hpp"
 
 namespace LE
 {
@@ -67,10 +67,19 @@ namespace LE
     void stop_modifying_tiles(Point cursor);
     void remove_tile(Point cursor);
 
+
+    /* User interface */
+
+    using game::Button;
+    extern vector<Button> buttons;
+
+
     /* Actions */
 
-    void toggle_game_simulation();
     void toggle_player_count(int count = -1);
+    void toggle_game_simulation();
+    void toggle_slow_motion();
+    void toggle_time_pause();
 }
 
 #endif // INCLUDE_LE_DATA_HPP

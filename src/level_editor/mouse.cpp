@@ -35,7 +35,7 @@ void LE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
 {
     if(ev.button == SDL_BUTTON_LEFT)
     {
-        drop_dragged_players();
+        drop_dragged_players(); // TODO rename to sth that contains request
         drag_players({ev.x, ev.y}); // Needs to perform the actual drop, the above is a request
 
         if(mode == EDIT_MODE)
