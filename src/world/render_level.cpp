@@ -28,7 +28,7 @@ void world::render_level(Level const& level, float scale)
             area *= scale;
         }
 
-        SDL_SetRenderDrawColor(rnd, 64, 64, 64, 255); // dark gray
+        SDL_SetRenderDrawColor(rnd, 0x00, 0x15, 0x2b, 255);
         SDL_RenderFillRectF(rnd, &area);
 
         bool is_anchored = tile.mandatory_area.x > 0 || tile.mandatory_area.y > 0;
@@ -48,11 +48,11 @@ void world::render_level(Level const& level, float scale)
         for(size_t side = 0; side < tile.scalable.size(); side++)
         {
             if(&tile == drag_target.tile && side == drag_target.side)
-                SDL_SetRenderDrawColor(rnd, 255, 255, 0, 255); // yellow
+                SDL_SetRenderDrawColor(rnd, 0xff, 0xff, 0xff, 255);
             else if(tile.scalable[side])
-                SDL_SetRenderDrawColor(rnd, 0, 255, 255, 255); // cyan/lime
+                SDL_SetRenderDrawColor(rnd, 0x58, 0xd2, 0xff, 255);
             else 
-                SDL_SetRenderDrawColor(rnd, 0, 128, 0, 255); // dark green
+                SDL_SetRenderDrawColor(rnd, 0x00, 0x5d, 0x93, 255);
 
             size_t thickness = (scale > 0.5 ? 1 : scale) * tile_border_thickness;
             if(thickness < 1)
