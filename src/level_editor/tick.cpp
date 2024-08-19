@@ -10,8 +10,11 @@ using std::endl;
 
 void LE::tick(u32 ms, scene_uid)
 {
-    if(!level()) // fall back to WE
+    if(!level())
+    {
         core::set_scene("world_editor");
+        return;
+    }
 
     if(simulate_game && !time_pause)
     for(int i = 0; i < active_players; i++)

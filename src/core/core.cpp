@@ -50,6 +50,10 @@ void core::run()
         if(slow_motion)
             SDL_Delay(5);
 
+        // TODO ensure at least one tick runs _before_ the rendering
+        // Some scenes may wish to switch straight away
+        // Of course, that doesn't apply after I add the transition init function
+
         scene_render();
     }
 #endif

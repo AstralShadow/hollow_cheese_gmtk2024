@@ -17,6 +17,13 @@ static auto& rnd = core::renderer;
 
 void LE::render(scene_uid)
 {
+    if(!level())
+    {
+        core::set_scene("world_editor");
+        return;
+    }
+
+
     SDL_SetRenderDrawColor(rnd, 0, 0, 0, 255);
     SDL_RenderClear(rnd);
 
