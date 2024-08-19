@@ -60,19 +60,29 @@ void LE::init(int, char**, scene_uid)
     // TODO move text constants in header to not desync with render_buttons
 
     buttons.emplace_back(Point{32 + 4, 8},
-                         "Simulation (toggle)", &toggle_game_simulation);
+                         "Simulation (toggle)", &toggle_game_simulation, "simulation");
     buttons.emplace_back(Point{(32 + 4) * 2, 8},
-                         "Player count (toggle)", (void(*)()) &toggle_player_count);
+                         "Player count (toggle)", (void(*)()) &toggle_player_count, "player_count");
     buttons.emplace_back(Point{(32 + 4) * 3, 8},
-                         "Jump prediction (toggle)", (void(*)()) &toggle_jump_prediction);
+                         "Jump prediction (toggle)", &toggle_jump_prediction, "jump_prediction");
 
     buttons.emplace_back(Point{(32 + 4) * 5, 8},
-                         "Time pause (toggle)", &toggle_time_pause);
+                         "Time pause (toggle)", &toggle_time_pause, "time_pause");
     buttons.emplace_back(Point{(32 + 4) * 6, 8},
-                         "Slow motion (toggle)", &toggle_slow_motion);
+                         "Slow motion (toggle)", &toggle_slow_motion, "slow_motion");
 
-    mode_buttons.emplace_back(Point{scene_area.x + scene_area.w - 4 - button_size.x, 8},
-                              "Edit mode", &set_edit_mode);
+
+    mode_buttons.emplace_back(Point{scene_area.x + scene_area.w - (4 + button_size.x), 8},
+                              "Back to world editor", &open_world_editor, "exit");
+
+    mode_buttons.emplace_back(Point{scene_area.x + scene_area.w - (4 + button_size.x) * 5, 8},
+                              "Edit mode", &set_edit_mode, "edit_mode");
+
+    mode_buttons.emplace_back(Point{scene_area.x + scene_area.w - (4 + button_size.x) * 6, 8},
+                              "Object mode", &set_object_mode, "object_mode");
+
+    mode_buttons.emplace_back(Point{scene_area.x + scene_area.w - (4 + button_size.x) * 7, 8},
+                              "Texture mode", &set_texture_mode, "texture_mode");
 
     for(auto& btn : buttons)
         generate_button_label(btn);

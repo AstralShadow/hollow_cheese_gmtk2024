@@ -1,4 +1,5 @@
 #include "level_editor/data.hpp"
+#include "core/scene.hpp"
 
 
 void LE::toggle_game_simulation()
@@ -25,4 +26,21 @@ void LE::toggle_jump_prediction()
 void LE::set_edit_mode()
 {
     mode = EDIT_MODE;
+}
+
+void LE::set_object_mode()
+{
+    //mode = OBJECT_MODE;
+}
+
+void LE::set_texture_mode()
+{
+    //mode = TEXTURE_MODE;
+}
+
+
+void LE::open_world_editor()
+{
+    active_players = 0;
+    core::set_scene("world_editor");
 }

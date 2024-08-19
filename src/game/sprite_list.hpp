@@ -21,17 +21,23 @@ namespace game
     SpriteData sprite_data[] { SpriteData
         // World Editor
         { BASE "buttons/plus.png",              "create"},
-        { BASE "buttons/edit.png",              "edit"},
+        { BASE "buttons/edit-2.png",              "edit"},
         { BASE "buttons/copy.png",              "copy"},
         { BASE "buttons/delete.png",            "delete"},
 
-        { BASE "buttons/exit.png",              "exit"},
-        { BASE "buttons/jump-prediction.png",   "jump_prediction"},
-        { BASE "buttons/pause.png",             "pause"},
-        { BASE "buttons/players.png",           "players"},
+
+        // Level Editor
         { BASE "buttons/play.png",              "simulation"},
+        { BASE "buttons/players.png",           "player_count"},
+        { BASE "buttons/jump-prediction.png",   "jump_prediction"},
+        { BASE "buttons/pause.png",             "time_pause"},
         { BASE "buttons/slow-motion.png",       "slow_motion"},
+
+        { BASE "buttons/edit-mode.png",         "edit_mode"},
         { BASE "buttons/texture-mode.png",      "texture_mode"},
+        { BASE "buttons/object-mode.png",       "object_mode"},
+
+        { BASE "buttons/exit.png",              "exit"},
     };
 }
 

@@ -98,6 +98,10 @@ namespace LE
     void toggle_time_pause();
 
     void set_edit_mode();
+    void set_object_mode();
+    void set_texture_mode();
+
+    void open_world_editor();
 }
 
 #endif // INCLUDE_LE_DATA_HPP

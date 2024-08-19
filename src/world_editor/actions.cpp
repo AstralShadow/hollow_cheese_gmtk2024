@@ -31,6 +31,11 @@ void WE::edit_level()
 {
     LE::target_level = mouse_focus.level;
     core::set_scene("level_editor");
+
+    // Cleanup
+    mouse_focus.dragging = false;
+    mouse_focus.selected = false;
+    mouse_focus.level = -1;
 }
 
 void WE::clone_level()

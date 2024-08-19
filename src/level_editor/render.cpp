@@ -99,7 +99,7 @@ void LE::render_levels()
             };
             SDL_RenderSetViewport(rnd, &area2);
 
-            world::render_level(*(level()), 0.8);
+            world::render_level(data.level, 0.8);
 
             SDL_SetRenderDrawColor(rnd, 0, 0, 0, 96);
             SDL_RenderFillRect(rnd, nullptr);
@@ -189,7 +189,11 @@ void LE::render_buttons()
 {
     for(auto& btn : buttons)
     {
+        // TODO use icon instead label -- less likely to change
         if(simulate_game && btn.label == "Simulation (toggle)")
+            btn.focused = true;
+
+        if(active_players && btn.label == "Player count (toggle)")
             btn.focused = true;
 
         if(time_pause && btn.label == "Time pause (toggle)")

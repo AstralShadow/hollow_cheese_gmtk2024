@@ -17,6 +17,7 @@ void WE::init(int, char**, scene_uid)
     level_buttons.emplace_back(Point{-4, -4}, "Delete", &delete_level, "delete");
 
     global_buttons.emplace_back(Point{-32, -32}, "New", &new_level, "create");
+    // TODO add save button
 
     for(auto& btn : level_buttons)
         generate_button_label(btn);
