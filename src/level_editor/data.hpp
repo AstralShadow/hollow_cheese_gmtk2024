@@ -50,6 +50,12 @@ namespace LE
     void render_grid(Level const&, float scale = 1);
 
 
+    /* Features */
+    bool start_dragging_player_under_cursor(Point cursor);
+    void drag_players(Point cursor);
+    void drop_dragged_players();
+
+
     /* Actions */
 
     void toggle_game_simulation();
