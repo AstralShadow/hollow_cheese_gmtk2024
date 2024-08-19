@@ -16,14 +16,16 @@ namespace LE
 
     struct PlayerData
     {
-        bool display_jump_reach = false;
+        // bool keep_displaying_jump_reach = false;
         bool dragging = false;
+        bool plan_to_drop = false; // Don't drop within collidable area
+        Point drag_offset {0, 0};
     };
 
     using game::Player;
     extern vector<Player> players; // Mock player objects
-    extern vector<PlayerData> player_data;
-    extern int active_players;
+    extern vector<PlayerData> players_data;
+    extern int active_players; // I don't want to touch the vector above, it contains controllers
 
     extern bool simulate_game;
 
@@ -42,7 +44,7 @@ namespace LE
     void render_levels(); // Rendered at 80% from screen
     Point get_level_coordinates(Point screen_pos);
 
-    void render_player_overlays(); // jump reach
+    void render_player_overlays(float scale); // Calls SDL_RenderSetScale internally
 
     // May use Level to add snap hints.. tho not yet
     void render_grid(Level const&, float scale = 1);

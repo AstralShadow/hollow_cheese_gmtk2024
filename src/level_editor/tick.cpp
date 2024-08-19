@@ -14,9 +14,13 @@ void LE::tick(u32 ms, scene_uid)
         core::set_scene("world_editor");
 
     if(simulate_game)
+    for(int i = 0; i < active_players; i++)
     {
-        tick_players(ms, players.begin(), players.begin() + active_players);
+        if(players_data[i].dragging)
+            continue; // Skip players who are being dragged around
 
-        update_collisions(ms, *level(), players.begin(), players.begin() + active_players);
+        auto itr = players.begin() + i;
+        tick_players(ms, itr, itr + 1);
+        update_collisions(ms, *level(), itr, itr + 1);
     }
 }

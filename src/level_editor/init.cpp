@@ -8,6 +8,7 @@ namespace LE
     mode_t mode = EDIT_MODE;
 
     vector<Player> players;
+    vector<PlayerData> players_data;
     int active_players = 2;
 
     bool simulate_game = true;
@@ -30,6 +31,7 @@ void LE::init(int, char**, scene_uid)
     {
         .area = {0, 200, 32, 64}
     });
+    players_data.emplace_back();
     players.push_back(Player
     {
         .area = {128, 200, 32, 64},
@@ -40,6 +42,7 @@ void LE::init(int, char**, scene_uid)
             SDL_SCANCODE_LEFT
         }
     });
+    players_data.emplace_back();
 
     //buttons.emplace_back(Point{-4, 4}, "", &clone_level);
 

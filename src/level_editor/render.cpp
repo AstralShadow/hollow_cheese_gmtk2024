@@ -58,8 +58,8 @@ void LE::render_levels()
     {
         SDL_RenderSetScale(rnd, 0.8, 0.8);
         game::render_players(players.begin(), players.begin() + active_players);
-        render_player_overlays();
         SDL_RenderSetScale(rnd, 1, 1);
+        render_player_overlays(0.8);
     }
 
     SDL_SetRenderDrawColor(rnd, 255, 255, 0, 255);
@@ -111,15 +111,35 @@ Point LE::get_level_coordinates(Point screen_pos)
     float scale = 0.8;
 
     return {
-        (screen_pos.x - offset.x) / scale,
-        (screen_pos.y - offset.y) / scale
+        static_cast<int>((screen_pos.x - offset.x) / scale),
+        static_cast<int>((screen_pos.y - offset.y) / scale)
     };
 }
 
 
-void LE::render_player_overlays()
+void LE::render_player_overlays(float scale)
 {
-    game::render_players_jump_reach(*level(), players.begin(), players.begin() + active_players);
+    // Only render path prediction near mouse
+    SDL_Point _mouse;
+    SDL_GetMouseState(&_mouse.x, &_mouse.y);
+    SDL_Point mouse = get_level_coordinates(_mouse);
+    const int range = 128;
+    const int range2 = range * range;
+
+    SDL_RenderSetScale(rnd, scale, scale);
+    for(int i = 0; i < active_players; i++)
+    {
+        auto itr = players.begin() + i; // Needs an iterator to match an interface
+        auto const& player = *itr;
+
+        float dx = player.area.x + player.area.w / 2 - mouse.x;
+        float dy = player.area.y + player.area.h / 2 - mouse.y;
+        if(dx*dx + dy*dy > range2)
+            continue;
+
+        game::render_players_jump_reach(*level(), itr, itr + 1);
+    }
+    SDL_RenderSetScale(rnd, 1, 1);
 }
 
 void LE::render_grid(Level const&, float scale)
