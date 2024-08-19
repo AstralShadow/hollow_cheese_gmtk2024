@@ -32,6 +32,7 @@ namespace LE
     extern bool creating_tile;
     extern Point drag_start;
     extern Point drag_buffer;
+    extern bool modifying_tile_scalable_sides; // When editing tile but release before any drag
     using world::drag_target;
 
 

@@ -8,6 +8,7 @@ using std::cout;
 using std::endl;
 using std::min;
 using std::max;
+using std::abs;
 
 
 bool LE::start_modifying_tiles(Point cursor)
@@ -44,6 +45,7 @@ bool LE::start_modifying_tiles(Point cursor)
             throw std::runtime_error("You let the level editor resize a tile with state!\n"
                                      "You should reset your level before editing it.");
         drag_target = pick;
+        modifying_tile_scalable_sides = true;
     }
 
     return true;
@@ -68,7 +70,10 @@ void LE::stop_modifying_tiles(Point cursor)
         game::apply_tile_constraints(*(level()));
 
         auto& tile = *drag_target.tile;
-        tile.original_area = tile.area;
+        if(modifying_tile_scalable_sides)
+            tile.scalable[drag_target.side] = !tile.scalable[drag_target.side];
+        else
+            tile.original_area = tile.area;
 
         drag_target.tile = nullptr;
         return;
@@ -118,12 +123,14 @@ void LE::drag_tiles(Point cursor, Point)
         {
             cropped_delta.x = (drag_buffer.x / 16) * 16;
             drag_buffer.x = drag_buffer.x % 16;
+            modifying_tile_scalable_sides = false;
         }
 
         if(abs(drag_buffer.y) > 16)
         {
             cropped_delta.y = (drag_buffer.y / 16) * 16;
             drag_buffer.y = drag_buffer.y % 16;
+            modifying_tile_scalable_sides = false;
         }
 
         auto& tile = *drag_target.tile;
