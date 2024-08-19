@@ -1,5 +1,6 @@
 #include "game/game.hpp"
 #include "game/data.hpp"
+#include "game/sprite.hpp"
 #include <iostream>
 
 using std::cout;
@@ -47,6 +48,8 @@ void game::init(int, char**, scene_uid)
         .pos = {0, 0}
     });
     */
+
+    init_sprites();
 }
 
 void game::deinit(scene_uid)

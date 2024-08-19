@@ -26,7 +26,7 @@ namespace LE
     extern vector<Player> players; // Mock player objects
     extern vector<PlayerData> players_data;
     extern int active_players; // I don't want to touch the vector above, it contains controllers
-    extern int jump_prediction; // 0 - none; 1 - always; 2 - nearby
+    extern int jump_prediction; // 0 - none; 1 - always; 2 - nearby. Reverse as UI lacks feedback
 
     extern bool simulate_game;
     extern bool time_pause;
