@@ -10,7 +10,7 @@ void startup::keydown(SDL_KeyboardEvent& ev, scene_uid)
 #ifndef __EMSCRIPTEN__
     if(scancode == SDL_SCANCODE_Q)
         core::stop();
-#endif
+#endif // __EMSCRIPTEN__
 
     if(scancode == SDL_SCANCODE_ESCAPE)
         core::set_scene(next_scene);

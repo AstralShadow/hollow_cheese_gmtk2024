@@ -11,8 +11,10 @@ using std::endl;
 void WE::keydown(SDL_KeyboardEvent& ev, scene_uid)
 {
     auto const& scancode = ev.keysym.scancode;
+#ifndef __EMSCRIPTEN__
     if(scancode == SDL_SCANCODE_Q)
         core::stop();
+#endif // __EMSCRIPTEN__
 
     if(scancode == SDL_SCANCODE_N)
         new_level();
