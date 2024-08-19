@@ -18,22 +18,22 @@ namespace game
         FRect area_past = area; // past frame; used in collision detection
         // Note: we could lag the rendering a single frame and render the average of the 2 positions
 
-        const float speed = 0.35f; // px/ms
-        // const float steering_speed_in_air = 0.3f; // px/ms
-        const float gravity = 3700.0f / 1000000; // px/ms^2
-        const int step_height = 17;
-        const int head_height = 10; // space from top ignored by horizontal wall collision
+        static constexpr float speed = 0.35f; // px/ms
+        // static constexpr float steering_speed_in_air = 0.3f; // px/ms
+        static constexpr float gravity = 3700.0f / 1000000; // px/ms^2
+        static constexpr int step_height = 17;
+        static constexpr int head_height = 10; // space from top ignored by horizontal wall collision
 
-        const float jump_force = 1.1; // px/ms
-        const int jump_delay_grace_time = 75; // ms
-        const float early_jump_end_gravity_factor = 2.2f;
+        static constexpr float jump_force = 1.1; // px/ms
+        static constexpr int jump_delay_grace_time = 75; // ms
+        static constexpr float early_jump_end_gravity_factor = 2.2f;
 
         FPoint velocity {0, 0}; // px/ms; horizontal is used in collision system
         bool has_foothold = false; // updated in collision system
         u64 last_foothold = 0; // used for jump delay grace time
 
 
-        const SDL_Scancode controls[4] = { // top, right, bottom, left
+        SDL_Scancode controls[4] = { // top, right, bottom, left
         #ifndef ESDF_CONTROLS
             SDL_SCANCODE_W,
             SDL_SCANCODE_D,
