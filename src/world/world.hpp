@@ -34,6 +34,8 @@ namespace world
     void move_level(World&, int level, Point& delta);
 
     Point find_empty_level_pos(int close_to = -1);
+
+    bool is_playable_world(World const&, string* message = nullptr) { return true; }
 }
 
 #endif // INCLUDE_WORLD_WORLD_HPP

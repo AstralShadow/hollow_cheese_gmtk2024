@@ -14,19 +14,21 @@ using world::drag_target;
 void game::keydown(SDL_KeyboardEvent& ev, scene_uid)
 {
     auto const& scancode = ev.keysym.scancode;
+#ifndef __EMSCRIPTEN__
     if(scancode == SDL_SCANCODE_Q)
         core::stop();
-
-    if(scancode == SDL_SCANCODE_P)
-        core::slow_motion = !core::slow_motion;
+#endif
 }
 
-void game::mousedown(SDL_MouseButtonEvent&, scene_uid)
+void game::keyup(SDL_KeyboardEvent&, scene_uid)
 {
-    // TODO allow picking player when in level editor mode
+}
 
-    //drag_target = world::camera_pick_tile(world::map, {ev.x, ev.y});
-    throw std::runtime_error("Text level is in shmittereens");
+
+void game::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
+{
+    using namespace world;
+    drag_target = camera_pick_tile(world.levels[world.current_level].level, {ev.x, ev.y});
 }
 
 void game::mouseup(SDL_MouseButtonEvent&, scene_uid)
@@ -34,11 +36,11 @@ void game::mouseup(SDL_MouseButtonEvent&, scene_uid)
     drag_target.tile = nullptr;
 }
 
-void game::mouse_motion(SDL_MouseMotionEvent&, scene_uid)
+void game::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
 {
-    //if(!drag_target.tile)
-    //    return;
+    if(!drag_target.tile)
+        return;
 
-    //scale_tile(drag_target, {ev.xrel, ev.yrel});
+    world::scale_tile(drag_target, {ev.xrel, ev.yrel});
 }
 

@@ -4,8 +4,16 @@
 
 void LE::play_level()
 {
-    // TODO implement
-    
+    string message;
+    if(!world::is_playable_world(world::world, message))
+    {
+        cout << message << endl;
+        return;
+    }
+
+    core::set_scene("game");
+    world::world.current_level = target_level;
+    world::reset_level(*level());
 }
 
 void LE::toggle_slow_motion()

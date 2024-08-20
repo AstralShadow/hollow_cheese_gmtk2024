@@ -1,11 +1,17 @@
 #include "game/game.hpp"
 #include "game/data.hpp"
+#include "core/core.hpp"
 #include <stdexcept>
 
-void game::tick(u32, scene_uid)
-{
-    //tick_players(ms, players);
 
-    //update_collisions(ms, world::map, players);
-    throw std::runtime_error("Text level is in shmittereens");
+void game::tick(u32 ms, scene_uid)
+{
+    using world::world;
+
+    if(world.current_level >= world.levels.size())
+        core::set_scene("world_editor");
+
+    tick_players(ms, players);
+
+    update_collisions(ms, world.levels[world.current_level].level, players);
 }

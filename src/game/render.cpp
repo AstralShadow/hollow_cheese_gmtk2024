@@ -11,12 +11,13 @@ static auto& rnd = core::renderer;
 
 void game::render(scene_uid)
 {
+    using world::world;
+
     SDL_SetRenderDrawColor(rnd, 0, 0, 0, 255);
     SDL_RenderClear(rnd);
 
-    //world::render_map(world::map);
-    //render_players(players);
-    throw std::runtime_error("Text level is in shmittereens");
+    world::render_level(world.levels[world.current_level].level);
+    render_players(players);
 
     SDL_RenderPresent(rnd);
 }

@@ -9,11 +9,11 @@
 
 void core::register_scenes()
 {
-    core::scene<game::scene_uid>(); // Only meant for mechanic prototyping; currently not working
-    core::scene<world::scene_uid>();
+    core::scene<world::scene_uid>(); // stores data
 
     core::scene<startup::scene_uid>("startup");
     //core::scene<menu::scene_uid>("menu"); // TODO add
+    core::scene<game::scene_uid>("game");
 
     core::scene<LE::scene_uid>("level_editor");
     core::scene<WE::scene_uid>("world_editor");
