@@ -10,6 +10,12 @@ using std::endl;
 
 void LE::tick(u32 ms, scene_uid)
 {
+    if(ms > 20)
+    {
+        cout << "Capping deltaTime: " << ms << "-> 20" << endl;
+        ms = 20;
+    }
+
     if(!level())
     {
         core::set_scene("world_editor");
