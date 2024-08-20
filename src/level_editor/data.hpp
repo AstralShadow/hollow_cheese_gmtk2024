@@ -36,16 +36,19 @@ namespace LE
     extern Point drag_start;
     extern Point drag_buffer;
     extern bool modifying_tile_scalable_sides; // When editing tile but release before any drag
-    extern bool removing_tiles;
-    using world::drag_target;
+    extern bool drag_remove;
+    using world::drag_target; // edit mode
+
+    extern int drag_index; // object mode
 
     extern string last_action_error;
 
     enum mode_t
     {
         EDIT_MODE, // where you can edit the tiles' initial positions
-        OBJECT_MODE, // 
+        OBJECT_MODE, // where you add interactable objects
         TEXTURE_MODE, // where you can add textures to different z-layers
+        // TEXT_MODE // where you add tutorial stuff
     } extern mode;
 
 
@@ -92,6 +95,10 @@ namespace LE
     void stop_modifying_tiles(Point cursor);
     void remove_tile(Point cursor);
 
+    bool object_pick(Point cursor);
+    void object_drag(Point cursor);
+    void object_drop(Point cursor);
+    void object_remove(Point cursor);
 
     /* User interface */
 

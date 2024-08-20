@@ -24,7 +24,8 @@ namespace LE
     Point drag_start;
     Point drag_buffer;
     bool modifying_tile_scalable_sides;
-    bool removing_tiles = false;
+    bool drag_remove = false;
+    int drag_index = -1;
 
     vector<Button> buttons, mode_buttons;
 

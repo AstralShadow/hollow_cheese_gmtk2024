@@ -38,6 +38,8 @@ namespace game
 
     void init_objects();
     Object* object(string name);
+
+    void render_object(Object const* object, Point pos, float scale = 1, bool debug = false);
 }
 
 #endif // INCLUDE_GAME_OBJECT_HPP

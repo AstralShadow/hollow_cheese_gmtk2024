@@ -5,7 +5,7 @@
 
 namespace world
 {
-    void render_level(Level const&, float scale = 1.0f);
+    void render_level(Level const&, float scale = 1.0f, bool debug = false);
 
     // Pick a tile to scale.
     // Only picks scalable sides unless ignoring constraints

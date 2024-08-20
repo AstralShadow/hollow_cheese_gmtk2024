@@ -139,7 +139,7 @@ void LE::drag_tiles(Point cursor, Point)
         game::apply_tile_constraints(*(level()));
         tile.area_past = tile.area;
     }
-    else if(removing_tiles)
+    else if(drag_remove)
     {
         remove_tile(cursor);
     }

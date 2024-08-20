@@ -2,6 +2,7 @@
 #include "world/level.hpp"
 #include "world/render.hpp"
 #include "world/data.hpp" // PickedTile drag_target
+#include "game/object.hpp"
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
@@ -12,12 +13,12 @@ using std::min;
 static auto& rnd = core::renderer;
 
 
-void world::render_level(Level const& level, float scale)
+void world::render_level(Level const& level, float scale, bool debug)
 {
     SDL_SetRenderDrawColor(rnd, 0x05, 0x12, 0x1a, 255);
     SDL_RenderFillRect(rnd, nullptr);
 
-    for(auto const& tile : level.tiles)
+    for(auto const& tile : level.tiles) // Z == 0
     {
         FRect area {
             static_cast<float>(tile.area.x),
@@ -89,7 +90,12 @@ void world::render_level(Level const& level, float scale)
             }
         }
     }
+
+    
+    for(auto const& obj : level.objects) // Z == 10
+        game::render_object(game::object(obj.name), obj.pos, scale, debug);
 }
+
 
 world::PickedTile world::camera_pick_tile(Level& level, Point pos, bool ignore_scalable_constraints)
 {

@@ -26,7 +26,6 @@ namespace world
     {
         vector<LevelData> levels;
         size_t current_level = 0; // Keep in mind levels may be empty :(
-        //size_t first_level = 0;
 
         const Point size = {
             WINDOW_WIDTH * 7,
@@ -40,8 +39,6 @@ namespace world
 
     Point find_empty_level_pos(int close_to = -1);
 
-
-    // TODO implement the below functions
 
     // World expect exactly one global player start area.
     // They also need positive amount of cheese (collectables)

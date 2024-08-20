@@ -24,15 +24,24 @@ void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
         if(mode == EDIT_MODE)
         if(start_modifying_tiles({ev.x, ev.y}))
             return;
+
+        if(mode == OBJECT_MODE)
+        if(object_pick({ev.x, ev.y}))
+            return;
     }
 
     if(ev.button == SDL_BUTTON_RIGHT)
     {
         if(mode == EDIT_MODE)
         {
-            removing_tiles = true;
+            drag_remove = true;
             drag_tiles({ev.x, ev.y});
-            cout << 'K' << endl;
+        }
+
+        if(mode == OBJECT_MODE)
+        {
+            drag_remove = true;
+            object_drag({ev.x, ev.y});
         }
     }
 }
@@ -56,14 +65,24 @@ void LE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
             drag_tiles({ev.x, ev.y});
             stop_modifying_tiles({ev.x, ev.y});
         }
+        if(mode == OBJECT_MODE)
+        {
+            object_drag({ev.x, ev.y});
+            object_drop({ev.x, ev.y});
+        }
     }
 
-    if(ev.button == SDL_BUTTON_RIGHT)
+    if(ev.button == SDL_BUTTON_RIGHT && drag_remove)
     {
-        if(mode == EDIT_MODE && removing_tiles)
+        if(mode == EDIT_MODE)
         {
             drag_tiles({ev.x, ev.y});
-            removing_tiles = false;
+            drag_remove = false;
+        }
+        if(mode == OBJECT_MODE)
+        {
+            object_drag({ev.x, ev.y});
+            drag_remove = false;
         }
     }
 }
@@ -75,6 +94,10 @@ void LE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
     if(mode == EDIT_MODE)
     {
         drag_tiles({ev.x, ev.y}, {ev.xrel, ev.yrel});
+    }
+    if(mode == OBJECT_MODE)
+    {
+        object_remove({ev.x, ev.y});
     }
 
 

@@ -63,6 +63,13 @@ constexpr Point operator - (Point a, Point const& b)
     return a;
 }
 
+constexpr Point operator * (Point a, float b)
+{
+    a.x *= b;
+    a.y *= b;
+    return a;
+}
+
 
 constexpr FPoint operator + (FPoint a, FPoint const& b)
 {
@@ -77,6 +84,14 @@ constexpr FPoint operator - (FPoint a, FPoint const& b)
     a.y -= b.y;
     return a;
 }
+
+constexpr FPoint operator * (FPoint a, float b)
+{
+    a.x *= b;
+    a.y *= b;
+    return a;
+}
+
 
 
 constexpr Rect operator *= (Rect& a, float scalar)

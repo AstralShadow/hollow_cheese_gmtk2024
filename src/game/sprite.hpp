@@ -17,6 +17,7 @@ namespace game
     inline Point sprite_size(string path)
         { return sprite_size(sprite(path)); }
 
+    // Currently offsets are not in use
     Point sprite_offset(SDL_Texture*);
     inline Point sprite_offset(string path)
         { return sprite_offset(sprite(path)); }

@@ -58,7 +58,8 @@ void LE::render_levels()
 
     SDL_RenderSetViewport(rnd, &area);
 
-    world::render_level(*(level()), 0.8);
+    bool debug = true;
+    world::render_level(*(level()), 0.8, debug);
     render_grid(*(level()), 0.8);
 
 
