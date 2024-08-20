@@ -130,6 +130,7 @@ void game::position_players_near(string target, int prev_level)
         auto& p = players[i];
         p.area.x = pick.x + w;
         p.area.y = pick.y;
+        p.velocity.y = 0;
 
         w += p.area.w + 8;
     }

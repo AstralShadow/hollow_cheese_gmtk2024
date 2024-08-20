@@ -1,6 +1,7 @@
 #include "level_editor/data.hpp"
 #include "core/scene.hpp"
 #include "game/data.hpp"
+#include "world/world.hpp"
 #include <iostream>
 
 using std::endl;
@@ -20,6 +21,24 @@ void LE::play_level()
     game::load_level(target_level);
     core::set_scene("game");
     game::enable_level_editor = true;
+
+
+    /* Pick start */
+
+    const string world_spawn_name = "game_start_point";
+    const string level_spawn_name = "level_spawn_point";
+    bool world_start = false;
+    for(auto o : level()->objects)
+        if(o.name == world_spawn_name)
+        {
+            world_start = true;
+            break;
+        }
+
+    if(world_start)
+        game::position_players_near(world_spawn_name);
+    else
+        game::position_players_near(level_spawn_name);
 }
 
 void LE::toggle_slow_motion()
@@ -60,4 +79,5 @@ void LE::open_world_editor()
 {
     active_players = 0;
     core::set_scene("world_editor");
+    world::world_update_reach_map(world::world);
 }
