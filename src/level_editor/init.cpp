@@ -26,6 +26,7 @@ namespace LE
     bool modifying_tile_scalable_sides;
     bool drag_remove = false;
     int drag_index = -1;
+    string drag_texture = "";
 
     vector<Button> buttons, mode_buttons;
 

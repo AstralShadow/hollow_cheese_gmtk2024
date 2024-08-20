@@ -40,6 +40,7 @@ namespace LE
     using world::drag_target; // edit mode
 
     extern int drag_index; // object mode
+    extern string drag_texture; // texture
 
     extern string last_action_error;
 
@@ -83,6 +84,7 @@ namespace LE
     extern vector<MenuZone> menu_zones; // Used for click detection
 
     void render_object_mode_menu();
+    void render_texture_mode_menu();
 
 
     /* Features */
@@ -100,6 +102,11 @@ namespace LE
     void object_drop(Point cursor);
     void object_remove(Point cursor);
 
+    bool texture_pick(Point cursor);
+    void texture_drag(Point cursor);
+    void texture_drop(Point cursor);
+    void texture_remove(Point cursor);
+
     /* User interface */
 
     using game::Button;
@@ -116,7 +123,7 @@ namespace LE
     bool click_zone(Point pos);
 
     bool click_zone_object_mode(size_t index);
-    //bool click_zone_texture_mode(size_t index);
+    bool click_zone_texture_mode(size_t index);
 
 
     /* Actions */

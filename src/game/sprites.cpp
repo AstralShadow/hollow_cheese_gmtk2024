@@ -113,3 +113,9 @@ SDL_Texture* game::animated_texture_7(string const& name)
 {
     return animated_texture<7>(name);
 }
+
+SDL_Texture* game::animated_texture_11(string const& name)
+{
+    return animated_texture<11>(name);
+}
+

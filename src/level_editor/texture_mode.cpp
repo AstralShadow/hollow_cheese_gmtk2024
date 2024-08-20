@@ -2,21 +2,46 @@
 #include "core/core.hpp"
 #include "game/sprite.hpp"
 #include "game/fonts.hpp"
-#include "game/object.hpp"
 #include "utils/textures.hpp"
 #include "world/data.hpp"
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_render.h>
+#include <array>
 #include <iostream>
 
 using std::cout;
 using std::endl;
+using std::array;
 
 using game::sprite_size;
+using game::sprite;
+
+static const string textures[] {
+    // Behind
+    "top decoration double deer",
+    "top decoration holy cheese",
+    "chain",
+
+    // Front
+    "ground",
+    "ground-wall-dark",
+    "ground-lower-part",
+    "lower-part",
+    "ground-middle-part",
+    "middle-part",
+    "ground-full-part",
+    "full-part",
+    "ground-wall-light",
+    "lower-part-right-end",
+    "lower-part-left-end"
+};
+
+
+
 
 static auto& rnd = core::renderer;
 
-void LE::render_object_mode_menu()
+void LE::render_texture_mode_menu()
 {
     /* Title */
     static SDL_Texture* title = nullptr;
@@ -26,7 +51,7 @@ void LE::render_object_mode_menu()
         auto font = game::get_font();
 
         const SDL_Color color {0x98, 0xd2, 0xff, 255};
-        auto surf = TTF_RenderUTF8_Blended(font, "Objects:", color);
+        auto surf = TTF_RenderUTF8_Blended(font, "Textures:", color);
         if(!surf) {
             cout << "Failed to render title" << endl;
             cout << TTF_GetError() << endl;
@@ -63,27 +88,18 @@ void LE::render_object_mode_menu()
     SDL_RenderSetClipRect(rnd, &_area);
 
 
-    const string world_spawn_name = "game_start_point";
-    bool world_spawn_exists = is_world_playable(world::world);
-    if(drag_index == game::object(world_spawn_name) - &game::objects[0])
-        world_spawn_exists = true;
-
-
     int menu_height = 8;
     menu_zones.clear(); // TODO don't regenerate this data every time?
 
-    for(size_t index = 0; index < game::objects.size(); ++index)
+    size_t index = 0;
+    for(auto name : textures)
     {
-        auto const& obj = game::objects[index];
-
-        if(world_spawn_exists && obj.name == world_spawn_name)
-            continue; // Cap to one world spawn
+        auto size = sprite_size(name);
 
         Rect area {
             _area.x + 8,
             _area.y + menu_height - menu_scroll,
-            obj._name_size.x,
-            obj._name_size.y
+            size.x, size.y
         };
 
         menu_height += 8 + area.h;
@@ -93,11 +109,13 @@ void LE::render_object_mode_menu()
         if(area.y > _area.y + _area.h)
             continue;
 
-        SDL_RenderCopy(rnd, obj._name, nullptr, &area);
+        SDL_RenderCopy(rnd, sprite(name), nullptr, &area);
         menu_zones.push_back(MenuZone {
-            .area= area,
+            .area = area,
             .index = index
         });
+
+        index++;
     }
     menu_content_height = menu_height;
 
@@ -108,48 +126,50 @@ void LE::render_object_mode_menu()
     SDL_RenderDrawRect(rnd, &_area);
 
 
-    if(drag_index != -1)
+    if(!drag_texture.empty())
     {
-        Point pos;
-        SDL_GetMouseState(&pos.x, &pos.y);
+        Rect area;
+        string name = drag_texture;
+        auto size = sprite_size(name);
+        SDL_GetMouseState(&area.x, &area.y);
 
-        auto const& obj = game::objects[drag_index];
+        area.x -= size.x * (0.5 * 0.8);
+        area.y -= size.y * (0.5 * 0.8);
+        area.w = size.x * 0.8;
+        area.h = size.y * 0.8;
 
-        // TODO fix this being a bit off
-        pos.x /= 0.8;
-        pos.y /= 0.8;
-        pos = pos - obj.size * (0.5 * 0.8);
-        pos.x -= pos.x % 16;
-        pos.y -= pos.y % 16;
+        SDL_RenderCopy(rnd, sprite(name), nullptr, &area);
 
-        bool debug = true;
-        render_object(&game::objects[drag_index], pos, 0.8, debug);
+        SDL_SetRenderDrawColor(rnd, 0x58, 0xd2, 0xff, 255);
+        SDL_RenderDrawRect(rnd, &area);
     }
 }
 
 
-bool LE::click_zone_object_mode(size_t index) // object_create
+bool LE::click_zone_texture_mode(size_t index) // object_create
 {
-    drag_index = index;
+    drag_texture = textures[index];
     return true;
 }
 
 
-static int level_obj_at(world::Level const& level, Point pos)
+static int level_tex_at(world::Level const& level, Point pos)
 {
-    for(size_t i = 0; i < level.objects.size(); ++i)
+    for(size_t i = 0; i < level.textures.size(); ++i)
     {
-        auto obj = game::object(level.objects[i].name);
-        if(!obj)
+        auto sprite = game::sprite(level.textures[i].name);
+        auto size = sprite_size(sprite);
+        if(!sprite)
         {
-            cout << "You got invalid object names" << endl;
+            cout << "You got invalid sprite names" << endl;
             continue;
         }
+
         Rect area {
-            level.objects[i].pos.x,
-            level.objects[i].pos.y,
-            obj->size.x,
-            obj->size.y
+            level.textures[i].pos.x,
+            level.textures[i].pos.y,
+            size.x,
+            size.y
         };
         if(SDL_PointInRect(&pos, &area))
             return i;
@@ -158,59 +178,56 @@ static int level_obj_at(world::Level const& level, Point pos)
 }
 
 
-bool LE::object_pick(Point cursor)
+bool LE::texture_pick(Point cursor)
 {
     Point pos = get_level_coordinates(cursor);
-    int index = level_obj_at(*(level()), pos);
+    int index = level_tex_at(*(level()), pos);
     if(index == -1)
         return false;
 
-    string name = level()->objects[index].name;
-    size_t oid = game::object(name) - &game::objects[0];
-    drag_index = oid;
+    drag_texture = level()->textures[index].name;
 
-    level()->objects.erase(level()->objects.begin() + index);
+    level()->textures.erase(level()->textures.begin() + index);
     return true;
 }
 
-void LE::object_drag(Point)
+void LE::texture_drag(Point)
 {
     // noop, all in rendering
     // TODO do the request-to-drop approach as with players
 }
 
-void LE::object_drop(Point cursor)
+void LE::texture_drop(Point cursor)
 {
-    if(drag_index == -1)
+    if(drag_texture.empty())
         return;
 
     Point pos = get_level_coordinates(cursor);
 
-    auto const& obj = game::objects[drag_index];
+    auto name = drag_texture;
+    auto size = sprite_size(drag_texture);
 
-    pos = pos - obj.size * 0.5;
-    pos.x -= pos.x % 16;
-    pos.y -= pos.y % 16;
+    pos = pos - size * 0.5;
 
-    level()->objects.push_back({
-        obj.name,
+    level()->textures.push_back({
+        name,
         pos
     });
 
-    drag_index = -1;
+    drag_texture = "";
 }
 
-void LE::object_remove(Point cursor)
+void LE::texture_remove(Point cursor)
 {
     if(!drag_remove)
         return;
 
     Point pos = get_level_coordinates(cursor);
-    int index = level_obj_at(*(level()), pos);
+    int index = level_tex_at(*(level()), pos);
     if(index == -1)
         return;
 
-    level()->objects.erase(level()->objects.begin() + index);
+    level()->textures.erase(level()->textures.begin() + index);
 }
 
 

@@ -3,6 +3,7 @@
 #include "world/render.hpp"
 #include "world/data.hpp" // PickedTile drag_target
 #include "game/object.hpp"
+#include "game/sprite.hpp"
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
@@ -17,6 +18,7 @@ void world::render_level(Level const& level, float scale, bool debug)
 {
     SDL_SetRenderDrawColor(rnd, 0x05, 0x12, 0x1a, 255);
     SDL_RenderFillRect(rnd, nullptr);
+
 
     for(auto const& tile : level.tiles) // Z == 0
     {
@@ -91,9 +93,47 @@ void world::render_level(Level const& level, float scale, bool debug)
         }
     }
 
-    
+
+    /*
+    static const vector<string> layer1_textures = {
+        "top decoration double deer",
+        "top decoration holy cheese",
+        "chain"
+    };
+    */
+
+    for(auto const& texture : level.textures) // Z == 5
+    {
+        /*
+        bool match = false;
+        for(auto t : layer1_textures)
+            if(t == texture.name)
+                match = true;
+        if(!match)
+            continue;
+        */
+
+        string name = texture.name;
+        auto size = game::sprite_size(name);
+        FRect area {
+            (int) texture.pos.x * scale,
+            (int) texture.pos.y * scale,
+            (int) size.x * scale,
+            (int) size.y * scale
+        };
+
+        SDL_RenderCopyF(rnd, game::sprite(name), nullptr, &area);
+
+        if(debug)
+        {
+            SDL_SetRenderDrawColor(rnd, 0x58, 0xd2, 0xff, 255);
+            SDL_RenderDrawRectF(rnd, &area);
+        }
+    }
+
     for(auto const& obj : level.objects) // Z == 10
         game::render_object(game::object(obj.name), obj.pos, scale, debug);
+
 }
 
 

@@ -36,10 +36,17 @@ namespace world
         bool collected = false; // only on collectables. When set to true, the object is hidden
     };
 
+    struct TextureData
+    {
+        string name;
+        Point pos;
+    };
+
     struct Level
     {
         vector<Tile> tiles;
         vector<ObjectData> objects;
+        vector<TextureData> textures; // z-index decided by texture name... TODO fix
     };
 
 

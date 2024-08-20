@@ -28,6 +28,10 @@ void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
         if(mode == OBJECT_MODE)
         if(object_pick({ev.x, ev.y}))
             return;
+
+        if(mode == TEXTURE_MODE)
+        if(texture_pick({ev.x, ev.y}))
+            return;
     }
 
     if(ev.button == SDL_BUTTON_RIGHT)
@@ -42,6 +46,12 @@ void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
         {
             drag_remove = true;
             object_drag({ev.x, ev.y});
+        }
+
+        if(mode == TEXTURE_MODE)
+        {
+            drag_remove = true;
+            texture_drag({ev.x, ev.y});
         }
     }
 }
@@ -70,6 +80,12 @@ void LE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
             object_drag({ev.x, ev.y});
             object_drop({ev.x, ev.y});
         }
+
+        if(mode == TEXTURE_MODE)
+        {
+            texture_drag({ev.x, ev.y});
+            texture_drop({ev.x, ev.y});
+        }
     }
 
     if(ev.button == SDL_BUTTON_RIGHT && drag_remove)
@@ -82,6 +98,11 @@ void LE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
         if(mode == OBJECT_MODE)
         {
             object_drag({ev.x, ev.y});
+            drag_remove = false;
+        }
+        if(mode == TEXTURE_MODE)
+        {
+            texture_drag({ev.x, ev.y});
             drag_remove = false;
         }
     }
@@ -98,6 +119,10 @@ void LE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
     if(mode == OBJECT_MODE)
     {
         object_remove({ev.x, ev.y});
+    }
+    if(mode == TEXTURE_MODE)
+    {
+        texture_remove({ev.x, ev.y});
     }
 
 
@@ -116,8 +141,8 @@ void LE::mouse_wheel(SDL_MouseWheelEvent& ev, scene_uid)
 {
     menu_scroll -= ev.y * 64; // I'd expect a full finger slide to scroll nearly a page.
 
-    if(menu_scroll > menu_content_height - menu_area.h)
-        menu_scroll = menu_content_height - menu_area.h;
+    if(menu_scroll > menu_content_height - menu_area.h / 2)
+        menu_scroll = menu_content_height - menu_area.h / 2;
 
     if(menu_scroll < 0)
         menu_scroll = 0;

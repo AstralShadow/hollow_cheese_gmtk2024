@@ -77,7 +77,7 @@ bool LE::click_zone(Point pos)
         return click_zone_object_mode(zone->index);
 
     case TEXTURE_MODE:
-        return false; //click_zone_texture_mode(zone->index);
+        return click_zone_texture_mode(zone->index);
     }
 
     return false;

@@ -22,6 +22,7 @@ namespace game
 
     // Custom texture determinators
     SDL_Texture* animated_texture_7(string const&);
+    SDL_Texture* animated_texture_11(string const&);
 
     #define BASE "assets/"
 
@@ -45,7 +46,35 @@ namespace game
         { BASE "buttons/object-mode.png",       "object_mode"},
 
         { BASE "buttons/exit.png",              "exit"},
+        // TODO add text mode and help
 
+
+        { BASE "ground/ground.png", "ground" },
+        { BASE "ground/ground-wall-dark.png", "ground-wall-dark" },
+        { BASE "ground/ground-lower-part.png", "ground-lower-part" },
+        { BASE "ground/lower-part.png", "lower-part" },
+        { BASE "ground/ground-middle-part.png", "ground-middle-part" },
+        { BASE "ground/middle-part.png", "middle-part" },
+        { BASE "ground/ground-full-part.png", "ground-full-part" },
+        { BASE "ground/full-part.png", "full-part" },
+        { BASE "ground/ground-wall-light.png", "ground-wall-light" },
+        { BASE "ground/lower-part-right-end.png", "lower-part-right-end" },
+        { BASE "ground/lower-part-left-end.png", "lower-part-left-end" },
+
+        { BASE "decorations/top-decoration-double-deer.png", "top decoration double deer" },
+        { BASE "decorations/top-decoration-holy-cheese.png", "top decoration holy cheese" },
+        { .alias = "chain", .get_texture = &animated_texture_11 },
+        { BASE "decorations/chains/chain-0001.png", "chain-0" },
+        { BASE "decorations/chains/chain-0002.png", "chain-1" },
+        { BASE "decorations/chains/chain-0003.png", "chain-2" },
+        { BASE "decorations/chains/chain-0004.png", "chain-3" },
+        { BASE "decorations/chains/chain-0005.png", "chain-4" },
+        { BASE "decorations/chains/chain-0006.png", "chain-5" },
+        { BASE "decorations/chains/chain-0007.png", "chain-6" },
+        { BASE "decorations/chains/chain-0008.png", "chain-7" },
+        { BASE "decorations/chains/chain-0009.png", "chain-8" },
+        { BASE "decorations/chains/chain-0010.png", "chain-9" },
+        { BASE "decorations/chains/chain-0011.png", "chain-10" },
 
         // Cheese (object
         { .alias = "cheese", .get_texture = &animated_texture_7 },

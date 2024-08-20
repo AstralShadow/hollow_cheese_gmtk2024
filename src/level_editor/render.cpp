@@ -38,6 +38,9 @@ void LE::render(scene_uid)
     case OBJECT_MODE:
         render_object_mode_menu();
         break;
+    case TEXTURE_MODE:
+        render_texture_mode_menu();
+        break;
     }
 
     render_buttons();
