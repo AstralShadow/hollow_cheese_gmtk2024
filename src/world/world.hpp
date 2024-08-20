@@ -40,6 +40,8 @@ namespace world
     Point find_empty_level_pos(int close_to = -1);
 
 
+    // TODO implement the below functions
+
     // World expect exactly one global player start area.
     // They also need positive amount of cheese (collectables)
     bool is_world_playable(World const&, string* message = nullptr);
