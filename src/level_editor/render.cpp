@@ -61,13 +61,12 @@ void LE::render_levels()
     world::render_level(*(level()), 0.8);
     render_grid(*(level()), 0.8);
 
-    if(simulate_game)
-    {
-        SDL_RenderSetScale(rnd, 0.8, 0.8);
-        game::render_players(players.begin(), players.begin() + active_players);
-        SDL_RenderSetScale(rnd, 1, 1);
-        render_player_overlays(0.8);
-    }
+
+    SDL_RenderSetScale(rnd, 0.8, 0.8);
+    game::render_players(players.begin(), players.begin() + active_players);
+    SDL_RenderSetScale(rnd, 1, 1);
+    render_player_overlays(0.8);
+
 
     SDL_SetRenderDrawColor(rnd, 255, 255, 0, 255);
     SDL_RenderDrawRect(rnd, nullptr);
@@ -189,29 +188,15 @@ void LE::render_buttons()
 {
     for(auto& btn : buttons)
     {
-        // TODO use icon instead label -- less likely to change
-        if(simulate_game && btn.label == "Simulation (toggle)")
+        if(active_players && btn.icon == "player_count")
             btn.focused = true;
 
-        if(active_players && btn.label == "Player count (toggle)")
+        if(time_pause && btn.icon == "time_pause")
             btn.focused = true;
-
-        if(time_pause && btn.label == "Time pause (toggle)")
+        if(slow_motion && btn.icon == "slow_motion")
             btn.focused = true;
-        if(slow_motion && btn.label == "Slow motion (toggle)")
+        if(jump_prediction && btn.icon == "jump_prediction")
             btn.focused = true;
-        if(jump_prediction && btn.label == "Jump prediction (toggle)")
-            btn.focused = true;
-
-        if(!simulate_game)
-        {
-            if(btn.label == "Time pause (toggle)")
-                btn.focused = false;
-            if(btn.label == "Slow motion (toggle)")
-                btn.focused = false;
-            if(btn.label == "Jump prediction (toggle)")
-                btn.focused = false;
-        }
 
         render_button(btn, btn.pos);
     }
@@ -221,13 +206,13 @@ void LE::render_buttons()
     switch(LE::mode)
     {
         case EDIT_MODE:
-            mode = "Edit mode";
+            mode = "edit_mode";
             break;
     }
 
     for(auto& btn : mode_buttons)
     {
-        if(mode == btn.label)
+        if(mode == btn.icon)
             btn.focused = true;
 
         render_button(btn, btn.pos);

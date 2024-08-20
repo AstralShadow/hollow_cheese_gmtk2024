@@ -16,7 +16,9 @@ void LE::tick(u32 ms, scene_uid)
         return;
     }
 
-    if(simulate_game && !time_pause)
+    //appyl_tile_constraints(level);
+
+    if(!time_pause)
     for(int i = 0; i < active_players; i++)
     {
         if(players_data[i].dragging)
@@ -37,7 +39,15 @@ void LE::tick(u32 ms, scene_uid)
         {
             auto itr = players.begin() + i;
             tick_players(_ms, itr, itr + 1);
-            update_collisions(_ms, *level(), itr, itr + 1);
+
+            apply_player_tile_collisions_lvlnoop(ms, *(level()), *itr);
+            // TODO prevent player suffocation in level editor
         }
     }
+
+    for(auto& tile : level()->tiles)
+        tile.area_past = tile.area;
+
+    for(auto& player : players)
+        player.area_past = player.area;
 }

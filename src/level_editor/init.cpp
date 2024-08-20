@@ -17,11 +17,6 @@ namespace LE
     int jump_prediction = 2;
 #endif
 
-#ifdef __EMSCRIPTEN__
-    bool simulate_game = false;
-#else
-    bool simulate_game = true;
-#endif
     bool time_pause = false;
     bool slow_motion = false;
 
@@ -57,19 +52,18 @@ void LE::init(int, char**, scene_uid)
 
 
     // TODO add keyboard shortcuts too
-    // TODO move text constants in header to not desync with render_buttons
-
+    //
     buttons.emplace_back(Point{32 + 4, 8},
-                         "Simulation (toggle)", &toggle_game_simulation, "simulation");
-    buttons.emplace_back(Point{(32 + 4) * 2, 8},
-                         "Player count (toggle)", (void(*)()) &toggle_player_count, "player_count");
+                         "Test level", &play_level, "play_level");
     buttons.emplace_back(Point{(32 + 4) * 3, 8},
+                         "Player Count (toggle)", (void(*)()) &toggle_player_count, "player_count");
+    buttons.emplace_back(Point{(32 + 4) * 4, 8},
                          "Jump prediction (toggle)", &toggle_jump_prediction, "jump_prediction");
 
-    buttons.emplace_back(Point{(32 + 4) * 5, 8},
-                         "Time pause (toggle)", &toggle_time_pause, "time_pause");
     buttons.emplace_back(Point{(32 + 4) * 6, 8},
-                         "Slow motion (toggle)", &toggle_slow_motion, "slow_motion");
+                         "Pause (toggle)", &toggle_time_pause, "time_pause");
+    buttons.emplace_back(Point{(32 + 4) * 7, 8},
+                         "Slow Motion (toggle)", &toggle_slow_motion, "slow_motion");
 
 
     mode_buttons.emplace_back(Point{scene_area.x + scene_area.w - (4 + button_size.x), 8},

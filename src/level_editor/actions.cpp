@@ -2,9 +2,10 @@
 #include "core/scene.hpp"
 
 
-void LE::toggle_game_simulation()
+void LE::play_level()
 {
-    simulate_game = !simulate_game;
+    // TODO implement
+    
 }
 
 void LE::toggle_slow_motion()

@@ -26,7 +26,6 @@ void game::update_collisions(u32 ms, Level& level, vector<Player>::iterator begi
         // (this is currently turned off)
     }
 
-
     for(auto& tile : level.tiles)
         tile.area_past = tile.area;
 
@@ -34,4 +33,7 @@ void game::update_collisions(u32 ms, Level& level, vector<Player>::iterator begi
         player.area_past = player.area;
 }
 
+
 // Note: Update jump reach simulation accordingly
+
+// Note: Update level_editor::tick accordingly

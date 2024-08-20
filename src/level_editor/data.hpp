@@ -28,7 +28,6 @@ namespace LE
     extern int active_players; // I don't want to touch the vector above, it contains controllers
     extern int jump_prediction; // 0 - none; 1 - always; 2 - nearby. Reverse as UI lacks feedback
 
-    extern bool simulate_game;
     extern bool time_pause;
     extern bool slow_motion;
     constexpr int slow_motion_factor = 5;
@@ -89,8 +88,8 @@ namespace LE
 
     /* Actions */
 
-    void toggle_game_simulation();
-    void toggle_player_count(int count = -1);
+    void play_level();
+    void toggle_player_count(int count);
     inline void toggle_player_count() { toggle_player_count(-1); }
     void toggle_jump_prediction();
 

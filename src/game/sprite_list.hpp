@@ -27,7 +27,7 @@ namespace game
 
 
         // Level Editor
-        { BASE "buttons/play.png",              "simulation"},
+        { BASE "buttons/play.png",              "play_level"},
         { BASE "buttons/players.png",           "player_count"},
         { BASE "buttons/jump-prediction.png",   "jump_prediction"},
         { BASE "buttons/pause.png",             "time_pause"},
