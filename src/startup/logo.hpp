@@ -40,7 +40,7 @@ namespace startup
 
 
     const u32 next_scene_t = 7500;
-    const std::string next_scene = "world_editor";
+    const std::string next_scene = "menu";
 }
 
 #endif // INCLUDE_STARTUP_LOGO_HPP

@@ -1,6 +1,7 @@
 #include "core/scene.hpp"
 
 #include "startup/startup.hpp"
+#include "menu/menu.hpp"
 #include "game/game.hpp"
 #include "world/scene.hpp"
 #include "level_editor/level_editor.hpp"
@@ -15,11 +16,14 @@ void core::register_scenes()
     core::scene<world::scene_uid>(); // stores data
 
     core::scene<startup::scene_uid>("startup");
-    //core::scene<menu::scene_uid>("menu"); // TODO add
+    core::scene<menu::scene_uid>("menu");
     core::scene<game::scene_uid>("game");
 
     core::scene<LE::scene_uid>("level_editor");
     core::scene<WE::scene_uid>("world_editor");
+
+
+    core::set_scene("startup");
 
 
 #ifndef __EMSCRIPTEN__
@@ -27,7 +31,7 @@ void core::register_scenes()
         WE::new_level();
 #endif
 
-    core::set_scene("level_editor");
+    //core::set_scene("level_editor");
     //core::set_scene("world_editor");
     //core::set_scene("game");
 
