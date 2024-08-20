@@ -1,5 +1,6 @@
 #include "world_editor/world_editor.hpp"
 #include "core/core.hpp"
+#include "game/sprite.hpp"
 #include "world/render.hpp"
 #include "world_editor/data.hpp"
 #include "game/fonts.hpp"
@@ -105,6 +106,21 @@ void WE::render(scene_uid)
 
     for(auto& btn : global_buttons)
         render_global_button(btn);
+
+
+    // Testing animated textures
+    if(false) {
+        auto tmp = game::sprite("cheese");
+        auto size = game::sprite_size("cheese");
+        auto offset = game::sprite_offset("cheese");
+        Rect area {
+            32 - offset.x,
+            32 - offset.y,
+            size.x, size.y
+        };
+        SDL_RenderCopy(rnd, tmp, nullptr, &area);
+    }
+
 
     // TODO add revisions and level names
 

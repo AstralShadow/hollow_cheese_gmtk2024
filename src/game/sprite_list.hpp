@@ -12,16 +12,23 @@ namespace game
 {
     struct SpriteData
     {
-        string path;
+        string path = "";
         string alias = "";
+        Point offset {0, 0};
+
+        SDL_Texture* (*get_texture)(string const&) = nullptr; // Map texture to another one
     };
+
+
+    // Custom texture determinators
+    SDL_Texture* animated_texture_7(string const&);
 
     #define BASE "assets/"
 
     SpriteData sprite_data[] { SpriteData
         // World Editor
         { BASE "buttons/plus.png",              "create"},
-        { BASE "buttons/edit-2.png",              "edit"},
+        { BASE "buttons/edit-2.png",            "edit"},
         { BASE "buttons/copy.png",              "copy"},
         { BASE "buttons/delete.png",            "delete"},
 
@@ -38,6 +45,21 @@ namespace game
         { BASE "buttons/object-mode.png",       "object_mode"},
 
         { BASE "buttons/exit.png",              "exit"},
+
+
+        // Cheese (object
+        { .alias = "cheese", .get_texture = &animated_texture_7 },
+        { BASE "objects/cheese/chesse-0001.png", "cheese-0"},
+        { BASE "objects/cheese/chesse-0002.png", "cheese-1"},
+        { BASE "objects/cheese/chesse-0003.png", "cheese-2"},
+        { BASE "objects/cheese/chesse-0004.png", "cheese-3"},
+        { BASE "objects/cheese/chesse-0005.png", "cheese-4"},
+        { BASE "objects/cheese/chesse-0006.png", "cheese-5"},
+        { BASE "objects/cheese/chesse-0007.png", "cheese-6"},
+
+
+        // Player
+        { BASE "player/player-light.png", "player_background"}, // TODO center behind player
     };
 }
 

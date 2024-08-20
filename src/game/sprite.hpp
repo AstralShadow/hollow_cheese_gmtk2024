@@ -11,14 +11,15 @@ struct SDL_Texture;
 
 namespace game
 {
-    SDL_Texture* sprite(string path);
+    SDL_Texture* sprite(string path); // may return specific frame
 
     Point sprite_size(SDL_Texture*);
-
     inline Point sprite_size(string path)
-    {
-        return sprite_size(sprite(path));
-    }
+        { return sprite_size(sprite(path)); }
+
+    Point sprite_offset(SDL_Texture*);
+    inline Point sprite_offset(string path)
+        { return sprite_offset(sprite(path)); }
 
     void init_sprites();
 }
