@@ -31,6 +31,7 @@ namespace game
     void apply_player_tile_collisions(u32 ms, Level&, Player&);
     void apply_player_tile_collisions_lvlnoop(u32 ms, Level const&, Player&);
 
+    void check_for_level_transfer();
 
     /* Actions */
 

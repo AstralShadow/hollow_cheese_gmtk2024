@@ -26,8 +26,10 @@ void core::register_scenes()
     if(world::world.levels.empty())
         WE::new_level();
 #endif
+
     core::set_scene("level_editor");
     //core::set_scene("world_editor");
+    //core::set_scene("game");
 
 #ifdef __EMSCRIPTEN__
     core::set_scene("startup");

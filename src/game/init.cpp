@@ -13,7 +13,7 @@ namespace game
     vector<Player> players {
         Player{
             .area = {0, 200, 32, 64}
-        },
+        }/*,
         {
             .area = {128, 200, 32, 64},
             .controls = {
@@ -22,7 +22,7 @@ namespace game
                 SDL_SCANCODE_DOWN,
                 SDL_SCANCODE_LEFT
             }
-        }
+        }*/
     };
 
     bool enable_level_editor = false;

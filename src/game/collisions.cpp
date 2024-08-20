@@ -31,6 +31,8 @@ void game::update_collisions(u32 ms, Level& level, vector<Player>::iterator begi
 
     for(auto& player : players)
         player.area_past = player.area;
+
+    check_for_level_transfer();
 }
 
 
