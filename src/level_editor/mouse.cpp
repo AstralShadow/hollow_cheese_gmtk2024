@@ -9,7 +9,7 @@ using std::endl;
 
 void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
-    if(button_on_pos({ev.x, ev.y}))
+    if(click_button({ev.x, ev.y}))
         return;
 
     if(ev.button == SDL_BUTTON_LEFT)
@@ -36,7 +36,7 @@ void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 
 void LE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
 {
-    if(click_button({ev.x, ev.y}))
+    if(button_on_pos({ev.x, ev.y}))
         return;
 
     if(ev.button == SDL_BUTTON_LEFT)
