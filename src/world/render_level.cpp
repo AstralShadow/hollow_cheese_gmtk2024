@@ -14,6 +14,9 @@ static auto& rnd = core::renderer;
 
 void world::render_level(Level const& level, float scale)
 {
+    SDL_SetRenderDrawColor(rnd, 0x05, 0x12, 0x1a, 255);
+    SDL_RenderFillRect(rnd, nullptr);
+
     for(auto const& tile : level.tiles)
     {
         FRect area {
