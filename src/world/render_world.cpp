@@ -51,7 +51,10 @@ void world::render_world(World const& world, bool ignore_exploration_flag)
             SDL_RenderFillRect(rnd, nullptr);
         }
 
-        SDL_SetRenderDrawColor(rnd, 128, 128, 128, 255);
+        if(data.reachable)
+            SDL_SetRenderDrawColor(rnd, 128, 128, 128, 255);
+        else
+            SDL_SetRenderDrawColor(rnd, 196, 0, 0, 255);
         SDL_RenderDrawRect(rnd, nullptr);
 
         if(i == world.current_level)

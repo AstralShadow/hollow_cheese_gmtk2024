@@ -4,9 +4,11 @@
 #include "utils/types.hpp"
 #include "utils/point.hpp"
 #include "game/direction.hpp"
+#include <string>
 #include <vector>
 #include <array>
 
+using std::string;
 using std::vector;
 using std::array;
 
@@ -27,9 +29,17 @@ namespace world
         array<bool, 4> scalable = {0};
     };
 
+    struct ObjectData
+    {
+        string name;
+        Point pos;
+        bool collected = false; // only on collectables. When set to true, the object is hidden
+    };
+
     struct Level
     {
         vector<Tile> tiles;
+        vector<ObjectData> objects;
     };
 
 

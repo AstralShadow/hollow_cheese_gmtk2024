@@ -8,6 +8,8 @@
 using std::string;
 using std::vector;
 
+namespace world { struct Level; }
+
 namespace game
 {
     struct Object
@@ -16,8 +18,9 @@ namespace game
         string label;
         string sprite; // may be animated
         Point size;
+        string info; // in level editor
 
-        void (*action)() = nullptr; // pick up action
+        void (*action)(world::Level& level, int object_id) = nullptr; // pick up action
     };
 
     extern vector<Object> objects;

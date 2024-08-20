@@ -40,6 +40,9 @@ namespace game
     // Utility
 
     void load_level(int index); // Load player positions from level data
+
+    void pick_first_level();
+    void position_players_near(string object, int prev_level = -1);
 }
 
 #endif // INCLUDE_GAME_DATA_HPP

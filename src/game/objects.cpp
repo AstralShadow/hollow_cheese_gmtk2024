@@ -9,7 +9,10 @@ using game::Object;
 namespace game
 {
     vector<Object> objects = {
-
+        {"game_start_point", "", "", {64, 64},
+            "Players spawn here when the game starts."},
+        {"level_spawn_point", "", "", {64, 64},
+            "Players spawn here when transitioning betwenn levels."}
     };
 
     static std::map<string, Object*> _index;

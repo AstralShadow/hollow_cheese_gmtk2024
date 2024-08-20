@@ -65,8 +65,10 @@ void WE::render(scene_uid)
                           "    The last capital letter in action names \n"
                           "    can be used as keyboard hotkey.\n"
                           "Drag levels around to modify the world map.\n"
-                          "If levels touch the player can transition between them ...\n"
-                          "    ... as long as their contact area is not blocked.";
+                          "The player can travel between levels that touch each other ...\n"
+                          "    ...  as long as there are level spawn points on the other level.\n"
+                          "    To add a spawn points use the Level Editor's object mode.\n"
+                          "    Levels with red border are not reachable by the player.";
 
             auto font = game::get_font();
             SDL_Color color {0x98, 0xd2, 0xff, 255};

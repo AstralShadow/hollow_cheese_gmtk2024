@@ -78,4 +78,6 @@ void world::move_level(World& world, int _level, Point& delta)
 
     pos.x += delta.x;
     pos.y += delta.y;
+
+    world_update_reach_map(world);
 }
