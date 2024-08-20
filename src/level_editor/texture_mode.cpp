@@ -104,16 +104,18 @@ void LE::render_texture_mode_menu()
 
         menu_height += 8 + area.h;
 
+        menu_zones.push_back(MenuZone {
+            .area = area,
+            .index = index
+        });
+
         if(area.y + area.h < _area.y)
             continue;
         if(area.y > _area.y + _area.h)
             continue;
 
         SDL_RenderCopy(rnd, sprite(name), nullptr, &area);
-        menu_zones.push_back(MenuZone {
-            .area = area,
-            .index = index
-        });
+
 
         index++;
     }

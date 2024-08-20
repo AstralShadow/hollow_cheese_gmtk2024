@@ -54,7 +54,9 @@ LE::MenuZone* LE::zone_on_pos(Point pos)
     {
         for(auto& zone : menu_zones)
         {
-            if(SDL_PointInRect(&pos, &zone.area))
+            Rect area = zone.area;
+
+            if(SDL_PointInRect(&pos, &area))
                 return &zone;
         }
     }
