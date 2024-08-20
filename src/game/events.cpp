@@ -27,8 +27,23 @@ void game::keyup(SDL_KeyboardEvent&, scene_uid)
 
 void game::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
-    using namespace world;
-    drag_target = camera_pick_tile(world.levels[world.current_level].level, {ev.x, ev.y});
+    if(enable_level_editor)
+    {
+        Rect btn_area {
+            level_editor_btn.pos.x,
+            level_editor_btn.pos.y,
+            button_size.x,
+            button_size.y
+        };
+        Point mouse {ev.x, ev.y};
+        if(SDL_PointInRect(&mouse, &btn_area))
+            if(level_editor_btn.action)
+                level_editor_btn.action();
+    }
+
+
+    using world::world;
+    drag_target = world::camera_pick_tile(world.levels[world.current_level].level, {ev.x, ev.y});
 }
 
 void game::mouseup(SDL_MouseButtonEvent&, scene_uid)
@@ -38,6 +53,18 @@ void game::mouseup(SDL_MouseButtonEvent&, scene_uid)
 
 void game::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
 {
+    if(enable_level_editor)
+    {
+        Rect btn_area {
+            level_editor_btn.pos.x,
+            level_editor_btn.pos.y,
+            button_size.x,
+            button_size.y
+        };
+        Point mouse {ev.x, ev.y};
+        level_editor_btn.focused = SDL_PointInRect(&mouse, &btn_area);
+    }
+
     if(!drag_target.tile)
         return;
 

@@ -23,12 +23,21 @@ namespace game
             }
         }
     };
+
+    bool enable_level_editor = false;
+    Button level_editor_btn = {
+        Point {8, WINDOW_HEIGHT - 40},
+        "Open in Level Editor",
+        &open_level_editor,
+        "edit"
+    };
 }
 
 
 void game::init(int, char**, scene_uid)
 {
     init_sprites();
+    generate_button_label(level_editor_btn);
 }
 
 void game::deinit(scene_uid)

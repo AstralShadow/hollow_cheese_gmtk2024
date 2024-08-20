@@ -1,7 +1,6 @@
 #include "game/game.hpp"
 #include "game/data.hpp"
 #include "core/core.hpp"
-#include <stdexcept>
 
 
 void game::tick(u32 ms, scene_uid)

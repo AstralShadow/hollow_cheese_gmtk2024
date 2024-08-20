@@ -1,19 +1,24 @@
 #include "level_editor/data.hpp"
 #include "core/scene.hpp"
+#include "game/data.hpp"
+#include <iostream>
+
+using std::endl;
+using std::cout;
 
 
 void LE::play_level()
 {
-    string message;
-    if(!world::is_playable_world(world::world, message))
+    string message; // TODO show to user
+    if(!world::is_level_playable(*(level()), &message))
     {
         cout << message << endl;
         return;
     }
 
+    game::load_level(target_level);
     core::set_scene("game");
-    world::world.current_level = target_level;
-    world::reset_level(*level());
+    game::enable_level_editor = true;
 }
 
 void LE::toggle_slow_motion()

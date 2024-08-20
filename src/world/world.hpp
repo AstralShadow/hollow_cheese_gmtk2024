@@ -2,6 +2,10 @@
 #define INCLUDE_WORLD_WORLD_HPP
 
 #include "world/level.hpp"
+#include <string>
+
+using std::string;
+
 
 /// A world stores a grid of levels.
 /// The grid is in pixels.
@@ -35,7 +39,14 @@ namespace world
 
     Point find_empty_level_pos(int close_to = -1);
 
-    bool is_playable_world(World const&, string* message = nullptr) { return true; }
+
+    // World expect exactly one global player start area.
+    // They also need positive amount of cheese (collectables)
+    bool is_world_playable(World const&, string* message = nullptr);
+
+    // Levels expect at least one player start area.
+    // The closest one to the source map is picked
+    bool is_level_playable(Level const&, string* message = nullptr);
 }
 
 #endif // INCLUDE_WORLD_WORLD_HPP
