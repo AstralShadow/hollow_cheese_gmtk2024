@@ -28,8 +28,8 @@ void game::render_object(Object const* obj, Point pos, float scale, bool debug)
     if(obj->_label)
     {
         Rect label {
-            (int) area.x + area.w / 2 - obj->_label_size.x / 2,
-            (int) area.y - 16 - obj->_label_size.y,
+            static_cast<int>(area.x + area.w / 2 - obj->_label_size.x / 2),
+            static_cast<int>(area.y - 16 - obj->_label_size.y),
             obj->_label_size.x,
             obj->_label_size.y
         };
@@ -44,8 +44,8 @@ void game::render_object(Object const* obj, Point pos, float scale, bool debug)
         if(obj->_name)
         {
             Rect name {
-                (int) area.x + area.w / 2 - obj->_name_size.x / 2,
-                (int) area.y + area.h + 16,
+                static_cast<int>(area.x + area.w / 2 - obj->_name_size.x / 2),
+                static_cast<int>(area.y + area.h + 16),
                 obj->_name_size.x,
                 obj->_name_size.y
             };

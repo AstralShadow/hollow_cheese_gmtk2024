@@ -79,5 +79,8 @@ void LE::open_world_editor()
 {
     active_players = 0;
     core::set_scene("world_editor");
+
+    world::save_world();
+
     world::world_update_reach_map(world::world);
 }

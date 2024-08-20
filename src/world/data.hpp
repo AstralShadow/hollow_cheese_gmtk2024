@@ -14,6 +14,10 @@ namespace world
     extern PickedTile drag_target;
 
     extern World world;
+
+
+    void save_world();
+    void load_world();
 }
 
 #endif // INCLUDE_WORLD_DATA_HPP

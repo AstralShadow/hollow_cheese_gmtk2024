@@ -36,6 +36,8 @@ void WE::edit_level()
     mouse_focus.dragging = false;
     mouse_focus.selected = false;
     mouse_focus.level = -1;
+
+    world::save_world();
 }
 
 void WE::clone_level()
@@ -70,3 +72,4 @@ void WE::delete_level()
     mouse_focus.level = -1;
     mouse_focus.selected = false;
 }
+
