@@ -13,6 +13,7 @@ void LE::play_level()
     if(!world::is_level_playable(*(level()), &message))
     {
         cout << message << endl;
+        last_action_error = message;
         return;
     }
 
@@ -44,7 +45,7 @@ void LE::set_edit_mode()
 
 void LE::set_object_mode()
 {
-    //mode = OBJECT_MODE;
+    mode = OBJECT_MODE;
 }
 
 void LE::set_texture_mode()

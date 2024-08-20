@@ -3,6 +3,8 @@
 #include "world/render.hpp"
 #include "level_editor/data.hpp"
 #include "game/render.hpp"
+#include "game/fonts.hpp"
+#include "utils/textures.hpp"
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_mouse.h>
 #include <iostream>
@@ -32,16 +34,11 @@ void LE::render(scene_uid)
     switch(mode)
     {
     case EDIT_MODE:
-        //render_edit_ui();
-        //render_edit_overlay();
-        break;
-    case BACKGROUND_MODE:
-        break;
-    case FOREGROUND_MODE:
         break;
     }
 
     render_buttons();
+    render_error_message();
 
     SDL_RenderPresent(rnd);
 }
@@ -208,6 +205,12 @@ void LE::render_buttons()
         case EDIT_MODE:
             mode = "edit_mode";
             break;
+        case OBJECT_MODE:
+            mode = "object_mode";
+            break;
+        case TEXTURE_MODE:
+            mode = "texture_mode";
+            break;
     }
 
     for(auto& btn : mode_buttons)
@@ -217,4 +220,42 @@ void LE::render_buttons()
 
         render_button(btn, btn.pos);
     }
+}
+
+void LE::render_error_message()
+{
+    static string message = "";
+    static SDL_Texture* notice = nullptr;
+    static Rect area;
+
+    if(message != last_action_error)
+    {
+        if(notice)
+            SDL_DestroyTexture(notice);
+
+        message = last_action_error;
+
+        auto font = game::get_font();
+        SDL_Color color {196, 0, 0, 255};
+
+        auto surf = TTF_RenderUTF8_Blended(font, message.c_str(), color);
+        if(!surf) {
+            cout << "Failed to render error message" << endl;
+            cout << TTF_GetError() << endl;
+            return;
+        }
+
+        notice = utils::create_texture(surf);
+        area = Rect {
+            32 + 8 * 3,
+            WINDOW_HEIGHT - surf->h - 16,
+            surf->w,
+            surf->h
+        };
+
+        SDL_FreeSurface(surf);
+    }
+
+    if(notice && !message.empty())
+        SDL_RenderCopy(rnd, notice, nullptr, &area);
 }

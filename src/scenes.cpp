@@ -6,6 +6,9 @@
 #include "level_editor/level_editor.hpp"
 #include "world_editor/world_editor.hpp"
 
+#include "world/world.hpp"
+#include "world_editor/data.hpp"
+
 
 void core::register_scenes()
 {
@@ -19,6 +22,10 @@ void core::register_scenes()
     core::scene<WE::scene_uid>("world_editor");
 
 
+#ifndef __EMSCRIPTEN__
+    if(world::world.levels.empty())
+        WE::new_level();
+#endif
     core::set_scene("level_editor");
     //core::set_scene("world_editor");
 

@@ -27,6 +27,8 @@ namespace LE
     bool removing_tiles = false;
 
     vector<Button> buttons, mode_buttons;
+
+    string last_action_error = "";
 }
 
 world::Level* LE::level()

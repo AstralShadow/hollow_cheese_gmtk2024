@@ -39,13 +39,13 @@ namespace LE
     extern bool removing_tiles;
     using world::drag_target;
 
+    extern string last_action_error;
 
     enum mode_t
     {
         EDIT_MODE, // where you can edit the tiles' initial positions
-        // PLAY_MODE, // where you can just play in the level editor
-        BACKGROUND_MODE, // where you can add textures to the background layers
-        FOREGROUND_MODE // where 
+        OBJECT_MODE, // 
+        TEXTURE_MODE, // where you can add textures to different z-layers
     } extern mode;
 
 
@@ -60,6 +60,8 @@ namespace LE
     void render_grid(Level const&, float scale = 1);
 
     void render_buttons();
+
+    void render_error_message();
 
 
     /* Features */

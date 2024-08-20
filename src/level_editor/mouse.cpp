@@ -9,6 +9,7 @@ using std::endl;
 
 void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 {
+    last_action_error = "";
     if(click_button({ev.x, ev.y}))
         return;
 
