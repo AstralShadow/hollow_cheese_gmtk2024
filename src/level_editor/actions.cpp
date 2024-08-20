@@ -45,12 +45,14 @@ void LE::set_edit_mode()
 
 void LE::set_object_mode()
 {
+    menu_scroll = 0;
     mode = OBJECT_MODE;
 }
 
 void LE::set_texture_mode()
 {
-    //mode = TEXTURE_MODE;
+    menu_scroll = 0;
+    mode = TEXTURE_MODE;
 }
 
 

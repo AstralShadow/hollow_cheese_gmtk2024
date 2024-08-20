@@ -29,6 +29,11 @@ namespace LE
     vector<Button> buttons, mode_buttons;
 
     string last_action_error = "";
+
+    int menu_scroll = 0;
+    int menu_content_height = 0;
+
+    vector<MenuZone> menu_zones;
 }
 
 world::Level* LE::level()

@@ -35,6 +35,9 @@ void LE::render(scene_uid)
     {
     case EDIT_MODE:
         break;
+    case OBJECT_MODE:
+        render_object_mode_menu();
+        break;
     }
 
     render_buttons();

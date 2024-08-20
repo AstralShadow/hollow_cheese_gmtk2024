@@ -46,3 +46,39 @@ bool LE::click_button(Point pos)
     return false;
 }
 
+
+LE::MenuZone* LE::zone_on_pos(Point pos)
+{
+    if(mode == OBJECT_MODE || mode == TEXTURE_MODE)
+    if(menu_zones.size() > 0)
+    {
+        for(auto& zone : menu_zones)
+        {
+            if(SDL_PointInRect(&pos, &zone.area))
+                return &zone;
+        }
+    }
+
+    return nullptr;
+}
+
+bool LE::click_zone(Point pos)
+{
+    auto zone = zone_on_pos(pos);
+    if(!zone)
+        return false;
+
+    switch(mode)
+    {
+    case EDIT_MODE:
+        return false;
+
+    case OBJECT_MODE:
+        return click_zone_object_mode(zone->index);
+
+    case TEXTURE_MODE:
+        return false; //click_zone_texture_mode(zone->index);
+    }
+
+    return false;
+}

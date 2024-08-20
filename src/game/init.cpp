@@ -1,6 +1,7 @@
 #include "game/game.hpp"
 #include "game/data.hpp"
 #include "game/sprite.hpp"
+#include "game/object.hpp"
 #include <iostream>
 
 using std::cout;
@@ -37,6 +38,7 @@ namespace game
 void game::init(int, char**, scene_uid)
 {
     init_sprites();
+    init_objects();
     generate_button_label(level_editor_btn);
 
     pick_first_level();

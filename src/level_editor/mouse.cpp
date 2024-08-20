@@ -13,6 +13,9 @@ void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
     if(click_button({ev.x, ev.y}))
         return;
 
+    if(click_zone({ev.x, ev.y}))
+        return;
+
     if(ev.button == SDL_BUTTON_LEFT)
     {
         if(start_dragging_player_under_cursor({ev.x, ev.y}))
@@ -38,6 +41,9 @@ void LE::mousedown(SDL_MouseButtonEvent& ev, scene_uid)
 void LE::mouseup(SDL_MouseButtonEvent& ev, scene_uid)
 {
     if(button_on_pos({ev.x, ev.y}))
+        return;
+
+    if(zone_on_pos({ev.x, ev.y}))
         return;
 
     if(ev.button == SDL_BUTTON_LEFT)
@@ -81,6 +87,17 @@ void LE::mouse_motion(SDL_MouseMotionEvent& ev, scene_uid)
     auto btn = button_on_pos({ev.x, ev.y});
     if(btn)
         btn->focused = true;
+}
+
+void LE::mouse_wheel(SDL_MouseWheelEvent& ev, scene_uid)
+{
+    menu_scroll -= ev.y * 64; // I'd expect a full finger slide to scroll nearly a page.
+
+    if(menu_scroll > menu_content_height - menu_area.h)
+        menu_scroll = menu_content_height - menu_area.h;
+
+    if(menu_scroll < 0)
+        menu_scroll = 0;
 }
 
 

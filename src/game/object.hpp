@@ -8,6 +8,8 @@
 using std::string;
 using std::vector;
 
+struct SDL_Texture;
+
 namespace world { struct Level; }
 
 namespace game
@@ -21,6 +23,14 @@ namespace game
         string info; // in level editor
 
         void (*action)(world::Level& level, int object_id) = nullptr; // pick up action
+
+        // Cache
+        SDL_Texture* _name = nullptr;
+        Point _name_size = {0, 0};
+        SDL_Texture* _label = nullptr;
+        Point _label_size = {0, 0};
+        SDL_Texture* _info = nullptr;
+        Point _info_size = {0, 0};
     };
 
     extern vector<Object> objects;

@@ -64,6 +64,24 @@ namespace LE
     void render_error_message();
 
 
+    constexpr Rect menu_area {
+        32 + WINDOW_WIDTH * 4 / 5 + 16,
+        16,
+        WINDOW_WIDTH - (32 + WINDOW_WIDTH * 4 / 5 + 16) - 16,
+        WINDOW_HEIGHT - 16 - 16
+    };
+    extern int menu_scroll;
+    extern int menu_content_height; // Update when rendering
+    struct MenuZone
+    {
+        Rect area;
+        size_t index;
+    };
+    extern vector<MenuZone> menu_zones; // Used for click detection
+
+    void render_object_mode_menu();
+
+
     /* Features */
     bool start_dragging_player_under_cursor(Point cursor);
     void drag_players(Point cursor);
@@ -86,6 +104,12 @@ namespace LE
 
     Button* button_on_pos(Point pos);
     bool click_button(Point pos);
+
+    MenuZone* zone_on_pos(Point pos);
+    bool click_zone(Point pos);
+
+    bool click_zone_object_mode(size_t index);
+    //bool click_zone_texture_mode(size_t index);
 
 
     /* Actions */

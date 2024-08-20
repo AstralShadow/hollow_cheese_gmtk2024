@@ -6,6 +6,7 @@
 struct SDL_KeyboardEvent;
 struct SDL_MouseButtonEvent;
 struct SDL_MouseMotionEvent;
+struct SDL_MouseWheelEvent;
 
 namespace LE
 {
@@ -23,6 +24,7 @@ namespace LE
     void mousedown(SDL_MouseButtonEvent&, scene_uid = 0);
     void mouseup(SDL_MouseButtonEvent&, scene_uid = 0);
     void mouse_motion(SDL_MouseMotionEvent&, scene_uid = 0);
+    void mouse_wheel(SDL_MouseWheelEvent&, scene_uid = 0);
 }
 
 #endif // INCLUDE_LE_LE_HPP
