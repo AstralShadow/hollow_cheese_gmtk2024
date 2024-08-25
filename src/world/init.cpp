@@ -12,6 +12,7 @@ namespace world
 void world::init(int, char**, scene_uid)
 {
     load_world();
+    world_update_reach_map(world);
 }
 
 void world::deinit(scene_uid)
