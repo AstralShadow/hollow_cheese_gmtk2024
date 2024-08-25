@@ -20,7 +20,10 @@ void game::check_for_level_transfer()
 
         if(change)
         {
-            point = {p.area.x, p.area.y};
+            point = {
+                static_cast<int>(p.area.x),
+                static_cast<int>(p.area.y)
+            };
             break;
         }
     }
